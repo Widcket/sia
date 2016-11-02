@@ -1,17 +1,20 @@
 import compression from 'compression';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import favicon from 'serve-favicon';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import http from 'http';
 import httpProxy from 'http-proxy';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import path from 'path';
 import Express from 'express';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PrettyError from 'pretty-error';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import {Provider} from 'react-redux';
 import {match} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
-import {ReduxAsyncConnect, loadOnServer} from 'redux-async-connect';
+import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 
 import config from './config';
 import createStore from './redux/create';
@@ -48,7 +51,6 @@ server.on('upgrade', (req, socket, head) => {
 // added the error handling to avoid
 // https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
-    let json;
     if (error.code !== 'ECONNRESET') {
         console.error('proxy error', error);
     }
@@ -56,7 +58,7 @@ proxy.on('error', (error, req, res) => {
         res.writeHead(500, {'content-type': 'application/json'});
     }
 
-    json = {
+    const json = {
         error: 'proxy_error',
         reason: error.message
     };
@@ -75,7 +77,9 @@ app.use((req, res) => {
     const history = syncHistoryWithStore(memoryHistory, store);
 
     function hydrateOnClient() {
-        res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
+        res.send('<!doctype html>\n' + ReactDOM.renderToString(
+            <Html assets={webpackIsomorphicTools.assets()} store={store} />
+        ));
     }
 
     if (__DISABLE_SSR__) {
@@ -102,22 +106,26 @@ app.use((req, res) => {
                     client
                 }
             }).then(() => {
-                const component = (
-                    <Provider store={store} key="provider">
-                        <ReduxAsyncConnect {...renderProps}/>
-                    </Provider>
-                );
+                lightBaseTheme.userAgent = req.headers['user-agent'];
 
-                res.status(200);
+                const theme = getMuiTheme(lightBaseTheme);
+                const component = (
+                    <MuiThemeProvider muiTheme={theme}>
+                        <Provider store={store} key="provider">
+                            <ReduxAsyncConnect {...renderProps} />
+                        </Provider>
+                    </MuiThemeProvider>
+                );
 
                 global.navigator = {
                     userAgent: req.headers['user-agent']
                 };
 
+                res.status(200);
                 res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html
-                    assets={webpackIsomorphicTools.assets()}
-                    component={component}
-                    store={store}/>));
+                  assets={webpackIsomorphicTools.assets()}
+                  component={component}
+                  store={store} />));
             });
         } else {
             res

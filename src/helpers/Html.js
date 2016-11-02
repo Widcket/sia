@@ -45,21 +45,21 @@ export default class Html extends Component {
                         .script
                         .toComponent()}
                     <link rel="stylesheet"
-                        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
-                        integrity="sha256-t2/7smZfgrST4FS1DT0bs/KotCM74XlcqZN5Vu7xlrw=" crossOrigin="anonymous" />
-                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" />
-                    <link rel="shortcut icon" href="/favicon.ico"/>
+                      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+                      integrity="sha256-t2/7smZfgrST4FS1DT0bs/KotCM74XlcqZN5Vu7xlrw=" crossOrigin="anonymous" />
+                    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+                    <link rel="shortcut icon" href="/favicon.ico" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     {/* styles (will be present only in production with webpack extract text plugin) */}
                     {Object
                         .keys(assets.styles)
                         .map((style, key) => <link
-                            href={assets.styles[style]}
-                            key={key}
-                            media="screen, projection"
-                            rel="stylesheet"
-                            type="text/css"
-                            charSet="UTF-8"/>)}
+                          href={assets.styles[style]}
+                          key={key}
+                          media="screen, projection"
+                          rel="stylesheet"
+                          type="text/css"
+                          charSet="UTF-8" />)}
                     {/* (will be present only in development mode) */}
                     {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
                     {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
@@ -67,23 +67,23 @@ export default class Html extends Component {
                         .keys(assets.styles)
                         .length === 0
                         ? <style
-                                dangerouslySetInnerHTML={{
-                                    __html: require('../containers/App/App.scss')._style
-                                }}/>
+                          dangerouslySetInnerHTML={{
+                              __html: require('../containers/App/App.scss')._style
+                          }} />
                         : null}
                 </head>
                 <body>
                     <div
-                        id="content"
-                        dangerouslySetInnerHTML={{
-                            __html: content
-                        }}/>
+                      id="content"
+                      dangerouslySetInnerHTML={{
+                          __html: content
+                      }} />
                     <script
-                        dangerouslySetInnerHTML={{
-                            __html: `window.__data=${serialize(store.getState())};`
-                        }}
-                        charSet="UTF-8"/>
-                    <script src={assets.javascript.main} charSet="UTF-8"/>
+                      dangerouslySetInnerHTML={{
+                          __html: `window.__data=${serialize(store.getState())};`
+                      }}
+                      charSet="UTF-8" />
+                    <script src={assets.javascript.main} charSet="UTF-8" />
                 </body>
             </html>
         );
