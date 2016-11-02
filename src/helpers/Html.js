@@ -44,6 +44,10 @@ export default class Html extends Component {
                     {head
                         .script
                         .toComponent()}
+                    <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+                        integrity="sha256-t2/7smZfgrST4FS1DT0bs/KotCM74XlcqZN5Vu7xlrw=" crossOrigin="anonymous" />
+                    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" />
                     <link rel="shortcut icon" href="/favicon.ico"/>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     {/* styles (will be present only in production with webpack extract text plugin) */}
