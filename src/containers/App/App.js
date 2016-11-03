@@ -1,13 +1,13 @@
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import Helmet from 'react-helmet';
+import {Col, Grid, Row} from 'react-flexbox-grid';
 import React, { Component, PropTypes } from 'react';
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import {connect} from 'react-redux';
-import { asyncConnect } from 'redux-async-connect';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 
-import config from '../../config';
+import Helmet from 'react-helmet';
 import { Steps } from '../../containers';
+import { asyncConnect } from 'redux-async-connect';
+import config from '../../config';
+import {connect} from 'react-redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

@@ -1,26 +1,27 @@
-import compression from 'compression';
-import createHistory from 'react-router/lib/createMemoryHistory';
-import favicon from 'serve-favicon';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import http from 'http';
-import httpProxy from 'http-proxy';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import path from 'path';
-import Express from 'express';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import PrettyError from 'pretty-error';
-import React from 'react';
-import ReactDOM from 'react-dom/server';
-import {Provider} from 'react-redux';
-import {match} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 
-import config from './config';
-import createStore from './redux/create';
-import getRoutes from './routes';
 import ApiClient from './helpers/ApiClient';
+import Express from 'express';
 import Html from './helpers/Html';
+import PrettyError from 'pretty-error';
+import {Provider} from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import compression from 'compression';
+import config from './config';
+import createHistory from 'react-router/lib/createMemoryHistory';
+import createStore from './redux/create';
+import favicon from 'serve-favicon';
+import getRoutes from './routes';
+import http from 'http';
+import httpProxy from 'http-proxy';
+import {match} from 'react-router';
+import path from 'path';
+import { syncHistoryWithStore } from 'react-router-redux';
+
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 const pretty = new PrettyError();
@@ -106,15 +107,23 @@ app.use((req, res) => {
                     client
                 }
             }).then(() => {
+            /* Material
                 lightBaseTheme.userAgent = req.headers['user-agent'];
 
                 const theme = getMuiTheme(lightBaseTheme);
+            */
                 const component = (
+                /* Material
                     <MuiThemeProvider muiTheme={theme}>
                         <Provider store={store} key="provider">
                             <ReduxAsyncConnect {...renderProps} />
                         </Provider>
                     </MuiThemeProvider>
+                */
+
+                    <Provider store={store} key="provider">
+                        <ReduxAsyncConnect {...renderProps} />
+                    </Provider>
                 );
 
                 global.navigator = {
@@ -122,10 +131,12 @@ app.use((req, res) => {
                 };
 
                 res.status(200);
-                res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html
-                  assets={webpackIsomorphicTools.assets()}
-                  component={component}
-                  store={store} />));
+                res.send('<!doctype html>\n' + ReactDOM.renderToString(
+                    <Html
+                      assets={webpackIsomorphicTools.assets()}
+                      component={component}
+                      store={store} />
+                ));
             });
         } else {
             res

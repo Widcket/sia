@@ -1,7 +1,8 @@
-import serialize from 'serialize-javascript';
+import React, {Component, PropTypes} from 'react';
+
 import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom/server';
-import React, {Component, PropTypes} from 'react';
+import serialize from 'serialize-javascript';
 
 /**
  * Wrapper component containing HTML metadata and boilerplate tags.
@@ -27,7 +28,7 @@ export default class Html extends Component {
         const head = Helmet.rewind();
 
         return (
-            <html lang="en-us">
+            <html lang="en-US">
                 <head>
                     {head
                         .base
@@ -47,7 +48,9 @@ export default class Html extends Component {
                     <link rel="stylesheet"
                       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
                       integrity="sha256-t2/7smZfgrST4FS1DT0bs/KotCM74XlcqZN5Vu7xlrw=" crossOrigin="anonymous" />
-                    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+                    {/* <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" /> */}
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/2.2.1/antd.min.css"
+                      integrity="sha256-J1t/tbfMv0/bG09WMFV8Q2a/kPN/bkAfken3ytsMW+Q=" crossOrigin="anonymous" />
                     <link rel="shortcut icon" href="/favicon.ico" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     {/* styles (will be present only in production with webpack extract text plugin) */}
@@ -83,6 +86,8 @@ export default class Html extends Component {
                           __html: `window.__data=${serialize(store.getState())};`
                       }}
                       charSet="UTF-8" />
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/2.2.1/antd.min.js"
+                      integrity="sha256-Q3zDaiCoDTKZ1HednnrsevX8OrRgkGA2yQTnLa1a1Rs=" crossOrigin="anonymous" />
                     <script src={assets.javascript.main} charSet="UTF-8" />
                 </body>
             </html>

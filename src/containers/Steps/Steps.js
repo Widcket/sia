@@ -1,6 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
 import {Step1, Step2, Step3, Step4} from '../../components';
+
+import {Steps as Stepper} from 'antd';
+
+// import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
+
+const Step = Stepper.Step;
 
 export default class Steps extends Component {
     static propTypes = {
@@ -51,6 +56,8 @@ export default class Steps extends Component {
     render() {
         const styles = require('./Steps.scss');
         const {finished, stepIndex} = this.state;
+
+/* Material
         const steps = [
             <Step key="Step1">
                 <StepLabel>
@@ -77,6 +84,23 @@ export default class Steps extends Component {
         return (
             <div className={styles.steps}>
                 <Stepper activeStep={stepIndex}>
+                    {steps}
+                </Stepper>
+                {this.getStepContent(stepIndex)}
+            </div>
+        );
+*/
+
+        const steps = [
+            <Step key="Step1" title="First Step" description="Description 1" />,
+            <Step key="Step2" title="Second Step" description="Description 2" />,
+            <Step key="Step3" title="Third Step" description="Description 3" />,
+            <Step key="Step4" title="Fourth Step" description="Description 4" />
+        ];
+
+        return (
+            <div>
+                <Stepper current={stepIndex} className={styles.steps}>
                     {steps}
                 </Stepper>
                 {this.getStepContent(stepIndex)}
