@@ -1,9 +1,12 @@
 import {Button, Form, Icon, Input} from 'antd';
 import React, {Component} from 'react';
 
+import {autobind} from 'core-decorators';
+
 const FormItem = Form.Item;
 
 class ConnectForm extends Component {
+    @autobind
     handleSubmit(e) {
         e.preventDefault();
 

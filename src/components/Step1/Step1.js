@@ -2,6 +2,7 @@ import {Col, Row} from 'antd';
 import React, { Component } from 'react';
 
 import ConnectForm from './ConnectForm/ConnectForm';
+import Spinner from './Spinner/Spinner';
 
 // import { StepButton } from 'material-ui/Stepper';
 
@@ -18,6 +19,7 @@ class Step1 extends Component {
             <Row
               className="step">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
+                    <Spinner />
                     <ConnectForm />
                 </Col>
             </Row>
