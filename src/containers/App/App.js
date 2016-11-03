@@ -1,4 +1,4 @@
-import {Col, Grid, Row} from 'react-flexbox-grid';
+import {Col, Grid, Row} from 'antd';
 import React, { Component, PropTypes } from 'react';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 
@@ -44,21 +44,22 @@ export default class App extends Component {
     render() {
         const styles = require('./App.scss');
 
+        const colSizeXS = { span: 22, offset: 1 };
+        const colSizeSM = { span: 20, offset: 2 };
+        const colSizeMD = { span: 18, offset: 3 };
+        const colSizeLG = { span: 16, offset: 4 };
+
         return (
-            <Grid>
-                <Row>
-                    <Col xs={1} sm={1} md={1} lg={1} />
-                    <Col xs={10} sm={10} md={10} lg={10}>
-                        <div className={styles.app}>
-                            <Helmet {...config.app.head} />
-                            <Steps className={styles.appContent}>
-                                {this.props.children}
-                            </Steps>
-                        </div>
-                    </Col>
-                    <Col xs={1} sm={1} md={1} lg={1} />
-                </Row>
-            </Grid>
+            <Row>
+                <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
+                    <div className={styles.app}>
+                        <Helmet {...config.app.head} />
+                        <Steps className={styles.appContent}>
+                            {this.props.children}
+                        </Steps>
+                    </div>
+                </Col>
+            </Row>
         );
     }
 }

@@ -9,7 +9,7 @@ export default class NavigationBottom extends Component {
         const styles = require('./NavigationBottom.scss');
 
         return (
-            <div className={styles.steps}>
+            <div className="navigation-bottom">
                 <p>NavigationBottom</p>
             </div>
         );

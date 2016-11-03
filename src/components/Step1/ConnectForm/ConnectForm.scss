@@ -1,3 +1,9 @@
-form {
-    margin: 3rem, 0rem, 0rem, 0rem;
+.connect-form {
+    margin: 0rem auto;
+    max-width: 27rem;
+    min-width: 23rem;
+
+    .connect-button {
+        width: 100%;
+    }
 }

@@ -22,7 +22,8 @@ class ConnectForm extends Component {
         const {getFieldDecorator} = this.props.form;
 
         return (
-            <div className={styles.form}>
+            <div className="connect-form">
+                <h1>Conecta a una instancia de ODIN</h1>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <FormItem>
                         {getFieldDecorator('url', {
@@ -52,7 +53,7 @@ class ConnectForm extends Component {
                         )}
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="connect-button">
                             Conectar
                         </Button>
                     </FormItem>

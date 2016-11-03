@@ -100,7 +100,7 @@ export default class Steps extends Component {
 
         return (
             <div>
-                <Stepper current={stepIndex} className={styles.steps}>
+                <Stepper current={stepIndex} className="steps">
                     {steps}
                 </Stepper>
                 {this.getStepContent(stepIndex)}
