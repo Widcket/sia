@@ -7,7 +7,7 @@ import { asyncConnect } from 'redux-async-connect';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 
 import config from '../../config';
-import { NavigationTop, NavigationBottom } from '../../components';
+import { Steps } from '../../containers';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -50,12 +50,9 @@ export default class App extends Component {
                     <Col xs={12} sm={12} md={12} lg={12}>
                         <div className={styles.app}>
                             <Helmet {...config.app.head} />
-
-                            <NavigationTop />
-                            <div className={styles.appContent}>
+                            <Steps className={styles.appContent}>
                                 {this.props.children}
-                            </div>
-                            <NavigationBottom />
+                            </Steps>
                         </div>
                     </Col>
                 </Row>

@@ -10,24 +10,24 @@ export default class NavigationTop extends Component {
         const styles = require('./NavigationTop.scss');
         const steps = [
             <Step key="Step1" active>
-                        <StepLabel>
-                            First Step
-                        </StepLabel>
+                <StepLabel>
+                    First Step
+                </StepLabel>
             </Step>,
             <Step key="Step2">
-                        <StepLabel>
-                            Second Step
-                        </StepLabel>
+                <StepLabel>
+                    Second Step
+                </StepLabel>
             </Step>,
             <Step key="Step3">
-                        <StepLabel>
-                            Third Step
-                        </StepLabel>
+                <StepLabel>
+                    Third Step
+                </StepLabel>
             </Step>,
             <Step key="Step4">
-                        <StepLabel>
-                            Fourth Step
-                        </StepLabel>
+                <StepLabel>
+                    Fourth Step
+                </StepLabel>
             </Step>
         ];
 
