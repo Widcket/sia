@@ -5,7 +5,7 @@
  *
  */
 
-export NavigationBottom from './NavigationBottom/NavigationBottom';
+export Navigation from './Navigation/Navigation';
 export Step1 from './Step1/Step1';
 export Step2 from './Step2/Step2';
 export Step3 from './Step3/Step3';
