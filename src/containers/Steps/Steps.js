@@ -92,10 +92,10 @@ export default class Steps extends Component {
 */
 
         const steps = [
-            <Step key="Step1" title="First Step" description="Description 1" />,
-            <Step key="Step2" title="Second Step" description="Description 2" />,
-            <Step key="Step3" title="Third Step" description="Description 3" />,
-            <Step key="Step4" title="Fourth Step" description="Description 4" />
+            <Step key="Step1" title="Agregar datos" description="Elige datasets" />,
+            <Step key="Step2" title="Preparar" description="Afina los datos" />,
+            <Step key="Step3" title="Graficar" description="Visualízalos" />,
+            <Step key="Step4" title="Exportar" description="Descarga la app" />
         ];
 
         return (
