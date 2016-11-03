@@ -47,7 +47,8 @@ export default class App extends Component {
         return (
             <Grid>
                 <Row>
-                    <Col xs={12} sm={12} md={12} lg={12}>
+                    <Col xs={1} sm={1} md={1} lg={1} />
+                    <Col xs={10} sm={10} md={10} lg={10}>
                         <div className={styles.app}>
                             <Helmet {...config.app.head} />
                             <Steps className={styles.appContent}>
@@ -55,6 +56,7 @@ export default class App extends Component {
                             </Steps>
                         </div>
                     </Col>
+                    <Col xs={1} sm={1} md={1} lg={1} />
                 </Row>
             </Grid>
         );
