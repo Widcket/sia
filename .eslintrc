@@ -63,6 +63,7 @@
         "react/jsx-filename-extension": 0,
         "react/jsx-first-prop-new-line": 0,
         "react/jsx-indent": [0, 4],
+        "react/jsx-no-duplicate-props": 0,
         "react/jsx-space-before-closing": 1,
         "react/prop-types": [
             2, {

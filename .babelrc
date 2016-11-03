@@ -5,7 +5,12 @@
     "transform-runtime",
     "add-module-exports",
     "transform-decorators-legacy",
-    "transform-react-display-name"
+    "transform-react-display-name",
+    ["import", {
+      "style": true,
+      "libraryName": "antd",
+      "camel2DashComponentName": false
+    }]
   ],
 
   "env": {

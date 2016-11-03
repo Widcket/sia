@@ -93,9 +93,11 @@ module.exports = {
             loader: 'json-loader'
         }, {
             test: /\.scss$/,
-            loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
-        },
-        {
+            loader: 'style!css?modules&importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+        }, {
+            test: /\.less$/,
+            loader: 'style!css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less'
+        }, {
             test: /\.css$/,
             loader: 'style!css?modules&importLoaders=2'
         },
