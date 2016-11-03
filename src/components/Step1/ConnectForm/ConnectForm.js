@@ -29,7 +29,7 @@ class ConnectForm extends Component {
                             rules: [
                                 {
                                     required: true,
-                                    message: 'Please input a valid ODIN url!'
+                                    message: 'Debes ingresar una URL válida'
                                 }
                             ]
                         })(
@@ -41,7 +41,7 @@ class ConnectForm extends Component {
                             rules: [
                                 {
                                     required: true,
-                                    message: 'Please input a token!'
+                                    message: 'Debes ingresar un token'
                                 }
                             ]
                         })(
