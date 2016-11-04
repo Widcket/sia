@@ -41,7 +41,6 @@ export default class ReactPivot extends Component {
             onData: function () {}
         };
 
-
         this.state = {
             dimensions: _.filter(this.props.activeDimensions, (title) => {
                 return _.find(this.props.dimensions, (col) => {
