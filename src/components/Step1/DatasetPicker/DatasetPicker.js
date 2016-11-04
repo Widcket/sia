@@ -29,7 +29,7 @@ export default class DatasetPicker extends Component {
                 key: i.toString(),
                 title: `Dataset ${i + 1}`,
                 description: `Desripción del dataset ${i + 1}`,
-                chosen: Math.random() * 2 > 1,
+                chosen: Math.random() * 1.2 > 1,
             };
 
             if (data.chosen) targetKeys.push(data.key);
