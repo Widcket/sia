@@ -1,5 +1,5 @@
 import {Col, Row} from 'antd';
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Navigation extends Component {
     static propTypes = {

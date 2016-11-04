@@ -52,7 +52,7 @@ export default class App extends Component {
         const colSizeLG = { span: 16, offset: 4 };
 
         return (
-            <Row>
+            <Row type="flex" className="app" align="middle">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
                     <div className={styles.app}>
                         <Helmet {...config.app.head} />
