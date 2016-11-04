@@ -30,7 +30,7 @@ class ConnectForm extends Component {
         const colSizeLG = { span: 12, offset: 6 };
 
         return (
-            <Row className="step">
+            <Row>
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
                     <div className="connect-form">
                         <h1>Conecta a una instancia de ODIN</h1>

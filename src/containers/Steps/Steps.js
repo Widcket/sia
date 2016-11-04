@@ -3,8 +3,6 @@ import {Step1, Step2, Step3, Step4} from '../../components';
 
 import {Steps as Stepper} from 'antd';
 
-// import {Step, StepLabel, Stepper} from 'material-ui/Stepper';
-
 const Step = Stepper.Step;
 
 export default class Steps extends Component {
@@ -17,12 +15,12 @@ export default class Steps extends Component {
 
         this.state = {
             finished: false,
-            stepIndex: 0
+            current: 1
         };
     }
 
-    getStepContent(stepIndex) {
-        switch (stepIndex) {
+    getStep(current) {
+        switch (current) {
             case 0:
                 return <Step1 />;
             case 1:
@@ -32,64 +30,28 @@ export default class Steps extends Component {
             case 3:
                 return <Step4 />;
             default:
-                return '';
+                return;
         }
     }
 
     handleNext = () => {
-        const {stepIndex} = this.state;
+        const {current} = this.state;
 
         this.setState({
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2
+            current: current + 1,
+            finished: current >= 3
         });
     }
 
     handlePrev = () => {
-        const {stepIndex} = this.state;
+        const {current} = this.state;
 
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
+        if (current > 0) this.setState({current: current - 1});
     }
 
     render() {
         const styles = require('./Steps.scss');
-        const {finished, stepIndex} = this.state;
-
-/* Material
-        const steps = [
-            <Step key="Step1">
-                <StepLabel>
-                    First Step
-                </StepLabel>
-            </Step>,
-            <Step key="Step2">
-                <StepLabel>
-                    Second Step
-                </StepLabel>
-            </Step>,
-            <Step key="Step3">
-                <StepLabel>
-                    Third Step
-                </StepLabel>
-            </Step>,
-            <Step key="Step4">
-                <StepLabel>
-                    Fourth Step
-                </StepLabel>
-            </Step>
-        ];
-
-        return (
-            <div className={styles.steps}>
-                <Stepper activeStep={stepIndex}>
-                    {steps}
-                </Stepper>
-                {this.getStepContent(stepIndex)}
-            </div>
-        );
-*/
+        const {finished, current} = this.state;
 
         const steps = [
             <Step key="Step1" title="Agregar datos" description="Elige datasets" />,
@@ -100,10 +62,10 @@ export default class Steps extends Component {
 
         return (
             <div>
-                <Stepper current={stepIndex} className="steps">
+                <Stepper current={current} className="steps">
                     {steps}
                 </Stepper>
-                {this.getStepContent(stepIndex)}
+                {this.getStep(current)}
             </div>
         );
     }

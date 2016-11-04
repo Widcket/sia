@@ -6,7 +6,7 @@ export default class Step2 extends Component {
 
         return (
             <div className="step">
-                <p>Hola mundo</p>
+                <p>Step 2!</p>
             </div>
         );
     }

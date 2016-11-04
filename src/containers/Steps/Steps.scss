@@ -1,3 +1,11 @@
 .steps {
     margin: 3rem 0rem 0rem 0rem;
 }
+
+.step {
+    min-height: 33rem;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

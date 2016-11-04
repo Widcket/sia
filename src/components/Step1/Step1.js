@@ -12,7 +12,7 @@ class Step1 extends Component {
         super();
 
         this.state = {
-            stage: 2
+            stage: 0
         };
     }
 
