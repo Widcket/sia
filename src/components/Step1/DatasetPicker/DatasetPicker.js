@@ -56,19 +56,17 @@ export default class DatasetPicker extends Component {
         const styles = require('./DatasetPicker.scss');
 
         return (
-            <div className="picker">
-                <Transfer
-                  dataSource={this.state.mockData}
-                  targetKeys={this.state.targetKeys}
-                  filterOption={this.filterOption}
-                  titles={['', '']}
-                  searchPlaceholder="Buscar..."
-                  notFoundContent=""
-                  onChange={this.handleChange}
-                  render={item => item.title}
-                  showSearch
-                />
-            </div>
+            <Transfer className="picker"
+              dataSource={this.state.mockData}
+              targetKeys={this.state.targetKeys}
+              filterOption={this.filterOption}
+              titles={['', '']}
+              searchPlaceholder="Buscar..."
+              notFoundContent=""
+              onChange={this.handleChange}
+              render={item => item.title}
+              showSearch
+            />
         );
     }
 }

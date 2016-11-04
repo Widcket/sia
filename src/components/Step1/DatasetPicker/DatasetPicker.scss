@@ -1,19 +1,21 @@
 .picker {
-    margin: 0rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
-    .ant-transfer-list {
-        min-width: 20rem;
-        max-width: 30rem;
-        width: 30vw;
-        height: 35vh;
-        padding-top: 0px;
+    & > .ant-transfer-list {
+        flex-grow: 1;
+        min-width: 14rem;
+        height: 38vh;
+        padding-top: 0rem;
 
         .ant-transfer-list-header {
             display: none;
         }
     }
 
-    .ant-transfer > div:last-of-type {
+    & > div:last-of-type {
         .ant-transfer-list-body {
             padding-top: 0rem;
         }
