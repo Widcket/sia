@@ -5,3 +5,6 @@ dist/
 webpack-assets.json
 webpack-stats.json
 npm-debug.log
+
+# MacOs stuff
+.DS_Store
