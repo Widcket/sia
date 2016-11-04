@@ -9,20 +9,20 @@ export default class Navigation extends Component {
     render() {
         const styles = require('./Navigation.scss');
 
-        const colSizeXS = { span: 22, offset: 1 };
-        const colSizeSM = { span: 20, offset: 2 };
-        const colSizeMD = { span: 18, offset: 3 };
-        const colSizeLG = { span: 16, offset: 4 };
+        const colSizeXS = { span: 24 };
+        const colSizeSM = { span: 24 };
+        const colSizeMD = { span: 24 };
+        const colSizeLG = { span: 24 };
 
         return (
             <Row
               className="navigation">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
                     <a className="previous" href="#">
-                        <span>Atrás</span>
+                        <span>&lt; Atrás</span>
                     </a>
                     <a className="next" href="#">
-                        <span>Siguiente</span>
+                        <span>Siguiente &gt;</span>
                     </a>
                 </Col>
             </Row>

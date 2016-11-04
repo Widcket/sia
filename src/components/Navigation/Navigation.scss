@@ -1,26 +1,22 @@
 .navigation {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 1rem;
     border-top: 1px solid #e9e9e9;
 
-    .previous {
-        padding: 0 24px;
+    .previous, .next {
         width: 50%;
+        line-height: 3rem;
+        height: 3rem;
+        padding: 0rem 1rem;
+    }
+
+    .previous {
         float: left;
-        line-height: 72px;
-        height: 72px;
     }
 
     .next {
         float: right;
         text-align: right;
-        height: 72px;
-        width: 50%;
-        line-height: 72px;
-        padding: 0 24px;
     }
 }
