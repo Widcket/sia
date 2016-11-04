@@ -1,10 +1,10 @@
 import {Col, Grid, Row} from 'antd';
-import React, { Component, PropTypes } from 'react';
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
+import React, {Component, PropTypes} from 'react';
+import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/modules/info';
 
 import Helmet from 'react-helmet';
-import { Steps } from '../../containers';
-import { asyncConnect } from 'redux-async-connect';
+import {Steps} from '../../containers';
+import {asyncConnect} from 'redux-async-connect';
 import config from '../../config';
 import {connect} from 'react-redux';
 

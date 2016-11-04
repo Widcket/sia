@@ -8,9 +8,9 @@ import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { ReduxAsyncConnect } from 'redux-async-connect';
+import {Router, browserHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
+import {ReduxAsyncConnect} from 'redux-async-connect';
 
 import createStore from './redux/create';
 import getRoutes from './routes';
