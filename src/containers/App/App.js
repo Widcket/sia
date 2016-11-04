@@ -1,10 +1,11 @@
 import {Col, Grid, Row} from 'antd';
-import React, { Component, PropTypes } from 'react';
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
+import React, {Component, PropTypes} from 'react';
+import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/modules/info';
 
 import Helmet from 'react-helmet';
-import { Steps } from '../../containers';
-import { asyncConnect } from 'redux-async-connect';
+import {Navigation} from '../../components';
+import {Steps} from '..';
+import {asyncConnect} from 'redux-async-connect';
 import config from '../../config';
 import {connect} from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -57,6 +58,7 @@ export default class App extends Component {
                         <Steps className={styles.appContent}>
                             {this.props.children}
                         </Steps>
+                        <Navigation />
                     </div>
                 </Col>
             </Row>
