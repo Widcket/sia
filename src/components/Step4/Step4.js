@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import {StepButton} from 'material-ui/Stepper';
-
 export default class Step4 extends Component {
     render() {
         const styles = require('./Step4.scss');
