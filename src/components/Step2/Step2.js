@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 
 import ReactPivot from '../Pivot';
+import { Tabs } from 'antd';
+
+const TabPane = Tabs.TabPane;
 
 export default class Step2 extends Component {
     render() {
@@ -789,9 +792,9 @@ export default class Step2 extends Component {
             }
         ];
         const dimensions = [
-  // "value" can be the key of what you want to group on
+            // "value" can be the key of what you want to group on
             {title: 'Last Name', value: 'lastName'},
-  // "value" can also be function that returns what you want to group on
+            // "value" can also be function that returns what you want to group on
             {
                 title: 'Transaction Type',
                 value: function (row) { return row.transaction.type; },
@@ -801,15 +804,15 @@ export default class Step2 extends Component {
             }
         ];
         const reduce = (row, memo) => {
-  // the memo object starts as {} for each group, build it up
+            // the memo object starts as {} for each group, build it up
             memo.count = (memo.count || 0) + 1;
             memo.amountTotal = (memo.amountTotal || 0) + parseFloat(row.transaction.amount);
-  // be sure to return it when you're done for the next pass
+            // be sure to return it when you're done for the next pass
             return memo;
         };
         const calculations = [
-  // "value" can be the key of the "memo" object from reduce
-  // "template" changes the display of the value, but not sorting behavior
+        // "value" can be the key of the "memo" object from reduce
+        // "template" changes the display of the value, but not sorting behavior
             {
                 title: 'Amount',
                 value: 'amountTotal',
@@ -817,21 +820,39 @@ export default class Step2 extends Component {
             },
             {
                 title: 'Avg Amount',
-    // "value" can also be a function
+                // "value" can also be a function
                 value: function (memo) { return memo.amountTotal / memo.count; },
                 template: function (val, row) { return '$' + val.toFixed(2); },
-    // you can also give a column a custom class (e.g. right align for numbers)
+                // you can also give a column a custom class (e.g. right align for numbers)
                 className: 'alignRight'
             }
         ];
 
         return (
             <div className="step2">
-                <ReactPivot rows={rows}
-                  dimensions={dimensions}
-                  reduce={reduce}
-                  calculations={calculations}
-                  activeDimensions={['Transaction Type']} />
+                <Tabs defaultActiveKey="1" onChange={console.log} className="tabs">
+                    <TabPane tab="Tab 1" key="1">
+                        <ReactPivot rows={rows}
+                          dimensions={dimensions}
+                          reduce={reduce}
+                          calculations={calculations}
+                          activeDimensions={['Transaction Type']} />
+                    </TabPane>
+                    <TabPane tab="Tab 2" key="2">
+                        <ReactPivot rows={rows}
+                          dimensions={dimensions}
+                          reduce={reduce}
+                          calculations={calculations}
+                          activeDimensions={['Transaction Type']} />
+                    </TabPane>
+                    <TabPane tab="Tab 3" key="3">
+                        <ReactPivot rows={rows}
+                          dimensions={dimensions}
+                          reduce={reduce}
+                          calculations={calculations}
+                          activeDimensions={['Transaction Type']} />
+                    </TabPane>
+                </Tabs>
             </div>
         );
     }

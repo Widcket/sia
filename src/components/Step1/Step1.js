@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import ConnectForm from './ConnectForm/ConnectForm';
 import DatasetPicker from './DatasetPicker/DatasetPicker';
