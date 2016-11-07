@@ -831,7 +831,7 @@ export default class Step2 extends Component {
 
         return (
             <div id="step2">
-                <Tabs className="tabs" onChange={console.log} defaultActiveKey="tab1">
+                <Tabs defaultActiveKey="tab1">
                     <TabPane tab="Dataset 1" key="tab1">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}

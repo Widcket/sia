@@ -64,10 +64,6 @@
             &.desc:after {
                 content: ' ▼';
             }
-
-            &:last-of-type span {
-                margin: 0px 0px -3px 0px;
-            }
         }
 
         tr {
