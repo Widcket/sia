@@ -62,7 +62,7 @@ export default class Steps extends Component {
 
         return (
             <div>
-                <Stepper current={current} className="steps">
+                <Stepper current={current} id="steps">
                     {steps}
                 </Stepper>
                 {this.getStep(current)}

@@ -1,23 +1,4 @@
-.step2 {
-    th {
-        font-weight: bold;
-        padding-bottom: 0.5rem;
-
-        &:hover .reactPivot-hideColumn {
-            font-weight: bold;
-            opacity: 0.5;
-            margin-right: 3px;
-        }
-    }
-
-    td {
-        font-weight: 200;
-
-        &:hover .reactPivot-solo {
-            opacity: 1
-        }
-    }
-
+#step2 {
     .strong {
         font-weight: bold;
     }
@@ -63,6 +44,15 @@
         }
 
         th {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+
+            &:hover .reactPivot-hideColumn {
+                font-weight: bold;
+                opacity: 0.5;
+                margin-right: 3px;
+            }
+
             &.asc:after, &.desc:after {
                 opacity: 0.5;
             }
@@ -93,6 +83,11 @@
         td {
             border-top: 1px solid #ddd;
             padding: 5px;
+            font-weight: 200;
+
+            &:hover .tag-solo {
+                opacity: 1 !important;
+            }
 
             &.reactPivot-indent {
                 border: none;
@@ -102,13 +97,15 @@
                 margin: 0px 0px 0px 0.5rem;
             }
         }
-    }
 
-    .reactPivot-solo {
-        opacity: 0;
+        .reactPivot-hideColumn {
+            opacity: 0;
+            margin-right: 3px;
 
-        &:hover {
-            margin: 0px -4px 0px 0px;
+            &:hover {
+                font-weight: bold;
+                cursor: pointer;
+            }
         }
     }
 
@@ -133,16 +130,6 @@
     .reactPivot-dimensions {
         float: left;
         text-align: left;
-    }
-
-    .reactPivot-hideColumn {
-        opacity: 0;
-        margin-right: 3px;
-
-        &:hover {
-            font-weight: bold;
-            cursor: pointer;
-        }
     }
 
     .reactPivot-pageNumber {

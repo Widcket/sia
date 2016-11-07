@@ -34,7 +34,7 @@ class Step1 extends Component {
         const styles = require('./Step1.scss');
 
         return (
-            <div className="step1">
+            <div id="step1">
                 {this.getStage(this.state.stage)}
             </div>
         );

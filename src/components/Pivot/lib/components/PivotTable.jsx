@@ -30,7 +30,7 @@ export default class PivotTable extends Component {
 
     @autobind
     setPaginatePage(nPage) {
-        this.setState({paginatePage: nPage});
+        this.setState({paginatePage: nPage - 1});
     }
 
     @autobind
@@ -107,13 +107,15 @@ export default class PivotTable extends Component {
 
         if (dimensionExists) {
             solo = (
-                <Tag className="reactPivot-solo">
-                    <a style={{cursor: 'pointer'}}
-                      onClick={partial(this.props.onSolo, {
-                          title: col.title,
-                          value: val
-                      })}>Filtrar</a>
-                </Tag>
+                <div className="tag-solo" style={{opacity: 0, display: 'inline-block'}}>
+                    <Tag className="reactPivot-solo" >
+                        <a style={{cursor: 'pointer'}}
+                          onClick={partial(this.props.onSolo, {
+                              title: col.title,
+                              value: val
+                          })}>Filtrar</a>
+                    </Tag>
+                </div>
             );
         }
 
@@ -135,7 +137,11 @@ export default class PivotTable extends Component {
 
         return (
             <div className="reactPivot-paginate">
-                <Pagination defaultCurrent={1} total={nPaginatePages} onChange={this.setPaginatePage} />
+                <Pagination
+                  current={this.state.paginatePage + 1}
+                  total={this.props.rows.length}
+                  defaultPageSize={25}
+                  onChange={this.setPaginatePage} />
                 {
                     /*
                     {_.range(0, nPaginatePages).map((n) => {

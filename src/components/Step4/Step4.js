@@ -5,7 +5,7 @@ export default class Step4 extends Component {
         const styles = require('./Step4.scss');
 
         return (
-            <div className="step">
+            <div id="step4">
                 <p>Step 4!</p>
             </div>
         );

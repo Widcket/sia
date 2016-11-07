@@ -830,30 +830,33 @@ export default class Step2 extends Component {
         ];
 
         return (
-            <div className="step2">
-                <Tabs className="tabs">
-                    <TabPane tab="Dataset 1" key="0">
+            <div id="step2">
+                <Tabs className="tabs" onChange={console.log} defaultActiveKey="tab1">
+                    <TabPane tab="Dataset 1" key="tab1">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
                           activeDimensions={[dimensions[0].title]}
+                          key="dataset1"
                           compact />
                     </TabPane>
-                    <TabPane tab="Dataset 2" key="1">
+                    <TabPane tab="Dataset 2" key="tab2">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
                           activeDimensions={[dimensions[0].title]}
+                          key="dataset2"
                           compact />
                     </TabPane>
-                    <TabPane tab="Dataset 3" key="2">
+                    <TabPane tab="Dataset 3" key="tab3">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
                           activeDimensions={[dimensions[0].title]}
+                          key="dataset3"
                           compact />
                     </TabPane>
                 </Tabs>
