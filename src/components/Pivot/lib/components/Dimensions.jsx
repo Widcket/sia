@@ -1,10 +1,12 @@
 import React from 'react';
+import {Select} from 'antd';
 import {autobind} from 'core-decorators';
+import partial from '../partial';
 
 const _ = {compact: require('lodash/compact')};
-const partial = require('../partial');
 
 const Component = React.Component;
+const Option = Select.Option;
 
 export default class Dimensions extends Component {
     static defaultProps = {
@@ -14,8 +16,8 @@ export default class Dimensions extends Component {
     };
 
     @autobind
-    toggleDimension(iDimension, event) {
-        const dimension = event.target.value;
+    toggleDimension(iDimension, value) {
+        const dimension = value;
         const dimensions = this.props.selectedDimensions;
         const curIdx = dimensions.indexOf(dimension);
 
@@ -30,21 +32,21 @@ export default class Dimensions extends Component {
     @autobind
     renderDimension(selectedDimension, i) {
         return (
-            <select
+            <Select
+              size="small"
               value={selectedDimension}
               onChange={partial(this.toggleDimension, i)}
               key={selectedDimension} >
-                <option />
                 {this.props.dimensions.map((dimension) => {
                     return (
-                    <option
+                    <Option
                       value={dimension.title}
                       key={dimension.title} >
                     {dimension.title}
-                    </option>
+                    </Option>
                     );
                 })}
-            </select>
+            </Select>
         );
     }
 
@@ -56,12 +58,12 @@ export default class Dimensions extends Component {
             <div className="reactPivot-dimensions">
                 {selectedDimensions.map(this.renderDimension)}
 
-                <select value={''} onChange={partial(this.toggleDimension, nSelected)}>
-                <option value={''}>Sub Dimension...</option>
-                {this.props.dimensions.map((dimension) => {
-                    return <option key={dimension.title}>{dimension.title}</option>;
-                })}
-                </select>
+                <Select size="small" defaultValue="" onChange={partial(this.toggleDimension, nSelected)}>
+                    <Option value={''} disabled>Subdimensión...</Option>
+                    {this.props.dimensions.map((dimension) => {
+                        return <Option key={dimension.title}>{dimension.title}</Option>;
+                    })}
+                </Select>
             </div>
         );
     }

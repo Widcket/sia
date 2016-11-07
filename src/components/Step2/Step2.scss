@@ -1,11 +1,21 @@
 .step2 {
     th {
-        font-weight: 400;
-        letter-spacing: 1px;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+
+        &:hover .reactPivot-hideColumn {
+            font-weight: bold;
+            opacity: 0.5;
+            margin-right: 3px;
+        }
     }
 
     td {
         font-weight: 200;
+
+        &:hover .reactPivot-solo {
+            opacity: 1
+        }
     }
 
     .strong {
@@ -20,10 +30,6 @@
          text-align: right;
     }
 
-    .tabs {
-        margin-top: 1.5rem;
-    }
-
     .reactPivot {
         padding: 0px 20px 20px;
     }
@@ -33,14 +39,9 @@
     }
 
     .reactPivot-clearSolo {
-        opacity: 0.5;
         cursor: pointer;
         font-size: 120%;
         margin-right: 2px;
-    }
-
-    .reactPivot-clearSolo:hover {
-        font-weight: bold;
     }
 
     .reactPivot select {
@@ -52,102 +53,129 @@
         border: 1px solid #CCC;
     }
 
-    .reactPivot-results table {
-        width: 100%;
-        clear: both;
-        text-align: left;
-        border-spacing: 0;
-    }
-    .reactPivot-results th.asc:after,
-    .reactPivot-results th.desc:after {
-        font-size: 50%;
-        opacity: 0.5;
-    }
+    .reactPivot-results {
+        table {
+            width: 100%;
+            padding-top: 1.5rem;
+            clear: both;
+            text-align: left;
+            border-spacing: 0;
+        }
 
-    .reactPivot-results th.asc:after {
-        content: ' ▲'
-    }
+        th {
+            &.asc:after, &.desc:after {
+                opacity: 0.5;
+            }
 
-    .reactPivot-results th.desc:after {
-        content: ' ▼'
-    }
+            &.asc:after {
+                content: ' ▲';
+            }
 
-    .reactPivot-results td {
-        border-top: 1px solid #ddd;
-        padding: 8px;
-    }
+            &.desc:after {
+                content: ' ▼';
+            }
 
-    .reactPivot-results td.reactPivot-indent {
-        border: none;
-    }
+            &:last-of-type span {
+                margin: 0px 0px -3px 0px;
+            }
+        }
 
-    .reactPivot-results tr:hover td {
-        background: #fbfbfb
-    }
+        tr {
+            &:hover td {
+                background: #fbfbfb;
+            }
 
-    .reactPivot-results tr:hover td.reactPivot-indent {
-        background: none;
+            &:hover td.reactPivot-indent {
+                background: none;
+            }
+        }
+
+        td {
+            border-top: 1px solid #ddd;
+            padding: 5px;
+
+            &.reactPivot-indent {
+                border: none;
+            }
+
+            .ant-tag {
+                margin: 0px 0px 0px 0.5rem;
+            }
+        }
     }
 
     .reactPivot-solo {
-        opacity: 0
+        opacity: 0;
+
+        &:hover {
+            margin: 0px -4px 0px 0px;
+        }
     }
 
-    .reactPivot-solo:hover {
-        font-weight: bold
-    }
+    .reactPivot-csvExport {
+        button {
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            height: 28px;
+            color: #555;
+            cursor: pointer;
+            padding: 0 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
 
-    td:hover .reactPivot-solo {
-        opacity: 0.5
-    }
-
-    .reactPivot-csvExport,
-    .reactPivot-columnControl {
-        float: right;
-        margin-left: 5px;
-    }
-
-    .reactPivot-csvExport button {
-        background-color: #FFF;
-        border: 1px solid #CCC;
-        height: 28px;
-        color: #555;
-        cursor: pointer;
-        padding: 0 10px;
-        border-radius: 4px;
-        margin-top: 5px;
+        &, .reactPivot-columnControl {
+            float: right;
+            margin-left: 5px;
+        }
     }
 
     .reactPivot-dimensions {
         float: left;
-        padding: 10px 0;
         text-align: left;
     }
 
     .reactPivot-hideColumn {
-        opacity: 0
-    }
+        opacity: 0;
+        margin-right: 3px;
 
-    th:hover .reactPivot-hideColumn {
-        opacity: 0.5;
-        margin-right: 4px;
-        margin-bottom: 2px;
-    }
-
-    .reactPivot-hideColumn:hover {
-        font-weight: bold;
-        cursor: pointer;
+        &:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
     }
 
     .reactPivot-pageNumber {
         padding: 2px;
+
+        &:hover {
+            font-weight: bold;
+        }
+
+        &.is-selected {
+            font-weight: bold;
+        }
     }
 
-    .reactPivot-pageNumber:hover {
-        font-weight: bold;
+    .select {
+        min-width: 7rem;
     }
 
-    .reactPivot-pageNumber.is-selected {
-        font-weight: bold;
+    .ant-tabs-bar {
+        margin-bottom: 5px;
     }
+}
+
+.ant-select {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.ant-select-dropdown {
+    width: auto !important;
+}
+
+.ant-select-dropdown-menu-item-disabled, .ant-select-dropdown-menu-item-disabled:hover  {
+    font-weight: bold;
+    cursor: default;
 }

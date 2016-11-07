@@ -1,6 +1,7 @@
 import DataFrame from 'dataframe';
 import Emitter from 'wildemitter';
 import React from 'react';
+import {Tag} from 'antd';
 import {autobind} from 'core-decorators';
 
 const _ = {
@@ -262,18 +263,21 @@ export default class ReactPivot extends Component {
                   hiddenColumns={this.state.hiddenColumns}
                   onChange={this.setHiddenColumns} />
 
+                {
+                /*
                 <div className="reactPivot-csvExport">
-                <button onClick={partial(this.downloadCSV, this.state.rows)}>
-                    Export CSV
-                </button>
+                    <button onClick={partial(this.downloadCSV, this.state.rows)}>
+                        Export CSV
+                    </button>
                 </div>
+                */
+                }
 
                 { !this.state.solo ? '' :
                     <div style={{clear: 'both'}} className="reactPivot-soloDisplay">
-                        <span className="reactPivot-clearSolo" onClick={this.clearSolo}>
-                        &times;
-                        </span>
-                        {this.state.solo.title}: {this.state.solo.value}
+                        <Tag className="reactPivot-clearSolo" closable onClose={this.clearSolo}>
+                            {this.state.solo.title}: {this.state.solo.value}
+                        </Tag>
                     </div>
                 }
 

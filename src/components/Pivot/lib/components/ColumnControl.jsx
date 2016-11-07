@@ -1,8 +1,11 @@
 import React from 'react';
-import {autobind} from 'core-decorators';
+import {Select} from 'antd';
+import { autobind } from 'core-decorators';
 
 const _ = { without: require('lodash/without') };
+
 const Component = React.Component;
+const Option = Select.Option;
 
 export default class ColumnControl extends Component {
     static defaultProps = {
@@ -11,8 +14,8 @@ export default class ColumnControl extends Component {
     };
 
     @autobind
-    showColumn(evt) {
-        const col = evt.target.value;
+    showColumn(value) {
+        const col = value;
         const hidden = _.without(this.props.hiddenColumns, col);
 
         this.props.onChange(hidden);
@@ -22,12 +25,12 @@ export default class ColumnControl extends Component {
         return (
             <div className="reactPivot-columnControl">
                 { !this.props.hiddenColumns.length ? '' :
-                <select value={''} onChange={this.showColumn}>
-                    <option value={''}>Hidden Columns</option>
+                <Select size="small" defaultValue="" onChange={this.showColumn}>
+                    <Option value={''}>Hidden Columns</Option>
                     { this.props.hiddenColumns.map((column) => {
-                        return <option key={column}>{column}</option>;
+                        return <Option key={column}>{column}</Option>;
                     })}
-                </select>
+                </Select>
                 }
             </div>
         );

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ReactPivot from '../Pivot';
-import { Tabs } from 'antd';
+import {Tabs} from 'antd';
 
 const TabPane = Tabs.TabPane;
 
@@ -793,14 +793,15 @@ export default class Step2 extends Component {
         ];
         const dimensions = [
             // "value" can be the key of what you want to group on
-            {title: 'Last Name', value: 'lastName'},
+            {
+                title: 'Last Name',
+                value: 'lastName'
+            },
             // "value" can also be function that returns what you want to group on
             {
                 title: 'Transaction Type',
-                value: function (row) { return row.transaction.type; },
-                template: function (value) {
-                    return '<a href="http://google.com/?q=' + value + '">' + value + '</a>';
-                }
+                value: (row) => row.transaction.type,
+                template: (value) => value
             }
         ];
         const reduce = (row, memo) => {
@@ -830,27 +831,30 @@ export default class Step2 extends Component {
 
         return (
             <div className="step2">
-                <Tabs defaultActiveKey="1" onChange={console.log} className="tabs">
-                    <TabPane tab="Dataset 1" key="1">
+                <Tabs className="tabs">
+                    <TabPane tab="Dataset 1" key="0">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
-                          activeDimensions={['Transaction Type']} />
+                          activeDimensions={[dimensions[0].title]}
+                          compact />
                     </TabPane>
-                    <TabPane tab="Dataset 2" key="2">
+                    <TabPane tab="Dataset 2" key="1">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
-                          activeDimensions={['Transaction Type']} />
+                          activeDimensions={[dimensions[0].title]}
+                          compact />
                     </TabPane>
-                    <TabPane tab="Dataset 3" key="3">
+                    <TabPane tab="Dataset 3" key="2">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
                           reduce={reduce}
                           calculations={calculations}
-                          activeDimensions={['Transaction Type']} />
+                          activeDimensions={[dimensions[0].title]}
+                          compact />
                     </TabPane>
                 </Tabs>
             </div>

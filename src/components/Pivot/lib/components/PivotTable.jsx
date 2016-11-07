@@ -1,3 +1,5 @@
+import {Pagination, Tag} from 'antd';
+
 import React from 'react';
 import {autobind} from 'core-decorators';
 
@@ -105,13 +107,13 @@ export default class PivotTable extends Component {
 
         if (dimensionExists) {
             solo = (
-                <span className="reactPivot-solo">
-                <a style={{cursor: 'pointer'}}
-                  onClick={partial(this.props.onSolo, {
-                      title: col.title,
-                      value: val
-                  })}>solo</a>
-                </span>
+                <Tag className="reactPivot-solo">
+                    <a style={{cursor: 'pointer'}}
+                      onClick={partial(this.props.onSolo, {
+                          title: col.title,
+                          value: val
+                      })}>Filtrar</a>
+                </Tag>
             );
         }
 
@@ -133,16 +135,22 @@ export default class PivotTable extends Component {
 
         return (
             <div className="reactPivot-paginate">
-                {_.range(0, nPaginatePages).map((n) => {
-                    let c = 'reactPivot-pageNumber';
+                <Pagination defaultCurrent={1} total={nPaginatePages} onChange={this.setPaginatePage} />
+                {
+                    /*
+                    {_.range(0, nPaginatePages).map((n) => {
+                        let c = 'reactPivot-pageNumber';
 
-                    if (n === paginatePage) c += ' is-selected';
-                    return (
-                        <span className={c} key={n}>
-                        <a onClick={partial(this.setPaginatePage, n)}>{n + 1}</a>
-                        </span>
-                    );
-                })}
+                        if (n === paginatePage) c += ' is-selected';
+
+                        return (
+                            <span className={c} key={n}>
+                                <a onClick={partial(this.setPaginatePage, n)}>{n + 1}</a>
+                            </span>
+                        );
+                    })}
+                    */
+                 }
             </div>
         );
     }
