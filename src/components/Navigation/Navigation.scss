@@ -13,10 +13,24 @@
 
     .previous {
         float: left;
+
+        &:before {
+            font-family: anticon;
+            content: '\E620';
+            font-size: 12px;
+            margin-right: 1em;
+        }
     }
 
     .next {
         float: right;
         text-align: right;
+
+        &:after {
+            font-family: anticon;
+            content: '\E61F';
+            font-size: 12px;
+            margin-left: 1em;
+        }
     }
 }

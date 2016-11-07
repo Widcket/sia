@@ -19,10 +19,10 @@ export default class Navigation extends Component {
               className="navigation">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
                     <a className="previous" href="#">
-                        <span>&lt; Atrás</span>
+                        <span>Atrás</span>
                     </a>
                     <a className="next" href="#">
-                        <span>Siguiente &gt;</span>
+                        <span>Siguiente</span>
                     </a>
                 </Col>
             </Row>
