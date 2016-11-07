@@ -10,7 +10,8 @@ export default(store) => {
    */
     return (
       <Route path="/" component={App}>
-
+          {/* Step1 (main) route */}
+          <IndexRoute component={Step1} />
           {/* Catch all route */}
           <Route path="*" component={NotFound} status={404} />
       </Route>
