@@ -14,8 +14,8 @@ export default class Dimensions extends Component {
     };
 
     @autobind
-    toggleDimension(iDimension, evt) {
-        const dimension = evt.target.value;
+    toggleDimension(iDimension, event) {
+        const dimension = event.target.value;
         const dimensions = this.props.selectedDimensions;
         const curIdx = dimensions.indexOf(dimension);
 
@@ -49,7 +49,6 @@ export default class Dimensions extends Component {
     }
 
     render() {
-        const self = this;
         const selectedDimensions = this.props.selectedDimensions;
         const nSelected = selectedDimensions.length;
 
@@ -57,9 +56,9 @@ export default class Dimensions extends Component {
             <div className="reactPivot-dimensions">
                 {selectedDimensions.map(this.renderDimension)}
 
-                <select value={''} onChange={partial(self.toggleDimension, nSelected)}>
+                <select value={''} onChange={partial(this.toggleDimension, nSelected)}>
                 <option value={''}>Sub Dimension...</option>
-                {self.props.dimensions.map((dimension) => {
+                {this.props.dimensions.map((dimension) => {
                     return <option key={dimension.title}>{dimension.title}</option>;
                 })}
                 </select>

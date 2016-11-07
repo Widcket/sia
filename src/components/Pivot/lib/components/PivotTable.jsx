@@ -66,8 +66,6 @@ export default class PivotTable extends Component {
 
     @autobind
     renderTableBody(columns, rows) {
-        const self = this;
-
         return (
             <tbody>
                 {rows.map((row) => {
@@ -76,7 +74,7 @@ export default class PivotTable extends Component {
                     {columns.map((col, i) => {
                         if (i < row._level) return <td key={i} className="reactPivot-indent" />;
 
-                        return self.renderCell(col, row);
+                        return this.renderCell(col, row);
                     })}
                     </tr>
                     );
@@ -128,7 +126,6 @@ export default class PivotTable extends Component {
 
     @autobind
     renderPagination(pagination) {
-        const self = this;
         const nPaginatePages = pagination.nPages;
         const paginatePage = pagination.curPage;
 
@@ -142,7 +139,7 @@ export default class PivotTable extends Component {
                     if (n === paginatePage) c += ' is-selected';
                     return (
                         <span className={c} key={n}>
-                        <a onClick={partial(self.setPaginatePage, n)}>{n + 1}</a>
+                        <a onClick={partial(this.setPaginatePage, n)}>{n + 1}</a>
                         </span>
                     );
                 })}
@@ -152,7 +149,6 @@ export default class PivotTable extends Component {
 
     @autobind
     renderTableHead(columns) {
-        const self = this;
         const sortBy = this.props.sortBy;
         const sortDir = this.props.sortDir;
 
@@ -167,14 +163,14 @@ export default class PivotTable extends Component {
                     if (col.type !== 'dimension') {
                         hide = (
                     <span className="reactPivot-hideColumn"
-                      onClick={partial(self.props.onColumnHide, col.title)}>
+                      onClick={partial(this.props.onColumnHide, col.title)}>
                         &times;
                     </span>
                     ); }
 
                     return (
                     <th className={className}
-                      onClick={partial(self.props.onSort, col.title)}
+                      onClick={partial(this.props.onSort, col.title)}
                       style={{cursor: 'pointer'}}
                       key={col.title}>
 
