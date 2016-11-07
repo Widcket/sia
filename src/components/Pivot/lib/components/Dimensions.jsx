@@ -1,20 +1,19 @@
-const _ = { compact: require('lodash/compact') };
-const React = require('react');
-const partial = require('./partial');
+import React from 'react';
+import {autobind} from 'core-decorators';
+
+const _ = {compact: require('lodash/compact')};
+const partial = require('../partial');
 
 const Component = React.Component;
 
 export default class Dimensions extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        dimensions: [],
+        selectedDimensions: [],
+        onChange: function () {}
+    };
 
-        this.props = {
-            dimensions: [],
-            selectedDimensions: [],
-            onChange: function () {}
-        };
-    }
-
+    @autobind
     toggleDimension(iDimension, evt) {
         const dimension = evt.target.value;
         const dimensions = this.props.selectedDimensions;
@@ -28,6 +27,7 @@ export default class Dimensions extends Component {
         this.props.onChange(updatedDimensions);
     }
 
+    @autobind
     renderDimension(selectedDimension, i) {
         return (
             <select

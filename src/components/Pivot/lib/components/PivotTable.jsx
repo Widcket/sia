@@ -1,33 +1,37 @@
+import React from 'react';
+import {autobind} from 'core-decorators';
+
 const _ = { range: require('lodash/range') };
-const React = require('react');
-const partial = require('./partial');
-const getValue = require('./get-value');
+const partial = require('../partial');
+const getValue = require('../getValue');
 
 const Component = React.Component;
 
 export default class PivotTable extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        columns: [],
+        rows: [],
+        sortBy: null,
+        sortDir: 'asc',
+        onSort: function () {},
+        onSolo: function () {},
+        onColumnHide: function () {}
+    };
 
-        this.props = {
-            columns: [],
-            rows: [],
-            sortBy: null,
-            sortDir: 'asc',
-            onSort: function () {},
-            onSolo: function () {},
-            onColumnHide: function () {}
-        };
+    constructor(props) {
+        super(props);
 
         this.state = {
             paginatePage: 0
         };
     }
 
+    @autobind
     setPaginatePage(nPage) {
         this.setState({paginatePage: nPage});
     }
 
+    @autobind
     paginate(results) {
         if (results.length <= 0) return {rows: results, nPages: 1, curPage: 0};
 
@@ -60,6 +64,7 @@ export default class PivotTable extends Component {
         return {rows: rows, nPages: nPaginatePages, curPage: paginatePage};
     }
 
+    @autobind
     renderTableBody(columns, rows) {
         const self = this;
 
@@ -80,6 +85,7 @@ export default class PivotTable extends Component {
         );
     }
 
+    @autobind
     renderCell(col, row) {
         let val;
         let text;
@@ -120,6 +126,7 @@ export default class PivotTable extends Component {
         );
     }
 
+    @autobind
     renderPagination(pagination) {
         const self = this;
         const nPaginatePages = pagination.nPages;
@@ -143,6 +150,7 @@ export default class PivotTable extends Component {
         );
     }
 
+    @autobind
     renderTableHead(columns) {
         const self = this;
         const sortBy = this.props.sortBy;
@@ -199,7 +207,5 @@ export default class PivotTable extends Component {
             </div>
         );
     }
-
-
 }
 

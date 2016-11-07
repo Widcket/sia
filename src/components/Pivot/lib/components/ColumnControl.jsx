@@ -1,18 +1,16 @@
-const _ = { without: require('lodash/without') };
-const React = require('react');
+import React from 'react';
+import {autobind} from 'core-decorators';
 
+const _ = { without: require('lodash/without') };
 const Component = React.Component;
 
 export default class ColumnControl extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        hiddenColumns: [],
+        onChange: function () {}
+    };
 
-        this.props = {
-            hiddenColumns: [],
-            onChange: function () {}
-        };
-    }
-
+    @autobind
     showColumn(evt) {
         const col = evt.target.value;
         const hidden = _.without(this.props.hiddenColumns, col);

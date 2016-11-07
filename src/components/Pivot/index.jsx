@@ -1,13 +1,13 @@
+import DataFrame from 'dataframe';
+import Emitter from 'wildemitter';
+import React from 'react';
+import {autobind} from 'core-decorators';
+
 const _ = {
     filter: require('lodash/filter'),
     map: require('lodash/map'),
     find: require('lodash/find')
 };
-const React = require('react');
-const DataFrame = require('dataframe');
-const Emitter = require('wildemitter');
-
-const Component = React.Component;
 const partial = require('./lib/partial');
 const download = require('./lib/download');
 const getValue = require('./lib/getValue');
@@ -15,31 +15,34 @@ const PivotTable = require('./lib/components/PivotTable.jsx');
 const Dimensions = require('./lib/components/Dimensions.jsx');
 const ColumnControl = require('./lib/components/ColumnControl.jsx');
 
+const Component = React.Component;
+
+
 function loadStyles() { require('./style.css'); }
 
 export default class ReactPivot extends Component {
-    constructor() {
-        super();
+    static defaultProps = {
+        rows: [],
+        dimensions: [],
+        activeDimensions: [],
+        tableClassName: '',
+        csvDownloadFileName: 'table.csv',
+        csvTemplateFormat: false,
+        defaultStyles: true,
+        nPaginateRows: 25,
+        solo: null,
+        hiddenColumns: [],
+        sortBy: null,
+        sortDir: 'asc',
+        eventBus: new Emitter(),
+        compact: false,
+        excludeSummaryFromExport: false,
+        reduce: () => {},
+        onData: () => {}
+    };
 
-        this.props = {
-            rows: [],
-            dimensions: [],
-            activeDimensions: [],
-            tableClassName: '',
-            csvDownloadFileName: 'table.csv',
-            csvTemplateFormat: false,
-            defaultStyles: true,
-            nPaginateRows: 25,
-            solo: null,
-            hiddenColumns: [],
-            sortBy: null,
-            sortDir: 'asc',
-            eventBus: new Emitter(),
-            compact: false,
-            excludeSummaryFromExport: false,
-            reduce: function () {},
-            onData: function () {}
-        };
+    constructor(props) {
+        super(props);
 
         this.state = {
             dimensions: _.filter(this.props.activeDimensions, (title) => {
@@ -84,6 +87,7 @@ export default class ReactPivot extends Component {
         }
     }
 
+    @autobind
     getColumns() {
         const self = this;
         const columns = [];
@@ -117,6 +121,7 @@ export default class ReactPivot extends Component {
         return columns;
     }
 
+    @autobind
     setDimensions(updatedDimensions) {
         this.props.eventBus.emit('activeDimensions', updatedDimensions);
         this.setState({ dimensions: updatedDimensions });
@@ -124,6 +129,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     setHiddenColumns(hidden) {
         this.props.eventBus.emit('hiddenColumns', hidden);
         this.setState({ hiddenColumns: hidden });
@@ -131,6 +137,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     setSort(cTitle) {
         let sortBy = this.state.sortBy;
         let sortDir = this.state.sortDir;
@@ -149,6 +156,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     setSolo(solo) {
         this.props.eventBus.emit('solo', solo);
         this.setState({ solo: solo });
@@ -156,6 +164,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     updateRows() {
         const columns = this.getColumns();
 
@@ -187,6 +196,7 @@ export default class ReactPivot extends Component {
         this.props.onData(rows);
     }
 
+    @autobind
     clearSolo() {
         this.props.eventBus.emit('solo', null);
         this.setState({ solo: null });
@@ -194,6 +204,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     hideColumn(cTitle) {
         const hidden = this.state.hiddenColumns.concat([cTitle]);
 
@@ -202,6 +213,7 @@ export default class ReactPivot extends Component {
         setTimeout(this.updateRows, 0);
     }
 
+    @autobind
     downloadCSV(rows) {
         const self = this;
         const columns = this.getColumns();

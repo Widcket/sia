@@ -1740,6 +1740,12 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+dataframe:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/dataframe/-/dataframe-1.5.0.tgz#f0d7c56163653d41537b22f7b888d433f1bb8c51"
+  dependencies:
+    lodash ">=4.1.0"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -3429,7 +3435,7 @@ loader-utils@^0.2.11, loader-utils@^0.2.15, loader-utils@^0.2.3, loader-utils@^0
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-lodash, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.12.0, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.5.1, lodash@^4.6.1, lodash@~4.16.4:
+lodash, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.12.0, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.5.1, lodash@^4.6.1, lodash@>=4.1.0, lodash@~4.16.4:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
@@ -6234,6 +6240,10 @@ wide-align@^1.1.0:
   resolved "https://registry.yarnpkg.com/wide-align/-/wide-align-1.1.0.tgz#40edde802a71fea1f070da3e62dcda2e7add96ad"
   dependencies:
     string-width "^1.0.1"
+
+wildemitter:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/wildemitter/-/wildemitter-1.2.0.tgz#29dd3a72d699c3e279dd021c3cd2150b82c9a211"
 
 window-size@^0.2.0:
   version "0.2.0"
