@@ -176,21 +176,22 @@ export default class PivotTable extends Component {
                     let hide = '';
                     if (col.type !== 'dimension') {
                         hide = (
-                    <span className="reactPivot-hideColumn"
-                      onClick={partial(this.props.onColumnHide, col.title)}>
-                        &times;
-                    </span>
-                    ); }
+                            <span className="reactPivot-hideColumn"
+                              onClick={partial(this.props.onColumnHide, col.title)}>
+                                &times;
+                            </span>
+                        );
+                    }
 
                     return (
-                    <th className={className}
-                      onClick={partial(this.props.onSort, col.title)}
-                      style={{cursor: 'pointer'}}
-                      key={col.title}>
+                        <th className={className}
+                          onClick={partial(this.props.onSort, col.title)}
+                          style={{cursor: 'pointer'}}
+                          key={col.title}>
 
-                        {hide}
-                        {col.title}
-                    </th>
+                            {hide}
+                            {col.title}
+                        </th>
                     );
                 })}
                 </tr>

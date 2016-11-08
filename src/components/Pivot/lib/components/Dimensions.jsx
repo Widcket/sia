@@ -35,15 +35,15 @@ export default class Dimensions extends Component {
             <Select
               size="small"
               value={selectedDimension}
-              onChange={partial(this.toggleDimension, i)}
+              onSelect={partial(this.toggleDimension, i)}
               key={selectedDimension} >
                 {this.props.dimensions.map((dimension) => {
                     return (
-                    <Option
-                      value={dimension.title}
-                      key={dimension.title} >
-                    {dimension.title}
-                    </Option>
+                        <Option
+                          value={dimension.title}
+                          key={dimension.title} >
+                            {dimension.title}
+                        </Option>
                     );
                 })}
             </Select>
@@ -58,10 +58,10 @@ export default class Dimensions extends Component {
             <div className="reactPivot-dimensions">
                 {selectedDimensions.map(this.renderDimension)}
 
-                <Select size="small" defaultValue="" onChange={partial(this.toggleDimension, nSelected)}>
+                <Select size="small" defaultValue="" onSelect={partial(this.toggleDimension, nSelected)}>
                     <Option value={''} disabled>Subdimensión...</Option>
                     {this.props.dimensions.map((dimension) => {
-                        return <Option key={dimension.title}>{dimension.title}</Option>;
+                        return <Option value={dimension.title} key={dimension.title}>{dimension.title}</Option>;
                     })}
                 </Select>
             </div>

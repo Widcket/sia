@@ -2,7 +2,6 @@ import {Col, Grid, Row} from 'antd';
 import React, {Component, PropTypes} from 'react';
 import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/modules/info';
 
-import Helmet from 'react-helmet';
 import {Navigation} from '../../components';
 import {Steps} from '..';
 import {asyncConnect} from 'redux-async-connect';
@@ -52,15 +51,12 @@ export default class App extends Component {
         const colSizeLG = { span: 16, offset: 4 };
 
         return (
-            <Row type="flex" className="app" align="middle">
+            <Row id="app" type="flex" align="middle">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
-                    <div className={styles.app}>
-                        <Helmet {...config.app.head} />
-                        <Steps className={styles.appContent}>
-                            {this.props.children}
-                        </Steps>
-                        <Navigation />
-                    </div>
+                    <Steps>
+                        {this.props.children}
+                    </Steps>
+                    <Navigation />
                 </Col>
             </Row>
         );
