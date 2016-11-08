@@ -72,6 +72,7 @@ app.use((req, res) => {
         // replacement is enabled in the development env
         webpackIsomorphicTools.refresh();
     }
+
     const client = new ApiClient(req);
     const memoryHistory = createHistory(req.originalUrl);
     const store = createStore(memoryHistory, client);
@@ -97,6 +98,7 @@ app.use((req, res) => {
             res.redirect(redirectLocation.pathname + redirectLocation.search);
         } else if (error) {
             console.error('ROUTER ERROR:', pretty.render(error));
+
             res.status(500);
             hydrateOnClient();
         } else if (renderProps) {
@@ -107,20 +109,7 @@ app.use((req, res) => {
                     client
                 }
             }).then(() => {
-            /* Material
-                lightBaseTheme.userAgent = req.headers['user-agent'];
-
-                const theme = getMuiTheme(lightBaseTheme);
-            */
                 const component = (
-                /* Material
-                    <MuiThemeProvider muiTheme={theme}>
-                        <Provider store={store} key="provider">
-                            <ReduxAsyncConnect {...renderProps} />
-                        </Provider>
-                    </MuiThemeProvider>
-                */
-
                     <Provider store={store} key="provider">
                         <ReduxAsyncConnect {...renderProps} />
                     </Provider>
@@ -148,9 +137,8 @@ app.use((req, res) => {
 
 if (config.port) {
     server.listen(config.port, (err) => {
-        if (err) {
-            console.error(err);
-        }
+        if (err) console.error(err);
+
         console.info('----\n==> ✅  %s is running, talking to API server on %s.', config.app.title, config.apiPort);
         console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
     });

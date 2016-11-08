@@ -4,17 +4,17 @@
 
 import 'babel-polyfill';
 
-import io from 'socket.io-client';
+import {Router, browserHistory} from 'react-router';
+
+import ApiClient from './helpers/ApiClient';
+import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {Router, browserHistory} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
 import {ReduxAsyncConnect} from 'redux-async-connect';
-
 import createStore from './redux/create';
 import getRoutes from './routes';
-import ApiClient from './helpers/ApiClient';
+import io from 'socket.io-client';
+import {syncHistoryWithStore} from 'react-router-redux';
 
 const client = new ApiClient();
 const dest = document.getElementById('content');
@@ -66,6 +66,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 if (__DEVTOOLS__ && !window.devToolsExtension) {
     const DevTools = require('./containers/DevTools/DevTools');
+
     ReactDOM.render(
         <Provider store={store} key="provider">
         <div>

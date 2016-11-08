@@ -47,12 +47,8 @@
         }
 
         th {
-            font-weight: bold;
             padding-bottom: 0.5rem;
-
-            &:hover .reactPivot-hideColumn {
-                opacity: 0.5;
-            }
+            padding-left: 5px;
 
             &.asc:after, &.desc:after {
                 opacity: 0.5;
@@ -92,18 +88,6 @@
 
             .ant-tag {
                 margin: 0px 0px 0px 0.5rem;
-            }
-        }
-
-        .reactPivot-hideColumn {
-            opacity: 0;
-            margin-right: 3px;
-            font-size: 1rem;
-            line-height: 0.5rem;
-
-            &:hover {
-                font-weight: bold;
-                cursor: pointer;
             }
         }
     }

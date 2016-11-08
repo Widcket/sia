@@ -1,4 +1,4 @@
-import {Pagination, Tag} from 'antd';
+import {Button, Pagination, Popover, Tag} from 'antd';
 
 import React from 'react';
 import {autobind} from 'core-decorators';
@@ -8,6 +8,7 @@ const partial = require('../partial');
 const getValue = require('../getValue');
 
 const Component = React.Component;
+const ButtonGroup = Button.Group;
 
 export default class PivotTable extends Component {
     static defaultProps = {
@@ -171,29 +172,45 @@ export default class PivotTable extends Component {
                 <tr>
                 { columns.map((col) => {
                     let className = col.className;
+
                     if (col.title === sortBy) className += ' ' + sortDir;
 
-                    let hide = '';
-                    if (col.type !== 'dimension') {
-                        hide = (
-                            <span className="reactPivot-hideColumn"
-                              onClick={partial(this.props.onColumnHide, col.title)}>
-                                &times;
-                            </span>
-                        );
-                    }
-
-                    return (
+                    const th = (
                         <th className={className}
                           onClick={partial(this.props.onSort, col.title)}
                           style={{cursor: 'pointer'}}
                           key={col.title}>
-
-                            {hide}
                             {col.title}
                         </th>
                     );
+                    const buttonBar = (
+                        <ButtonGroup>
+                            <Button
+                              type="default"
+                              icon="delete"
+                              onClick={partial(this.props.onColumnHide, col.title)} />
+                            <Button
+                              type="default"
+                              icon="edit" />
+                        </ButtonGroup>
+                    );
+
+                    if (col.type !== 'dimension') {
+                        return (
+                            <th className={className}
+                              onClick={partial(this.props.onSort, col.title)}
+                              style={{cursor: 'pointer'}}
+                              key={col.title}>
+                                <Popover content={buttonBar} title="" key={'header-' + col.title}>
+                                    <span>{col.title}</span>
+                                </Popover>
+                            </th>
+                        );
+                    }
+
+                    return th;
                 })}
+
                 </tr>
             </thead>
         );
