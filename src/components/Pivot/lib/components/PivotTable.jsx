@@ -1,4 +1,4 @@
-import {Button, Pagination, Popover, Tag} from 'antd';
+import {Button, Modal, Pagination, Popover, Tag} from 'antd';
 
 import React from 'react';
 import {autobind} from 'core-decorators';
@@ -25,13 +25,35 @@ export default class PivotTable extends Component {
         super(props);
 
         this.state = {
-            paginatePage: 0
+            paginatePage: 0,
+            modalVisible: false
         };
     }
 
     @autobind
     setPaginatePage(nPage) {
         this.setState({paginatePage: nPage - 1});
+    }
+
+    @autobind
+    showModal() {
+        this.setState({
+            modalVisible: true
+        });
+    }
+
+    @autobind
+    handleOk() {
+        this.setState({
+            modalVisible: false
+        });
+    }
+
+    @autobind
+    handleCancel(e) {
+        this.setState({
+            visible: false,
+        });
     }
 
     @autobind
@@ -191,8 +213,22 @@ export default class PivotTable extends Component {
                               onClick={partial(this.props.onColumnHide, col.title)} />
                             <Button
                               type="default"
-                              icon="edit" />
+                              icon="edit"
+                              onClick={this.showModal} />
                         </ButtonGroup>
+                    );
+                    const modal = (
+                        <Modal
+                          title="Editar Columna"
+                          visible={this.state.modalVisible}
+                          onOk={this.handleOk}
+                          onCancel={this.handleCancel}
+                          okText="Ok"
+                          cancelText="Cancelar">
+                            <p>some contents...</p>
+                            <p>some contents...</p>
+                            <p>some contents...</p>
+                        </Modal>
                     );
 
                     if (col.type !== 'dimension') {
@@ -204,6 +240,7 @@ export default class PivotTable extends Component {
                                 <Popover content={buttonBar} title="" key={'header-' + col.title}>
                                     <span>{col.title}</span>
                                 </Popover>
+                                {modal}
                             </th>
                         );
                     }
@@ -218,9 +255,7 @@ export default class PivotTable extends Component {
 
     render() {
         const results = this.props.rows;
-
         const paginatedResults = this.paginate(results);
-
         const tBody = this.renderTableBody(this.props.columns, paginatedResults.rows);
         const tHead = this.renderTableHead(this.props.columns);
 
@@ -236,4 +271,3 @@ export default class PivotTable extends Component {
         );
     }
 }
-
