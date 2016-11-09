@@ -33,28 +33,23 @@
     line-height: 1;
 }
 
-.flaticon-big-and-small-dots:before { content: "\f100"; }
+.flaticon-bar-dotted-stats:before { content: "\f100"; }
 .flaticon-business-bars-graphic:before { content: "\f101"; }
 .flaticon-business-stats:before { content: "\f102"; }
-.flaticon-centralized-structure:before { content: "\f103"; }
+.flaticon-chemical-diagram:before { content: "\f103"; }
 .flaticon-circle-with-irregular-grid-lines:before { content: "\f104"; }
 .flaticon-dots-graphic:before { content: "\f105"; }
 .flaticon-pie-chart-stats:before { content: "\f106"; }
 .flaticon-radar-chart:before { content: "\f107"; }
-.flaticon-triangular-chart:before {
-    content: "\f108";
-    transform: rotate(-180deg);
-}
 
-$font-Flaticon-big-and-small-dots: "\f100";
+$font-Flaticon-bar-dotted-stats: "\f100";
 $font-Flaticon-business-bars-graphic: "\f101";
 $font-Flaticon-business-stats: "\f102";
-$font-Flaticon-centralized-structure: "\f103";
+$font-Flaticon-chemical-diagram: "\f103";
 $font-Flaticon-circle-with-irregular-grid-lines: "\f104";
 $font-Flaticon-dots-graphic: "\f105";
 $font-Flaticon-pie-chart-stats: "\f106";
 $font-Flaticon-radar-chart: "\f107";
-$font-Flaticon-triangular-chart: "\f108";
 
 #step3 {
     margin-bottom: 1rem;

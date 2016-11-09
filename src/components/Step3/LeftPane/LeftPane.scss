@@ -1,21 +1,21 @@
 #chart-types {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
 
     .ant-row {
         &:last-child {
-            .chart-type {
-                margin-bottom: 0rem;
+            .type {
+                margin-bottom: 0rem !important;
             }
         }
 
         .ant-col-6 {
             &:last-child {
-                .chart-type {
+                .type {
                     margin-right: 0rem;
                 }
             }
 
-            .chart-type {
+            .type {
                 margin-right: 0.25rem;
                 margin-bottom: 0.25rem;
                 padding: 0.5rem 0rem 0.2rem 0rem;
@@ -35,20 +35,20 @@
             }
         }
     }
+}
 
-    #subtype {
-        margin: 1rem 0rem;
+#chart-subtype {
+    margin: 1rem 0rem;
 
-        .subtype-label {
-            float: left;
-            width: 3.5rem;
-            font-size: 0.8rem;
-            margin-top: 0.3rem;
-        }
+    .subtype-label {
+        float: left;
+        width: 3.5rem;
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+    }
 
-        .subtype-select {
-            float: right;
-            width: calc(100% - 3.5rem);
-        }
+    .subtype-select {
+        float: right;
+        width: calc(100% - 3.5rem);
     }
 }

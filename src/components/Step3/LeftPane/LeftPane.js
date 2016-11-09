@@ -28,25 +28,25 @@ export default class LeftPane extends Component {
                     <div id="chart-types">
                         <Row>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-business-stats" />
                                     <span>Líneas</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-business-bars-graphic" />
                                     <span>Barras</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-pie-chart-stats" />
                                     <span>Torta</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-dots-graphic" />
                                     <span>Puntos</span>
                                 </div>
@@ -54,44 +54,44 @@ export default class LeftPane extends Component {
                         </Row>
                         <Row>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-radar-chart" />
                                     <span>Radar</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
+                                <div className="type">
                                     <i className="fi flaticon-circle-with-irregular-grid-lines" />
                                     <span>Cuerdas</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
-                                    <i className="fi flaticon-centralized-structure" />
+                                <div className="type">
+                                    <i className="fi flaticon-chemical-diagram" />
                                     <span>Nodos</span>
                                 </div>
                             </Col>
                             <Col span="6">
-                                <div className="chart-type">
-                                    <i className="fi flaticon-triangular-chart" />
-                                    <span>Funnel</span>
+                                <div className="type">
+                                    <i className="fi flaticon-bar-dotted-stats" />
+                                    <span>Compuesto</span>
                                 </div>
                             </Col>
                         </Row>
-                        <Row id="subtype">
-                            <Col>
-                                <span className="subtype-label">Subtipo</span>
-                                <Select
-                                  className="subtype-select"
-                                  defaultValue="subtipo1"
-                                  placeholder="Subtipo">
-                                    <Option value="subtipo1" key="subtipo1">Subtipo 1</Option>
-                                    <Option value="subtipo2" key="subtipo2">Subtipo 2</Option>
-                                    <Option value="subtipo3" key="subtipo3">Subtipo 3</Option>
-                                </Select>
-                            </Col>
-                        </Row>
                     </div>
+                    <Row id="chart-subtype">
+                        <Col>
+                            <span className="subtype-label">Subtipo</span>
+                            <Select
+                              className="subtype-select"
+                              defaultValue="subtipo1"
+                              placeholder="Subtipo">
+                                <Option value="subtipo1" key="subtipo1">Subtipo 1</Option>
+                                <Option value="subtipo2" key="subtipo2">Subtipo 2</Option>
+                                <Option value="subtipo3" key="subtipo3">Subtipo 3</Option>
+                            </Select>
+                        </Col>
+                    </Row>
                     <Collapse defaultActiveKey={['columnas']}>
                         <Panel header="Columnas" key="columnas">
                             <Tree
@@ -100,6 +100,7 @@ export default class LeftPane extends Component {
                               checkable
                               defaultExpandAll
                               autoExpandParent
+                              defaultCheckedKeys={['0-0-0', '0-0-1']}
                               onSelect={this.onSelect} onCheck={this.onCheck}>
                                 <TreeNode title="Dataset 1" key="0-0">
                                     <TreeNode title="Columna 1" key="0-0-0" />
