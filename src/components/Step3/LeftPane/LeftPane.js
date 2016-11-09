@@ -72,8 +72,8 @@ export default class LeftPane extends Component {
                             </Col>
                             <Col span="6">
                                 <div className="chart-type">
-                                    <i className="fi flaticon-big-and-small-dots" />
-                                    <span>Mapa de calor</span>
+                                    <i className="fi flaticon-triangular-chart" />
+                                    <span>Funnel</span>
                                 </div>
                             </Col>
                         </Row>

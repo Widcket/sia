@@ -1,0 +1,82 @@
+import {Col, Row} from 'antd';
+import React, { Component } from 'react';
+
+import ReactEcharts from 'echarts-for-react';
+import {autobind} from 'core-decorators';
+
+export default class Chart extends Component {
+    getOption() {
+        const option = {
+            title: {
+                text: 'Hola mundo'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['lorem', 'ipsum', 'dolor']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'Serie 1',
+                    type: 'line',
+                    stack: '123',
+                    areaStyle: {normal: {}},
+                    data: [120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: 'Serie 2',
+                    type: 'line',
+                    stack: '456',
+                    areaStyle: {normal: {}},
+                    data: [220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: 'Serie 3',
+                    type: 'line',
+                    stack: '789',
+                    areaStyle: {normal: {}},
+                    data: [150, 232, 201, 154, 190, 330, 410]
+                }
+            ]
+        };
+
+        return option;
+    }
+
+    render() {
+        const styles = require('./Chart.scss');
+
+        return (
+            <div id="chart">
+                <ReactEcharts
+                  option={this.getOption()}
+                  style={{height: '350px', width: '100%'}}
+                  className="react_for_echarts" />
+            </div>
+        );
+    }
+}

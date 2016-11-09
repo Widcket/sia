@@ -1,6 +1,7 @@
 import {Col, Row} from 'antd';
 import React, { Component } from 'react';
 
+import Chart from './Chart/Chart';
 import LeftPane from './LeftPane/LeftPane';
 import {autobind} from 'core-decorators';
 
@@ -15,7 +16,7 @@ export default class Step3 extends Component {
                         <LeftPane />
                     </Col>
                     <Col span={16}>
-                        ...
+                        <Chart />
                     </Col>
                 </Row>
             </div>
