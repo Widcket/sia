@@ -15,7 +15,7 @@ export default class Steps extends Component {
 
         this.state = {
             finished: false,
-            current: 1
+            current: 2
         };
     }
 
