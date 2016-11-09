@@ -34,8 +34,13 @@ export default class ColumnControl extends Component {
         return (
             <div className="reactPivot-columnControl">
                 { !this.props.hiddenColumns.length ? '' :
-                <Select size="small" defaultValue="" value={this.state.hiddenColumnsValue} onSelect={this.showColumn}>
-                    <Option value={''} disabled>Columnas ocultas</Option>
+                <Select
+                  showSearch
+                  size="small"
+                  defaultValue=""
+                  placeholder="Columnas ocultas"
+                  value={this.state.hiddenColumnsValue}
+                  onSelect={this.showColumn}>
                     {this.props.hiddenColumns.map((column) => {
                         return <Option value={column} key={column}>{column}</Option>;
                     })}

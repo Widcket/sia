@@ -1,9 +1,10 @@
-import {Col, Collapse, Row, Tabs, Tree} from 'antd';
+import {Col, Collapse, Row, Select, Tabs, Tree} from 'antd';
 import React, { Component } from 'react';
 
 import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
+const Option = Select.Option;
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
 
@@ -75,6 +76,19 @@ export default class LeftPane extends Component {
                                     <i className="fi flaticon-triangular-chart" />
                                     <span>Funnel</span>
                                 </div>
+                            </Col>
+                        </Row>
+                        <Row id="subtype">
+                            <Col>
+                                <span className="subtype-label">Subtipo</span>
+                                <Select
+                                  className="subtype-select"
+                                  defaultValue="subtipo1"
+                                  placeholder="Subtipo">
+                                    <Option value="subtipo1" key="subtipo1">Subtipo 1</Option>
+                                    <Option value="subtipo2" key="subtipo2">Subtipo 2</Option>
+                                    <Option value="subtipo3" key="subtipo3">Subtipo 3</Option>
+                                </Select>
                             </Col>
                         </Row>
                     </div>
