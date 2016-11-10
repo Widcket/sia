@@ -41,7 +41,9 @@ export default class Chart extends Component {
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {}
+                    saveAsImage: {
+                        title: 'PNG'
+                    }
                 }
             },
             grid: {
