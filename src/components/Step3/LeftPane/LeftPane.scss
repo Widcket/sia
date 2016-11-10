@@ -113,3 +113,8 @@
     }
 }
 
+@-moz-document url-prefix() {
+        #left-pane {
+            margin-left: -1px;
+        }
+    }

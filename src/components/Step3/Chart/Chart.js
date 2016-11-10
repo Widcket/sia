@@ -7,6 +7,21 @@ import { autobind } from 'core-decorators';
 const echarts = require('echarts');
 
 export default class Chart extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            width: '44.45%'
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.initialWidth) this.setState({ width: '100%' });
+        /*
+            Ugly hack for non-chrome browsers, where the chart would take the length of the entire viewport
+        */
+    }
+
     @autobind
     onChartReady(chart) {
         chart.hideLoading();
@@ -85,7 +100,10 @@ export default class Chart extends Component {
             <div id="chart">
                 <ReactEcharts
                   option={this.getOption()}
-                  style={{height: '350px', width: '100%'}}
+                  style={{
+                      height: '25rem',
+                      width: this.state.width
+                  }}
                   className="react_for_echarts"
                   theme="sia"
                   onChartReady={this.onChartReady} />
