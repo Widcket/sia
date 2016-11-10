@@ -80,11 +80,11 @@ export default class LeftPane extends Component {
                                 </Col>
                             </Row>
                         </div>
-                        <Row id="chart-subtype">
+                        <Row className="data-paneless-control">
                             <Col>
                                 <span className="data-control-label">Subtipo</span>
                                 <Select
-                                  className="subtype-select"
+                                  className="data-control-select"
                                   defaultValue="subtipo1"
                                   placeholder="Subtipo">
                                     <Option value="subtipo1" key="subtipo1">Subtipo 1</Option>
@@ -93,7 +93,7 @@ export default class LeftPane extends Component {
                                 </Select>
                             </Col>
                         </Row>
-                        <Collapse defaultActiveKey={['columnas']}>
+                        <Collapse defaultActiveKey={['datos']}>
                             <Panel header="Columnas" key="columnas">
                                 <Tree
                                   className="dataset-tree"
@@ -121,11 +121,11 @@ export default class LeftPane extends Component {
                                 <div className="data-control-element">
                                     <Slider range defaultValue={[10, 70]} />
                                 </div>
-                                <div className="data-control">
+                                <div className="data-panel-control">
                                     <span className="data-control-label">Invertir</span>
                                     <Switch defaultChecked={false} />
                                 </div>
-                                <div className="data-control">
+                                <div className="data-panel-control">
                                     <span className="data-control-label">Transponer</span>
                                     <Switch defaultChecked={false} />
                                 </div>
@@ -133,13 +133,39 @@ export default class LeftPane extends Component {
                         </Collapse>
                     </TabPane>
                     <TabPane tab="Presentación" key="tab2" className="tab2">
-                        <Collapse defaultActiveKey={['componentes']}>
-                            <Panel header="Componentes" key="componentes">
-                                <div className="data-control">
-                                    <span className="data-control-label">Título</span>
-                                    <div className="data-control-element">
-                                        <Input />
-                                    </div>
+                        <Row className="data-paneless-control">
+                            <Col>
+                                <span className="data-control-label">Título</span>
+                                <Input className="data-control-input" />
+                            </Col>
+                        </Row>
+                        <Collapse defaultActiveKey={['ejeX', 'ejeY']}>
+                            <Panel header="Eje X" key="ejeX">
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Eje</span>
+                                    <Switch defaultChecked />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Etiquetas</span>
+                                    <Switch defaultChecked />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Grilla</span>
+                                    <Switch defaultChecked={false} />
+                                </div>
+                            </Panel>
+                            <Panel header="Eje Y" key="ejeY">
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Eje</span>
+                                    <Switch defaultChecked />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Etiquetas</span>
+                                    <Switch defaultChecked />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Grilla</span>
+                                    <Switch defaultChecked />
                                 </div>
                             </Panel>
                         </Collapse>

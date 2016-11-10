@@ -1,4 +1,6 @@
 #left-pane {
+    width: 90%;
+
     .tab1 {
         #chart-types {
             margin-bottom: 1rem;
@@ -38,28 +40,17 @@
                 }
             }
         }
-
-        #chart-subtype {
-            margin: 1rem 0rem;
-
-            .subtype-select {
-                float: right;
-                width: calc(100% - 4rem);
-            }
-
-            .data-control-label {
-                width: 4rem;
-                margin-top: 0.3rem;
-            }
-        }
     }
 
     .tab2 {
+        & .data-paneless-control:first-of-type {
+            margin-top: 0rem;
+        }
         .ant-collapse-content {
             padding-bottom: 0.9rem;
         }
 
-        .data-control {
+        .data-panel-control {
             &:first-of-type {
                 margin-top: 0.9rem;
             }
@@ -73,17 +64,6 @@
                 display: table;
                 clear: both;
             }
-
-            .data-control-label {
-                width: 4rem;
-                margin-top: 0.1rem;
-            }
-
-            .data-control-element {
-                float: right;
-                width: calc(100% - 4rem);
-                padding: 0rem;
-            }
         }
     }
 
@@ -94,7 +74,7 @@
         margin-top: 0.3rem;
     }
 
-    .data-control {
+    .data-panel-control {
         margin-left: 8px;
         margin-bottom: 0.6rem;
 
@@ -111,12 +91,24 @@
             padding: 0.6rem 0rem;
         }
     }
-}
 
-@-moz-document url-prefix() {
-    #left-pane {
-        .ant-row, .ant-collapse {
-            width: calc(100% - 1px);
+    .data-paneless-control {
+        margin: 1rem 0rem;
+
+        .data-control-input, .data-control-select {
+            float: right;
+            width: calc(100% - 4rem);
         }
+
+        .data-control-label {
+            width: 3.9rem;
+            margin-top: 0.3rem;
+            margin-left: 0.1rem;
+        }
+    }
+
+    .ant-row, .ant-collapse {
+        width: calc(100% - 2px);
+        margin-left: 1px;
     }
 }
