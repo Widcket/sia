@@ -60,7 +60,10 @@
             "single"
         ],
         "react/forbid-prop-types": 0,
+        "react/no-did-mount-set-state": 0,
+        "react/no-find-dom-node": 0,
         "react/no-multi-comp": 0,
+        "react/no-string-refs": 0,
         "react/prefer-stateless-function": 0,
         "react/jsx-closing-bracket-location": 0,
         "react/jsx-filename-extension": 0,
