@@ -106,7 +106,6 @@ export default class Chart extends Component {
                       height: '27rem',
                       width: this.state.width
                   }}
-                  className="react_for_echarts"
                   theme="sia"
                   onChartReady={this.onChartReady} />
             </div>
