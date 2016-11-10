@@ -125,8 +125,12 @@ export default class LeftPane extends Component {
                                 <div id="data-range">
                                     <Slider range defaultValue={[10, 70]} />
                                 </div>
-                                <div id="transpose-data">
+                                <div id="data-switch">
                                     <span className="panel-label">Transponer</span>
+                                    <Switch defaultChecked={false} />
+                                </div>
+                                <div id="data-switch">
+                                    <span className="panel-label">Invertir</span>
                                     <Switch defaultChecked={false} />
                                 </div>
                             </Panel>
