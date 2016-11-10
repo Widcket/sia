@@ -69,19 +69,20 @@
             }
 
             &:after {
-                content: '';
+                content: "";
+                display: table;
                 clear: both;
             }
 
             .data-control-label {
-                width: 5rem;
+                width: 4rem;
                 margin-top: 0.1rem;
             }
 
             .data-control-element {
-                padding: 0rem;
                 float: right;
-                width: calc(100% - 5rem);
+                width: calc(100% - 4rem);
+                padding: 0rem;
             }
         }
     }
