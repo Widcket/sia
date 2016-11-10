@@ -101,7 +101,7 @@ export default class Chart extends Component {
                 <ReactEcharts
                   option={this.getOption()}
                   style={{
-                      height: '25rem',
+                      height: '28rem',
                       width: this.state.width
                   }}
                   className="react_for_echarts"
