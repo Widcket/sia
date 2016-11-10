@@ -41,7 +41,7 @@ export default {
         toolbox: {
             iconStyle: {
                 normal: {
-                    borderColor: colorPalette[0]
+                    borderColor: '#666666'
                 }
             }
         },
