@@ -114,10 +114,6 @@ export default class LeftPane extends Component {
                                     </TreeNode>
                                     <TreeNode title="Dataset 3" key="2-0">
                                         <TreeNode title="Columna 1" key="2-0-0" />
-                                        <TreeNode title="Columna 2" key="2-0-1" />
-                                        <TreeNode title="Columna 3" key="2-0-2" />
-                                        <TreeNode title="Columna 4" key="2-0-3" />
-                                        <TreeNode title="Columna 5" key="2-0-4" />
                                     </TreeNode>
                                 </Tree>
                             </Panel>
