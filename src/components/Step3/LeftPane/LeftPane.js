@@ -126,11 +126,11 @@ export default class LeftPane extends Component {
                                     <Slider range defaultValue={[10, 70]} />
                                 </div>
                                 <div id="data-switch">
-                                    <span className="panel-label">Transponer</span>
+                                    <span className="panel-label">Invertir</span>
                                     <Switch defaultChecked={false} />
                                 </div>
                                 <div id="data-switch">
-                                    <span className="panel-label">Invertir</span>
+                                    <span className="panel-label">Transponer</span>
                                     <Switch defaultChecked={false} />
                                 </div>
                             </Panel>
@@ -138,10 +138,10 @@ export default class LeftPane extends Component {
                     </TabPane>
                     <TabPane tab="Presentación" key="tab2">
                         <Collapse defaultActiveKey={['datos']}>
-                            <Panel header="Datos" key="datos">
+                            <Panel header="Componentes" key="componentes">
                                 <p>Panel content</p>
                             </Panel>
-                            <Panel header="Componentes" key="componentes">
+                            <Panel header="Colores" key="componentes">
                                 <p>Panel content</p>
                             </Panel>
                         </Collapse>
