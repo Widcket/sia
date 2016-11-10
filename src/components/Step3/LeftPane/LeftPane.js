@@ -75,7 +75,7 @@ export default class LeftPane extends Component {
                                 <Col span="6">
                                     <div className="type">
                                         <i className="fi flaticon-bar-dotted-stats" />
-                                        <span>Compuesto</span>
+                                        <span>Mixto</span>
                                     </div>
                                 </Col>
                             </Row>

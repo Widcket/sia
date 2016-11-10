@@ -2,19 +2,25 @@ import {Col, Row} from 'antd';
 import React, { Component } from 'react';
 
 import ReactEcharts from 'echarts-for-react';
-import {autobind} from 'core-decorators';
+import { autobind } from 'core-decorators';
+
+const echarts = require('echarts');
 
 export default class Chart extends Component {
+    onChartReady(chart) {
+        chart.hideLoading();
+    }
+
     getOption() {
         const option = {
             title: {
-                text: 'Hola mundo'
+                text: 'Gráfico 1'
             },
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
-                data: ['lorem', 'ipsum', 'dolor']
+                data: ['Serie 1', 'Serie 2', 'Serie 3']
             },
             toolbox: {
                 feature: {
@@ -69,13 +75,18 @@ export default class Chart extends Component {
 
     render() {
         const styles = require('./Chart.scss');
+        const sia = require('./themes/sia');
+
+        echarts.registerTheme(sia.name, sia.theme);
 
         return (
             <div id="chart">
                 <ReactEcharts
                   option={this.getOption()}
                   style={{height: '350px', width: '100%'}}
-                  className="react_for_echarts" />
+                  className="react_for_echarts"
+                  theme="sia"
+                  onChartReady={this.onChartReady} />
             </div>
         );
     }
