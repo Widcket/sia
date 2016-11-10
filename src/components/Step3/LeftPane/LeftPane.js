@@ -1,4 +1,4 @@
-import {Col, Collapse, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
+import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
 import React, { Component } from 'react';
 
 import {autobind} from 'core-decorators';
@@ -25,7 +25,7 @@ export default class LeftPane extends Component {
         return (
             <div id="left-pane">
                 <Tabs defaultActiveKey="tab1">
-                    <TabPane tab="Gráfico" key="tab1">
+                    <TabPane tab="Gráfico" key="tab1" className="tab1">
                         <div id="chart-types">
                             <Row>
                                 <Col span="6">
@@ -82,7 +82,7 @@ export default class LeftPane extends Component {
                         </div>
                         <Row id="chart-subtype">
                             <Col>
-                                <span className="panel-label">Subtipo</span>
+                                <span className="data-control-label">Subtipo</span>
                                 <Select
                                   className="subtype-select"
                                   defaultValue="subtipo1"
@@ -118,27 +118,29 @@ export default class LeftPane extends Component {
                                 </Tree>
                             </Panel>
                             <Panel header="Datos" key="datos">
-                                <div id="data-range">
+                                <div className="data-control-element">
                                     <Slider range defaultValue={[10, 70]} />
                                 </div>
-                                <div id="data-switch">
-                                    <span className="panel-label">Invertir</span>
+                                <div className="data-control">
+                                    <span className="data-control-label">Invertir</span>
                                     <Switch defaultChecked={false} />
                                 </div>
-                                <div id="data-switch">
-                                    <span className="panel-label">Transponer</span>
+                                <div className="data-control">
+                                    <span className="data-control-label">Transponer</span>
                                     <Switch defaultChecked={false} />
                                 </div>
                             </Panel>
                         </Collapse>
                     </TabPane>
-                    <TabPane tab="Presentación" key="tab2">
-                        <Collapse defaultActiveKey={['datos']}>
+                    <TabPane tab="Presentación" key="tab2" className="tab2">
+                        <Collapse defaultActiveKey={['componentes']}>
                             <Panel header="Componentes" key="componentes">
-                                <p>Panel content</p>
-                            </Panel>
-                            <Panel header="Colores" key="componentes">
-                                <p>Panel content</p>
+                                <div className="data-control">
+                                    <span className="data-control-label">Título</span>
+                                    <div className="data-control-element">
+                                        <Input />
+                                    </div>
+                                </div>
                             </Panel>
                         </Collapse>
                     </TabPane>

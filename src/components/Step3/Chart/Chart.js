@@ -7,10 +7,12 @@ import { autobind } from 'core-decorators';
 const echarts = require('echarts');
 
 export default class Chart extends Component {
+    @autobind
     onChartReady(chart) {
         chart.hideLoading();
     }
 
+    @autobind
     getOption() {
         const option = {
             title: {
