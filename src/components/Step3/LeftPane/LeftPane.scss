@@ -114,7 +114,9 @@
 }
 
 @-moz-document url-prefix() {
-        #left-pane {
-            margin-left: -1px;
+    #left-pane {
+        .ant-row, .ant-collapse {
+            width: calc(100% - 1px);
         }
     }
+}
