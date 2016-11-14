@@ -1,7 +1,8 @@
 import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
 import React, { Component } from 'react';
 
-import {autobind} from 'core-decorators';
+import FatButton from '../FatButton/FatButton';
+import { autobind } from 'core-decorators';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
@@ -29,60 +30,38 @@ export default class LeftPane extends Component {
                         <div id="chart-types">
                             <Row>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-business-stats" />
-                                        <span>Líneas</span>
-                                    </div>
+                                    <FatButton label="Líneas" iconClass="fi flaticon-business-stats" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-business-bars-graphic" />
-                                        <span>Barras</span>
-                                    </div>
+                                    <FatButton label="Barras" iconClass="fi flaticon-business-bars-graphic" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-pie-chart-stats" />
-                                        <span>Torta</span>
-                                    </div>
+                                    <FatButton label="Torta" iconClass="fi flaticon-pie-chart-stats" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-dots-graphic" />
-                                        <span>Puntos</span>
-                                    </div>
+                                    <FatButton label="Puntos" iconClass="fi flaticon-dots-graphic" />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-radar-chart" />
-                                        <span>Radar</span>
-                                    </div>
+                                    <FatButton label="Radar" iconClass="fi flaticon-radar-chart" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-circle-with-irregular-grid-lines" />
-                                        <span>Cuerdas</span>
-                                    </div>
+                                    <FatButton
+                                      label="Cuerdas"
+                                      iconClass="fi flaticon-circle-with-irregular-grid-lines" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-chemical-diagram" />
-                                        <span>Grafos</span>
-                                    </div>
+                                    <FatButton label="Grafos" iconClass="fi flaticon-chemical-diagram" />
                                 </Col>
                                 <Col span="6">
-                                    <div className="type">
-                                        <i className="fi flaticon-bar-dotted-stats" />
-                                        <span>Mixto</span>
-                                    </div>
+                                    <FatButton label="Mixto" iconClass="fi flaticon-bar-dotted-stats" />
                                 </Col>
                             </Row>
                         </div>
                         <Row className="data-paneless-control">
                             <Col>
-                                <span className="data-control-label" id="data-control-label-subtype">Subtipo</span>
+                                <span className="data-control-label" id="subtype">Subtipo</span>
                                 <Select
                                   className="data-control-select"
                                   defaultValue="subtipo1"

@@ -1,8 +1,5 @@
 #left-pane {
     width: 90%;
-    transition-property: none !important;
-    transform: none !important;
-    animation: none !important;
 
     .tab1 {
         #chart-types {
@@ -19,25 +16,6 @@
                     &:last-child {
                         .type {
                             margin-right: 0rem;
-                        }
-                    }
-
-                    .type {
-                        margin-right: 0.26rem;
-                        margin-bottom: 0.26rem;
-                        padding: 0.6rem 0rem 0.2rem 0rem;
-                        text-align: center;
-                        border: 1px solid #d9d9d9;
-                        border-radius: 3px;
-                        cursor: pointer;
-
-                        &:hover {
-                            background-color: #fafafa;
-                        }
-
-                        span {
-                            display: block;
-                            margin-top: 0.1rem;
                         }
                     }
                 }
@@ -108,7 +86,7 @@
             margin-top: 0.25rem;
             margin-left: 0.1rem;
 
-            &#data-control-label-subtype {
+            &#subtype {
                 width: 3.5rem;
             }
         }
