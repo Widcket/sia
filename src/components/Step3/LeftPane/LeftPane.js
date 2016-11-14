@@ -93,7 +93,7 @@ export default class LeftPane extends Component {
                                 </Select>
                             </Col>
                         </Row>
-                        <Collapse defaultActiveKey={['datos']}>
+                        <Collapse defaultActiveKey={['columnas', 'datos']}>
                             <Panel header="Columnas" key="columnas">
                                 <Tree
                                   className="dataset-tree"

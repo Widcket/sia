@@ -2,7 +2,7 @@ import {Col, Row} from 'antd';
 import React, { Component } from 'react';
 
 import ReactEcharts from 'echarts-for-react';
-import { autobind } from 'core-decorators';
+import {autobind} from 'core-decorators';
 
 const echarts = require('echarts');
 
@@ -16,10 +16,8 @@ export default class Chart extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // Ugly hack for non-chrome browsers, where the chart would take the length of the entire viewport
         if (!nextProps.initialWidth) this.setState({ width: '100%' });
-        /*
-            Ugly hack for non-chrome browsers, where the chart would take the length of the entire viewport
-        */
     }
 
     @autobind
@@ -103,7 +101,7 @@ export default class Chart extends Component {
                 <ReactEcharts
                   option={this.getOption()}
                   style={{
-                      height: '27rem',
+                      height: '40vh',
                       width: this.state.width
                   }}
                   theme="sia"
