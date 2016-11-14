@@ -76,7 +76,8 @@
     .data-paneless-control {
         margin: 1rem 0rem;
 
-        .data-control-input, .data-control-select {
+        .data-control-input,
+        .data-control-select {
             float: right;
             width: calc(100% - 4rem);
         }
@@ -92,6 +93,11 @@
         }
     }
 
+    .data-panel-control:hover .data-control-label,
+    .data-paneless-control:hover .data-control-label {
+        font-weight: bold;
+    }
+
     .ant-row, .ant-collapse {
         width: calc(100% - 2px);
         margin-left: 1px;
@@ -99,6 +105,11 @@
 
     .ant-select-dropdown {
         width: 100%;
+    }
+
+    .ant-tree li a:hover {
+        background-color: none;
+        font-weight: bold;
     }
 
     .ant-slider {
