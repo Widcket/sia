@@ -6,18 +6,26 @@
 
     .previous, .next {
         width: 50%;
-        line-height: 3rem;
         height: 3rem;
         padding: 0rem 1rem;
+        line-height: 3rem;
+        color: #2db7f5;
+
+        &:before, &:after {
+            font-family: anticon;
+            font-size: 12px;
+        }
+
+        span {
+            cursor: pointer;
+        }
     }
 
     .previous {
         float: left;
 
         &:before {
-            font-family: anticon;
             content: '\E620';
-            font-size: 12px;
             margin-right: 1em;
         }
     }
@@ -27,9 +35,7 @@
         text-align: right;
 
         &:after {
-            font-family: anticon;
             content: '\E61F';
-            font-size: 12px;
             margin-left: 1em;
         }
     }
