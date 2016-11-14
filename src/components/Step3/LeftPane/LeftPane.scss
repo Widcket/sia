@@ -1,5 +1,8 @@
 #left-pane {
     width: 90%;
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
 
     .tab1 {
         #chart-types {
@@ -105,7 +108,7 @@
             margin-top: 0.25rem;
             margin-left: 0.1rem;
 
-            &.data-control-label-subtype {
+            &#data-control-label-subtype {
                 width: 3.5rem;
             }
         }
