@@ -1,3 +1,7 @@
 #steps {
     margin: 3rem 0rem 2rem 0rem;
+
+    & ~ div {
+        min-height: 50vh;
+    }
 }

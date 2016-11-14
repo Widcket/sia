@@ -30,9 +30,9 @@ class Step4 extends Component {
         const colSizeLG = { span: 12, offset: 6 };
 
         return (
-            <Row>
-                <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
-                    <div id="step4">
+            <div id="step4">
+                <Row>
+                    <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
                         <Form onSubmit={this.handleSubmit} className="export-form">
                             <FormItem>
                                 {getFieldDecorator('text', {
@@ -78,9 +78,9 @@ class Step4 extends Component {
                                 </Button>
                             </FormItem>
                         </Form>
-                    </div>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }

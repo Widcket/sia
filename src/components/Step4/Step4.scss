@@ -1,4 +1,8 @@
 #step4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .export-form {
         margin: 0rem auto 2rem auto;
         max-width: 27rem;
