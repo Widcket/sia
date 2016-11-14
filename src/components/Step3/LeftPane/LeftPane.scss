@@ -95,6 +95,11 @@
         }
     }
 
+    .data-panel-control .data-control-label,
+    .data-paneless-control .data-control-label {
+        transition: all 0.2s ease;
+    }
+
     .data-panel-control:hover .data-control-label,
     .data-paneless-control:hover .data-control-label {
         font-weight: bold;
@@ -109,9 +114,13 @@
         width: 100%;
     }
 
-    .ant-tree li a:hover {
-        background-color: inherit;
-        font-weight: bold;
+    .ant-tree li a {
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: inherit;
+            font-weight: bold;
+        }
     }
 
     .ant-slider {

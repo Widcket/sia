@@ -10,69 +10,68 @@ const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
 
 export default class LeftPane extends Component {
-    @autobind
-    onSelect(info) {
-        console.log('selected', info);
-    }
+    constructor(props) {
+        super(props);
 
-    @autobind
-    onCheck(info) {
-        console.log('onCheck', info);
-    }
-
-    render() {
-        const style = require('./LeftPane.scss');
-        const chartTypes = {
-            line: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Área'
-                },
-                {
-                    name: 'Área invertida'
-                },
-            ],
-            bar: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Cascada'
-                },
-                {
-                    name: 'Barras apiladas'
-                },
-                {
-                    name: 'Barras divididas'
-                },
-                {
-                    name: 'Barras cruzadas'
-                }
-            ],
-            scatter: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Burbujas'
-                },
-                {
-                    name: 'Gran escala'
-                }
-            ],
-            pie: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Dona'
-                },
-                {
-                    name: 'Compuesto'
-                }
-            ],
+        this.chartTypes = {
+            line: {
+                subtypes: [
+                    {
+                        name: 'Básico'
+                    },
+                    {
+                        name: 'Área'
+                    },
+                    {
+                        name: 'Área invertida'
+                    },
+                ]
+            },
+            bar: {
+                subtypes: [
+                    {
+                        name: 'Básico'
+                    },
+                    {
+                        name: 'Cascada'
+                    },
+                    {
+                        name: 'Barras apiladas'
+                    },
+                    {
+                        name: 'Barras divididas'
+                    },
+                    {
+                        name: 'Barras cruzadas'
+                    }
+                ]
+            },
+            scatter: {
+                subtypes: [
+                    {
+                        name: 'Básico'
+                    },
+                    {
+                        name: 'Burbujas'
+                    },
+                    {
+                        name: 'Gran escala'
+                    }
+                ]
+            },
+            pie: {
+                subtypes: [
+                    {
+                        name: 'Básico'
+                    },
+                    {
+                        name: 'Dona'
+                    },
+                    {
+                        name: 'Compuesto'
+                    }
+                ]
+            },
             radar: [
                 {
                     name: 'Básico'
@@ -106,6 +105,23 @@ export default class LeftPane extends Component {
                 }
             ]
         };
+
+        this.state = {
+            chartType: this.chartTypes.line
+        };
+    }
+    @autobind
+    onSelect(info) {
+        console.log('selected', info);
+    }
+
+    @autobind
+    onCheck(info) {
+        console.log('onCheck', info);
+    }
+
+    render() {
+        const style = require('./LeftPane.scss');
 
         return (
             <div id="left-pane">
