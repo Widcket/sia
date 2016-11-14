@@ -1,8 +1,8 @@
 import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import FatButton from '../FatButton/FatButton';
-import { autobind } from 'core-decorators';
+import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
@@ -22,7 +22,6 @@ export default class LeftPane extends Component {
 
     render() {
         const style = require('./LeftPane.scss');
-
         const chartTypes = {
             line: [
                 {
@@ -73,6 +72,38 @@ export default class LeftPane extends Component {
                 {
                     name: 'Compuesto'
                 }
+            ],
+            radar: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Relleno'
+                }
+            ],
+            chord: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Alternativo'
+                }
+            ],
+            nodes: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Árbol'
+                }
+            ],
+            combined: [
+                {
+                    name: 'Líneas + barras'
+                },
+                {
+                    name: 'Líneas + dispersión'
+                }
             ]
         };
 
@@ -83,7 +114,7 @@ export default class LeftPane extends Component {
                         <div id="chart-types">
                             <Row>
                                 <Col span="6">
-                                    <FatButton label="Líneas" iconClass="fi flaticon-business-stats" />
+                                    <FatButton label="Líneas" iconClass="fi flaticon-business-stats" selected />
                                 </Col>
                                 <Col span="6">
                                     <FatButton label="Barras" iconClass="fi flaticon-business-bars-graphic" />
