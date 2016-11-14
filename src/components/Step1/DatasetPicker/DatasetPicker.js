@@ -40,10 +40,6 @@ export default class DatasetPicker extends Component {
         this.setState({ mockData, targetKeys });
     }
 
-    getSize() {
-
-    }
-
     filterOption(inputValue, option) {
         return option.description.indexOf(inputValue) > -1;
     }

@@ -21,7 +21,60 @@ export default class LeftPane extends Component {
     }
 
     render() {
-        const styles = require('./LeftPane.scss');
+        const style = require('./LeftPane.scss');
+
+        const chartTypes = {
+            line: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Área'
+                },
+                {
+                    name: 'Área invertida'
+                },
+            ],
+            bar: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Cascada'
+                },
+                {
+                    name: 'Barras apiladas'
+                },
+                {
+                    name: 'Barras divididas'
+                },
+                {
+                    name: 'Barras cruzadas'
+                }
+            ],
+            scatter: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Burbujas'
+                },
+                {
+                    name: 'Gran escala'
+                }
+            ],
+            pie: [
+                {
+                    name: 'Básico'
+                },
+                {
+                    name: 'Dona'
+                },
+                {
+                    name: 'Compuesto'
+                }
+            ]
+        };
 
         return (
             <div id="left-pane">
@@ -39,7 +92,7 @@ export default class LeftPane extends Component {
                                     <FatButton label="Torta" iconClass="fi flaticon-pie-chart-stats" />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Puntos" iconClass="fi flaticon-dots-graphic" />
+                                    <FatButton label="Dispersión" iconClass="fi flaticon-dots-graphic" />
                                 </Col>
                             </Row>
                             <Row>

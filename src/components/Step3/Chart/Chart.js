@@ -7,19 +7,6 @@ import {autobind} from 'core-decorators';
 const echarts = require('echarts');
 
 export default class Chart extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            width: '100%'
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // Ugly hack for non-chrome browsers, where the chart would take the length of the entire viewport
-        if (!nextProps.initialWidth) this.setState({ width: '100%' });
-    }
-
     @autobind
     onChartReady(chart) {
         chart.hideLoading();
@@ -91,7 +78,7 @@ export default class Chart extends Component {
     }
 
     render() {
-        const styles = require('./Chart.scss');
+        const style = require('./Chart.scss');
         const sia = require('./themes/sia');
 
         echarts.registerTheme(sia.name, sia.theme);
@@ -102,7 +89,7 @@ export default class Chart extends Component {
                   option={this.getOption()}
                   style={{
                       height: '40vh',
-                      width: this.state.width
+                      width: '100%'
                   }}
                   theme="sia"
                   onChartReady={this.onChartReady} />
