@@ -8,108 +8,125 @@ const Panel = Collapse.Panel;
 const Option = Select.Option;
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
+const chartTypes = {
+    line: {
+        name: 'Líneas',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Área'
+            },
+            {
+                name: 'Área invertida'
+            },
+        ]
+    },
+    bar: {
+        name: 'Barras',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Cascada'
+            },
+            {
+                name: 'Barras apiladas'
+            },
+            {
+                name: 'Barras divididas'
+            },
+            {
+                name: 'Barras cruzadas'
+            }
+        ]
+    },
+    scatter: {
+        name: 'Dispersión',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Burbujas'
+            },
+            {
+                name: 'Gran escala'
+            }
+        ]
+    },
+    pie: {
+        name: 'Torta',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Dona'
+            },
+            {
+                name: 'Compuesto'
+            }
+        ]
+    },
+    radar: {
+        name: 'Radar',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Relleno'
+            }
+        ]
+    },
+    chord: {
+        name: 'Cuerdas',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Alternativo'
+            }
+        ]
+    },
+    nodes: {
+        name: 'Grafos',
+        subtypes: [
+            {
+                name: 'Básico'
+            },
+            {
+                name: 'Árbol'
+            }
+        ]
+    },
+    combined: {
+        name: 'Combinados',
+        subtypes: [
+            {
+                name: 'Líneas + barras'
+            },
+            {
+                name: 'Líneas + dispersión'
+            }
+        ]
+    }
+};
 
 export default class LeftPane extends Component {
     constructor(props) {
         super(props);
 
-        this.chartTypes = {
-            line: {
-                subtypes: [
-                    {
-                        name: 'Básico'
-                    },
-                    {
-                        name: 'Área'
-                    },
-                    {
-                        name: 'Área invertida'
-                    },
-                ]
-            },
-            bar: {
-                subtypes: [
-                    {
-                        name: 'Básico'
-                    },
-                    {
-                        name: 'Cascada'
-                    },
-                    {
-                        name: 'Barras apiladas'
-                    },
-                    {
-                        name: 'Barras divididas'
-                    },
-                    {
-                        name: 'Barras cruzadas'
-                    }
-                ]
-            },
-            scatter: {
-                subtypes: [
-                    {
-                        name: 'Básico'
-                    },
-                    {
-                        name: 'Burbujas'
-                    },
-                    {
-                        name: 'Gran escala'
-                    }
-                ]
-            },
-            pie: {
-                subtypes: [
-                    {
-                        name: 'Básico'
-                    },
-                    {
-                        name: 'Dona'
-                    },
-                    {
-                        name: 'Compuesto'
-                    }
-                ]
-            },
-            radar: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Relleno'
-                }
-            ],
-            chord: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Alternativo'
-                }
-            ],
-            nodes: [
-                {
-                    name: 'Básico'
-                },
-                {
-                    name: 'Árbol'
-                }
-            ],
-            combined: [
-                {
-                    name: 'Líneas + barras'
-                },
-                {
-                    name: 'Líneas + dispersión'
-                }
-            ]
-        };
-
         this.state = {
-            chartType: this.chartTypes.line
+            chartType: chartTypes.line,
+            chartSubtype: 0
         };
     }
+
     @autobind
     onSelect(info) {
         console.log('selected', info);
@@ -118,6 +135,17 @@ export default class LeftPane extends Component {
     @autobind
     onCheck(info) {
         console.log('onCheck', info);
+    }
+
+    @autobind
+    getChartSubtypes() {
+        return this.state.chartType.subtypes.map((element) => {
+            return (
+                <Option value={element.name} key={`${this.state.chartType.name}${element.name}`}>
+                    {element.name}
+                </Option>
+            );
+        });
     }
 
     render() {
@@ -161,14 +189,12 @@ export default class LeftPane extends Component {
                         </div>
                         <Row className="data-paneless-control">
                             <Col>
-                                <span className="data-control-label" id="subtype">Subtipo</span>
+                                <span className="data-control-label" id="subtype">Tipo</span>
                                 <Select
                                   className="data-control-select"
-                                  defaultValue="subtipo1"
-                                  placeholder="Subtipo">
-                                    <Option value="subtipo1" key="subtipo1">Subtipo 1</Option>
-                                    <Option value="subtipo2" key="subtipo2">Subtipo 2</Option>
-                                    <Option value="subtipo3" key="subtipo3">Subtipo 3</Option>
+                                  defaultValue={this.state.chartType.subtypes[0].name}
+                                  placeholder="Tipo">
+                                    { this.getChartSubtypes() }
                                 </Select>
                             </Col>
                         </Row>
