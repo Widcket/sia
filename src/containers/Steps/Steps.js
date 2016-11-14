@@ -8,16 +8,7 @@ const Step = Stepper.Step;
 
 export default class Steps extends Component {
     static propTypes = {
-
-    }
-
-    constructor() {
-        super();
-
-        this.state = {
-            finished: false,
-            current: 3
-        };
+        step: PropTypes.number.isRequired
     }
 
     @autobind
@@ -36,24 +27,8 @@ export default class Steps extends Component {
         }
     }
 
-    handleNext = () => {
-        const {current} = this.state;
-
-        this.setState({
-            current: current + 1,
-            finished: current >= 3
-        });
-    }
-
-    handlePrev = () => {
-        const {current} = this.state;
-
-        if (current > 0) this.setState({current: current - 1});
-    }
-
     render() {
         const styles = require('./Steps.scss');
-        const {finished, current} = this.state;
 
         const steps = [
             <Step key="Step1" title="Agregar datos" description="Elige datasets" />,
@@ -64,10 +39,10 @@ export default class Steps extends Component {
 
         return (
             <div>
-                <Stepper current={current} id="steps">
+                <Stepper current={this.props.step} id="steps">
                     {steps}
                 </Stepper>
-                {this.getStep(current)}
+                {this.getStep(this.props.step)}
             </div>
         );
     }

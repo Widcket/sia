@@ -5,14 +5,9 @@ import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/modules/info';
 import {Navigation} from '../../components';
 import {Steps} from '..';
 import {asyncConnect} from 'redux-async-connect';
+import {autobind} from 'core-decorators';
 import config from '../../config';
-import {connect} from 'react-redux';
-
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-// injectTapEventPlugin();
+import { connect } from 'react-redux';
 
 @asyncConnect([
     {
@@ -42,6 +37,20 @@ export default class App extends Component {
         store: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            step: 3,
+            last: 3
+        };
+    }
+
+    @autobind
+    setStep(step) {
+        this.setState({ step });
+    }
+
     render() {
         const styles = require('./App.scss');
 
@@ -53,10 +62,13 @@ export default class App extends Component {
         return (
             <Row id="app" type="flex" align="middle">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
-                    <Steps>
+                    <Steps step={this.state.step}>
                         {this.props.children}
                     </Steps>
-                    <Navigation />
+                    <Navigation
+                      step={this.state.step}
+                      updateStep={this.setStep}
+                      finished={this.state.step === this.state.last} />
                 </Col>
             </Row>
         );

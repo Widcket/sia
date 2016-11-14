@@ -1,9 +1,23 @@
 import {Col, Row} from 'antd';
 import React, {Component, PropTypes} from 'react';
 
+import {autobind} from 'core-decorators';
+
 export default class Navigation extends Component {
     static propTypes = {
+        step: PropTypes.number.isRequired,
+        updateStep: PropTypes.func.isRequired,
+        finished: PropTypes.bool
+    }
 
+    @autobind
+    handlePrev() {
+        this.props.updateStep(this.props.step - 1);
+    }
+
+    @autobind
+    handleNext() {
+        this.props.updateStep(this.props.step + 1);
     }
 
     render() {
@@ -15,15 +29,21 @@ export default class Navigation extends Component {
         const colSizeLG = { span: 24 };
 
         return (
-            <Row
-              className="navigation">
+            <Row className="navigation">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
-                    <div className="previous">
-                        <span>Atrás</span>
-                    </div>
-                    <div className="next">
-                        <span>Siguiente</span>
-                    </div>
+                    {
+                        this.props.step === 0 ? '' :
+                            <div className="previous">
+                                <span onClick={this.handlePrev}>Atrás</span>
+                            </div>
+                    }
+
+                    {
+                        this.props.finished ? '' :
+                            <div className="next">
+                                <span onClick={this.handleNext}>Siguiente</span>
+                            </div>
+                    }
                 </Col>
             </Row>
         );
