@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Step1, Step2, Step3, Step4} from '../../components';
 
 import {Steps as Stepper} from 'antd';
+import {autobind} from 'core-decorators';
 
 const Step = Stepper.Step;
 
@@ -15,10 +16,11 @@ export default class Steps extends Component {
 
         this.state = {
             finished: false,
-            current: 2
+            current: 3
         };
     }
 
+    @autobind
     getStep(current) {
         switch (current) {
             case 0:

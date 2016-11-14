@@ -44,7 +44,10 @@ class ConnectForm extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input addonBefore={<Icon type="link" />} placeholder="URL" />
+                                    <Input
+                                      type="url"
+                                      addonBefore={<Icon type="link" />}
+                                      placeholder="URL" />
                                 )}
                             </FormItem>
                             <FormItem>

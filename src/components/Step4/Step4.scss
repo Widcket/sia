@@ -1,3 +1,15 @@
 #step4 {
+    .export-form {
+        margin: 0rem auto 2rem auto;
+        max-width: 27rem;
+        min-width: 23rem;
 
+        .ant-form-item {
+            margin-bottom: 1rem;
+        }
+
+        .export-button {
+            width: 100%;
+        }
+    }
 }
