@@ -1,9 +1,14 @@
 .connect-form {
-    margin: 0rem auto;
+    margin: 0rem auto 2rem auto;
     max-width: 27rem;
     min-width: 23rem;
 
+    .ant-form-item {
+        margin-bottom: 0.8rem;
+    }
+
     .connect-button {
+        margin-top: 1rem;
         width: 100%;
     }
 }
