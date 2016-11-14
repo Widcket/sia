@@ -69,7 +69,7 @@ export default class LeftPane extends Component {
                                 <Col span="6">
                                     <div className="type">
                                         <i className="fi flaticon-chemical-diagram" />
-                                        <span>Nodos</span>
+                                        <span>Grafos</span>
                                     </div>
                                 </Col>
                                 <Col span="6">
@@ -82,7 +82,7 @@ export default class LeftPane extends Component {
                         </div>
                         <Row className="data-paneless-control">
                             <Col>
-                                <span className="data-control-label">Subtipo</span>
+                                <span className="data-control-label data-control-label-subtype">Subtipo</span>
                                 <Select
                                   className="data-control-select"
                                   defaultValue="subtipo1"

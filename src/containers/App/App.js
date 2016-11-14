@@ -41,7 +41,7 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            step: 3,
+            step: 0,
             last: 3
         };
     }

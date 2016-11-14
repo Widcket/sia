@@ -1,4 +1,6 @@
 #step2 {
+    transition: none !important;
+
     .strong {
         font-weight: bold;
     }
@@ -135,21 +137,16 @@
         min-width: 7rem;
     }
 
+    .ant-select {
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .ant-select-dropdown {
+        width: auto !important;
+    }
+
     .ant-tabs-bar {
         margin-bottom: 5px;
     }
-}
-
-.ant-select {
-    margin-top: 5px;
-    margin-right: 5px;
-}
-
-.ant-select-dropdown {
-    width: auto !important;
-}
-
-.ant-select-dropdown-menu-item-disabled, .ant-select-dropdown-menu-item-disabled:hover  {
-    font-weight: bold;
-    cursor: default;
 }

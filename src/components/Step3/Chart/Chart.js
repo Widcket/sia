@@ -11,7 +11,7 @@ export default class Chart extends Component {
         super(props);
 
         this.state = {
-            width: '44.45%'
+            width: '100%'
         };
     }
 

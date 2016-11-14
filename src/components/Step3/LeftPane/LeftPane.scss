@@ -71,7 +71,7 @@
         float: left;
         width: 3.6rem;
         font-size: 0.8rem;
-        margin-top: 0.3rem;
+        margin-top: 0.25rem;
     }
 
     .data-panel-control {
@@ -102,13 +102,26 @@
 
         .data-control-label {
             width: 3.9rem;
-            margin-top: 0.3rem;
+            margin-top: 0.25rem;
             margin-left: 0.1rem;
+
+            &.data-control-label-subtype {
+                width: 3.5rem;
+            }
         }
     }
 
     .ant-row, .ant-collapse {
         width: calc(100% - 2px);
         margin-left: 1px;
+    }
+
+    .ant-select-dropdown {
+        width: 100%;
+    }
+
+    .ant-slider {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }

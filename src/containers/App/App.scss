@@ -22,6 +22,19 @@
         background-color: #fafafa;
     }
 
+    .ant-slider-track {
+        background-color: #2db7f5;
+    }
+
+    .ant-slider-handle {
+        border-color: #2db7f5;
+    }
+
+    .ant-select-dropdown-menu-item-disabled, .ant-select-dropdown-menu-item-disabled:hover  {
+        font-weight: bold;
+        cursor: default;
+    }
+
     @-moz-document url-prefix() {
         .ant-collapse {
             margin-bottom: 1px;
