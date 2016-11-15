@@ -7,7 +7,7 @@ import {Steps} from '..';
 import {asyncConnect} from 'redux-async-connect';
 import {autobind} from 'core-decorators';
 import config from '../../config';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 @asyncConnect([
     {

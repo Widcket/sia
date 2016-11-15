@@ -95,13 +95,11 @@
         }
     }
 
-    .data-panel-control .data-control-label,
-    .data-paneless-control .data-control-label {
+    .data-panel-control .data-control-label {
         transition: all 0.2s ease;
     }
 
-    .data-panel-control:hover .data-control-label,
-    .data-paneless-control:hover .data-control-label {
+    .data-panel-control:hover .data-control-label {
         font-weight: bold;
     }
 
