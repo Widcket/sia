@@ -16,13 +16,8 @@
     .reactPivot {
         padding: 0px 20px 20px;
 
-        select {
-            color: #555;
-            height: 28px;
-            border: none;
-            margin-right: 5px;
-            background-color: #FFF;
-            border: 1px solid #CCC;
+        .ant-select {
+            width: 10rem;
         }
     }
 
