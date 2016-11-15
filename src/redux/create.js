@@ -10,6 +10,7 @@ export default function createStore(history, client, data) {
     const middleware = [createMiddleware(client), reduxRouterMiddleware];
 
     let finalCreateStore;
+
     if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
         const {persistState} = require('redux-devtools');
         const DevTools = require('../containers/DevTools/DevTools');
