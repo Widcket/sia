@@ -16,135 +16,126 @@
     .reactPivot {
         padding: 0px 20px 20px;
 
-        .ant-select {
-            width: 10rem;
-        }
-    }
-
-    .reactPivot-soloDisplay {
-        padding: 5px;
-        display: inline-block;
-        margin-top: -2px;
-        margin-left: 3px;
-    }
-
-    .reactPivot-clearSolo {
-        cursor: pointer;
-        font-size: 120%;
-        margin-right: 2px;
-    }
-
-    .reactPivot-results {
-        * {
-            transition-property: none !important;
-            transform: none !important;
-            animation: none !important;
-        }
-
-        table {
-            width: 100%;
-            padding-top: 1.5rem;
-            clear: both;
-            text-align: left;
-            border-spacing: 0;
-        }
-
-        th {
-            padding-bottom: 0.5rem;
-            padding-left: 5px;
-
-            &.asc:after, &.desc:after {
-                opacity: 0.5;
-            }
-
-            &.asc:after {
-                content: ' ▲';
-            }
-
-            &.desc:after {
-                content: ' ▼';
+        .reactPivot-dimensions {
+            .ant-select {
+                width: 10rem;
+                margin-top: 5px;
+                margin-right: 5px;
             }
         }
 
-        tr {
-            &:hover td {
-                background: #fbfbfb;
-            }
-
-            &:hover td.reactPivot-indent {
-                background: none;
-            }
-        }
-
-        td {
-            border-top: 1px solid #ddd;
+        .reactPivot-soloDisplay {
             padding: 5px;
-            font-weight: 200;
-
-            &:hover .tag-solo {
-                opacity: 1 !important;
-            }
-
-            &.reactPivot-indent {
-                border: none;
-            }
-
-            .ant-tag {
-                margin: 0px 0px 0px 0.5rem;
-            }
+            display: inline-block;
+            margin-top: -2px;
+            margin-left: 3px;
         }
-    }
 
-    .reactPivot-csvExport {
-        button {
-            background-color: #FFF;
-            border: 1px solid #CCC;
-            height: 28px;
-            color: #555;
+        .reactPivot-clearSolo {
             cursor: pointer;
-            padding: 0 10px;
-            border-radius: 4px;
-            margin-top: 5px;
+            font-size: 120%;
+            margin-right: 2px;
         }
 
-        &, .reactPivot-columnControl {
-            float: right;
-            margin-left: 5px;
+        .reactPivot-results {
+            * {
+                transition-property: none !important;
+                transform: none !important;
+                animation: none !important;
+            }
+
+            table {
+                width: 100%;
+                padding-top: 1.5rem;
+                clear: both;
+                text-align: left;
+                border-spacing: 0;
+            }
+
+            th {
+                padding-bottom: 0.5rem;
+                padding-left: 5px;
+
+                &.asc:after, &.desc:after {
+                    opacity: 0.5;
+                }
+
+                &.asc:after {
+                    content: ' ▲';
+                }
+
+                &.desc:after {
+                    content: ' ▼';
+                }
+            }
+
+            tr {
+                &:hover td {
+                    background: #fbfbfb;
+                }
+
+                &:hover td.reactPivot-indent {
+                    background: none;
+                }
+            }
+
+            td {
+                border-top: 1px solid #ddd;
+                padding: 5px;
+                font-weight: 200;
+
+                &:hover .tag-solo {
+                    opacity: 1 !important;
+                }
+
+                &.reactPivot-indent {
+                    border: none;
+                }
+
+                .ant-tag {
+                    margin: 0px 0px 0px 0.5rem;
+                }
+            }
         }
-    }
 
-    .reactPivot-dimensions {
-        float: left;
-        text-align: left;
-    }
+        .reactPivot-csvExport {
+            button {
+                background-color: #FFF;
+                border: 1px solid #CCC;
+                height: 28px;
+                color: #555;
+                cursor: pointer;
+                padding: 0 10px;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
 
-    .reactPivot-paginate {
-        margin-top: 1rem;
-    }
-
-    .reactPivot-pageNumber {
-        padding: 2px;
-
-        &:hover {
-            font-weight: bold;
+            &, .reactPivot-columnControl {
+                float: right;
+                margin-left: 5px;
+            }
         }
 
-        &.is-selected {
-            font-weight: bold;
+        .reactPivot-dimensions {
+            float: left;
+            text-align: left;
         }
-    }
 
-    .select {
-        min-width: 7rem;
-    }
+        .reactPivot-paginate {
+            margin-top: 1rem;
+        }
 
-    .ant-select {
-        margin-top: 5px;
-        margin-right: 5px;
-    }
+        .reactPivot-pageNumber {
+            padding: 2px;
 
-    .ant-select-dropdown {
-        width: auto !important;
+            &:hover {
+                font-weight: bold;
+            }
+
+            &.is-selected {
+                font-weight: bold;
+            }
+        }
     }
 
     .ant-tabs-bar {
