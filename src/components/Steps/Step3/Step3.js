@@ -1,10 +1,14 @@
 import {Col, Row} from 'antd';
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import Chart from './Chart/Chart';
 import LeftPane from './LeftPane/LeftPane';
 
 export default class Step3 extends Component {
+    static propTypes = {
+        store: PropTypes.object.isRequired
+    }
+
     render() {
         const style = require('./Step3.scss');
 

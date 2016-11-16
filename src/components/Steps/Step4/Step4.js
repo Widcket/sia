@@ -1,11 +1,16 @@
 import {Button, Checkbox, Col, Form, Icon, Input, Row} from 'antd';
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {autobind} from 'core-decorators';
 
 const FormItem = Form.Item;
 
 class Step4 extends Component {
+    static propTypes = {
+        // store: PropTypes.object.isRequired,
+        form: PropTypes.object.isRequired
+    }
+
     @autobind
     handleSubmit(e) {
         e.preventDefault();

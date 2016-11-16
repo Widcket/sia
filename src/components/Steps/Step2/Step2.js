@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import ReactPivot from '../../Pivot';
 import {Tabs} from 'antd';
@@ -6,6 +6,10 @@ import {Tabs} from 'antd';
 const TabPane = Tabs.TabPane;
 
 export default class Step2 extends Component {
+    static propTypes = {
+        store: PropTypes.object.isRequired
+    }
+
     render() {
         const styles = require('./Step2.scss');
 
@@ -802,6 +806,10 @@ export default class Step2 extends Component {
                 title: 'Transaction Type',
                 value: (row) => row.transaction.type,
                 template: (value) => value
+            },
+            {
+                title: 'State',
+                value: 'state'
             }
         ];
         const reduce = (row, memo) => {

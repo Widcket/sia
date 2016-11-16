@@ -1,6 +1,6 @@
-const LOAD = 'redux-example/LOAD';
-const LOAD_SUCCESS = 'redux-example/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/LOAD_FAIL';
+const LOAD = 'step1/LOAD';
+const LOAD_SUCCESS = 'step1/LOAD_SUCCESS';
+const LOAD_FAIL = 'step1/LOAD_FAIL';
 
 const initialState = {
     loaded: false

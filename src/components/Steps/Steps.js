@@ -11,7 +11,18 @@ const Step = Stepper.Step;
 
 export default class Steps extends Component {
     static propTypes = {
-        stores: PropTypes.array.isRequired,
+        stores: PropTypes.shape({
+            step1: PropTypes.object.isRequired,
+            step2: PropTypes.object.isRequired,
+            step3: PropTypes.object.isRequired,
+            step4: PropTypes.object.isRequired
+        }).isRequired,
+        actions: PropTypes.shape({
+            step1: PropTypes.object.isRequired,
+            step2: PropTypes.object.isRequired,
+            step3: PropTypes.object.isRequired,
+            step4: PropTypes.object.isRequired
+        }).isRequired,
         step: PropTypes.number.isRequired
     }
 
