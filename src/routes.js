@@ -1,8 +1,8 @@
-import { App, NotFound } from 'containers';
-import { IndexRoute, Route } from 'react-router';
-import { Step1, Step2, Step3, Step4 } from 'components';
+import {App, NotFound} from './containers';
+import {IndexRoute, Route} from 'react-router';
 
 import React from 'react';
+import {Step1} from './components/Steps/Step1/Step1';
 
 export default(store) => {
   /**

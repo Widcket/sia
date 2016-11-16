@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import ReactPivot from '../Pivot';
+import ReactPivot from '../../Pivot';
 import {Tabs} from 'antd';
 
 const TabPane = Tabs.TabPane;

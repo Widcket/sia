@@ -1,11 +1,10 @@
 import * as NavigationActions from '../../redux/actions/navigation/creators';
 
 import {Col, Grid, Row} from 'antd';
+import {Navigation, Steps} from '../../components';
 import React, {Component, PropTypes} from 'react';
 import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/reducers/info';
 
-import {Navigation} from '../../components';
-import {Steps} from '..';
 import {asyncConnect} from 'redux-async-connect';
 import {autobind} from 'core-decorators';
 import {bindActionCreators} from 'redux';
@@ -56,7 +55,6 @@ function mapStateToProps(state) {
 
 export default class App extends Component {
     static propTypes = {
-        children: PropTypes.object.isRequired,
         stores: PropTypes.shape({
             app: PropTypes.object.isRequired,
             step1: PropTypes.object.isRequired,
@@ -90,9 +88,7 @@ export default class App extends Component {
                         this.props.stores.step3,
                         this.props.stores.step4
                     ]}
-                      step={this.props.stores.navigation.current}>
-                        {this.props.children}
-                    </Steps>
+                      step={this.props.stores.navigation.current} />
                     <Navigation
                       store={this.props.stores.navigation}
                       getPrevious={this.props.actions.navigation.previous}
