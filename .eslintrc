@@ -23,6 +23,7 @@
         "import/namespace": 0,
         "import/no-unresolved": 0,
         "import/no-named-as-default": 2,
+        "import/prefer-default-export": 0,
         "indent": [1, 4, {
             "SwitchCase": 1
         }],
