@@ -53,6 +53,14 @@ export default class Dimensions extends Component {
     render() {
         const selectedDimensions = this.props.selectedDimensions;
         const nSelected = selectedDimensions.length;
+        const nDimensions = this.props.dimensions.length;
+        const difference = [];
+
+        for (let i = 0; i < nDimensions; i++) {
+            if (selectedDimensions.indexOf(this.props.dimensions[i].title) === -1) {
+                difference.push(this.props.dimensions[i]);
+            }
+        }
 
         if (nSelected < this.props.dimensions.length) {
             return (
@@ -61,7 +69,7 @@ export default class Dimensions extends Component {
 
                     <Select size="small" value="" onSelect={partial(this.toggleDimension, nSelected)}>
                         <Option value="" disabled>Subdimensión...</Option>
-                        {this.props.dimensions.map((dimension) => {
+                        {difference.map((dimension) => {
                             return <Option value={dimension.title} key={dimension.title}>{dimension.title}</Option>;
                         })}
                     </Select>
