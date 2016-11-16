@@ -9,11 +9,12 @@ export default function info(state = initialState, action = {}) {
         case actions.FILTER:
             return {
                 ...state,
-                loading: true
+                error: action.error
             };
         case actions.TOGGLE_DIMENSION:
             return {
                 ...state,
+                error: action.error
             };
         case actions.TOGGLE_TAB:
             return {

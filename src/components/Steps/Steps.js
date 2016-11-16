@@ -30,13 +30,13 @@ export default class Steps extends Component {
     getStep(current) {
         switch (current) {
             case 0:
-                return <Step1 store={this.props.stores.step1} />;
+                return <Step1 store={this.props.stores.step1} actions={this.props.actions.step1} />;
             case 1:
-                return <Step2 store={this.props.stores.step2} />;
+                return <Step2 store={this.props.stores.step2} actions={this.props.actions.step2} />;
             case 2:
-                return <Step3 store={this.props.stores.step3} />;
+                return <Step3 store={this.props.stores.step3} actions={this.props.actions.step3} />;
             case 3:
-                return <Step4 store={this.props.stores.step4} />;
+                return <Step4 store={this.props.stores.step4} actions={this.props.actions.step4} />;
             default:
                 return;
         }
