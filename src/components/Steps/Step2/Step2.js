@@ -7,7 +7,8 @@ const TabPane = Tabs.TabPane;
 
 export default class Step2 extends Component {
     static propTypes = {
-        store: PropTypes.object.isRequired
+        store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired
     }
 
     render() {

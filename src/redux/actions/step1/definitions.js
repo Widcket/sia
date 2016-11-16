@@ -1,2 +1,1 @@
-export const PREVIOUS = 'navigation/PREVIOUS';
-export const NEXT = 'navigation/NEXT';
+export const NEXT = 'step1/NEXT';

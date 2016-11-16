@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import ConnectForm from './ConnectForm/ConnectForm';
 import DatasetPicker from './DatasetPicker/DatasetPicker';
 import Spinner from './Spinner/Spinner';
 import {autobind} from 'core-decorators';
 
-// import { StepButton } from 'material-ui/Stepper';
-
 class Step1 extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            stage: 0
-        };
+    static propTypes = {
+        store: PropTypes.object.isRequired,
+        // actions: PropTypes.object.isRequired
     }
 
     @autobind
@@ -35,7 +30,7 @@ class Step1 extends Component {
 
         return (
             <div id="step1">
-                {this.getStage(this.state.stage)}
+                {this.getStage(this.props.store.stage)}
             </div>
         );
     }

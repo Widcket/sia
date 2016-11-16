@@ -8,6 +8,7 @@ const FormItem = Form.Item;
 class Step4 extends Component {
     static propTypes = {
         // store: PropTypes.object.isRequired,
+        // actions: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired
     }
 

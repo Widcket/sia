@@ -6,7 +6,8 @@ import LeftPane from './LeftPane/LeftPane';
 
 export default class Step3 extends Component {
     static propTypes = {
-        store: PropTypes.object.isRequired
+        store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired
     }
 
     render() {
