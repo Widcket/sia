@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import widgetActions, {isLoaded, load as loadWidgets} from 'redux/modules/widgets';
+import widgetActions, {isLoaded, load as loadWidgets} from 'redux/reducers/widgets';
 
 import Helmet from 'react-helmet';
 import {WidgetForm} from 'components';

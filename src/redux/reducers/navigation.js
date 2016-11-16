@@ -1,5 +1,4 @@
-const PREVIOUS = 'PREVIOUS';
-const NEXT = 'NEXT';
+import * as actions from '../actions/navigation/definitions';
 
 const initialState = {
     current: 0
@@ -7,15 +6,13 @@ const initialState = {
 
 export default function info(state = initialState, action = {}) {
     switch (action.type) {
-        case PREVIOUS:
+        case actions.PREVIOUS:
             return {
-                ...state,
-                current: state.current--
+                current: --state.current
             };
-        case NEXT:
+        case actions.NEXT:
             return {
-                ...state,
-                current: state.current++
+                current: ++state.current
             };
         default:
             return state;

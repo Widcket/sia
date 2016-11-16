@@ -5,19 +5,10 @@ import {autobind} from 'core-decorators';
 
 export default class Navigation extends Component {
     static propTypes = {
-        step: PropTypes.number.isRequired,
-        updateStep: PropTypes.func.isRequired,
+        store: PropTypes.object.isRequired,
+        getPrevious: PropTypes.func.isRequired,
+        getNext: PropTypes.func.isRequired,
         finished: PropTypes.bool
-    }
-
-    @autobind
-    handlePrev() {
-        this.props.updateStep(this.props.step - 1);
-    }
-
-    @autobind
-    handleNext() {
-        this.props.updateStep(this.props.step + 1);
     }
 
     render() {
@@ -32,16 +23,16 @@ export default class Navigation extends Component {
             <Row className="navigation">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
                     {
-                        this.props.step === 0 ? '' :
+                        this.props.store.current === 0 ? '' :
                             <div className="previous">
-                                <span onClick={this.handlePrev}>Atrás</span>
+                                <span onClick={this.props.getPrevious}>Atrás</span>
                             </div>
                     }
 
                     {
                         this.props.finished ? '' :
                             <div className="next">
-                                <span onClick={this.handleNext}>Siguiente</span>
+                                <span onClick={this.props.getNext}>Siguiente</span>
                             </div>
                     }
                 </Col>

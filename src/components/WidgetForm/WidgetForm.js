@@ -1,11 +1,11 @@
-import * as widgetActions from 'redux/modules/widgets';
+import * as widgetActions from '../../redux/reducers/widgets';
 
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {reduxForm} from 'redux-form';
-
 import widgetValidation, {colors} from './widgetValidation';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {reduxForm} from 'redux-form';
 
 @connect(state => ({saveError: state.widgets.saveError}), dispatch => bindActionCreators(widgetActions, dispatch))
 @reduxForm({
@@ -49,7 +49,9 @@ export default class WidgetForm extends Component {
             },
             values
         } = this.props;
-        const styles = require('containers/Widgets/Widgets.scss');
+
+        const styles = require('../../containers/Widgets/Widgets.scss');
+
         return (
             <tr className={submitting
                 ? styles.saving

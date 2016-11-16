@@ -1,13 +1,37 @@
+import * as NavigationActions from '../../redux/actions/navigation/creators';
+
 import {Col, Grid, Row} from 'antd';
 import React, {Component, PropTypes} from 'react';
-import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/modules/info';
+import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/reducers/info';
 
 import {Navigation} from '../../components';
 import {Steps} from '..';
 import {asyncConnect} from 'redux-async-connect';
 import {autobind} from 'core-decorators';
+import {bindActionCreators} from 'redux';
 import config from '../../config';
 import {connect} from 'react-redux';
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: {
+            navigation: bindActionCreators(NavigationActions, dispatch)
+        }
+    };
+}
+
+function mapStateToProps(state) {
+    return {
+        stores: {
+            app: state.app,
+            step1: state.step1,
+            step2: state.step2,
+            step3: state.step3,
+            step4: state.step4,
+            navigation: state.navigation
+        }
+    };
+}
 
 @asyncConnect([
     {
@@ -28,28 +52,26 @@ import {connect} from 'react-redux';
     }
 ])
 
+@connect(mapStateToProps, mapDispatchToProps)
+
 export default class App extends Component {
     static propTypes = {
-        children: PropTypes.object.isRequired
+        children: PropTypes.object.isRequired,
+        stores: PropTypes.shape({
+            app: PropTypes.object.isRequired,
+            step1: PropTypes.object.isRequired,
+            step2: PropTypes.object.isRequired,
+            step3: PropTypes.object,
+            step4: PropTypes.object,
+            navigation: PropTypes.object.isRequired
+        }).isRequired,
+        actions: PropTypes.shape({
+            navigation: PropTypes.shape({
+                previous: PropTypes.func.isRequired,
+                next: PropTypes.func.isRequired
+            }).isRequired
+        }).isRequired,
     };
-
-    static contextTypes = {
-        store: PropTypes.object.isRequired
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            step: 0,
-            last: 3
-        };
-    }
-
-    @autobind
-    setStep(step) {
-        this.setState({ step });
-    }
 
     render() {
         const styles = require('./App.scss');
@@ -62,13 +84,20 @@ export default class App extends Component {
         return (
             <Row id="app" type="flex" align="middle">
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
-                    <Steps step={this.state.step}>
+                    <Steps stores={[
+                        this.props.stores.step1,
+                        this.props.stores.step2,
+                        this.props.stores.step3,
+                        this.props.stores.step4
+                    ]}
+                      step={this.props.stores.navigation.current}>
                         {this.props.children}
                     </Steps>
                     <Navigation
-                      step={this.state.step}
-                      updateStep={this.setStep}
-                      finished={this.state.step === this.state.last} />
+                      store={this.props.stores.navigation}
+                      getPrevious={this.props.actions.navigation.previous}
+                      getNext={this.props.actions.navigation.next}
+                      finished={this.props.stores.navigation.current === this.props.stores.app.lastStep} />
                 </Col>
             </Row>
         );

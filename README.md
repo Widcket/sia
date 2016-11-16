@@ -121,7 +121,7 @@ The middleware, [`clientMiddleware.js`](https://github.com/erikras/react-redux-u
 
 #### Redux Modules... *What the Duck*?
 
-The `src/redux/modules` folder contains "modules" to help
+The `src/redux/reducers` folder contains "modules" to help
 isolate concerns within a Redux application (aka [Ducks](https://github.com/erikras/ducks-modular-redux), a Redux Style Proposal that I came up with). I encourage you to read the
 [Ducks Docs](https://github.com/erikras/ducks-modular-redux) and provide feedback.
 

@@ -1,11 +1,11 @@
-const FILTER = 'sia/FILTER';
-const TOGGLE_DIMENSION = 'sia/TOGGLE_DIMENSION';
-const TOGGLE_TAB = 'sia/TOGGLE_TAB';
-const ADD_COLUMN = 'sia/ADD_COLUMN';
-const REMOVE_COLUMN = 'sia/REMOVE_COLUMN';
-const EDIT_COLUMN = 'sia/EDIT_COLUMN';
-const SAVE_COLUMN = 'sia/SAVE_COLUMN';
-const TOGGLE_PAGE = 'sia/TOGGLE_PAGE'
+const FILTER = 'step2/FILTER';
+const TOGGLE_DIMENSION = 'step2/TOGGLE_DIMENSION';
+const TOGGLE_TAB = 'step2/TOGGLE_TAB';
+const ADD_COLUMN = 'step2/ADD_COLUMN';
+const REMOVE_COLUMN = 'step2/REMOVE_COLUMN';
+const EDIT_COLUMN = 'step2/EDIT_COLUMN';
+const SAVE_COLUMN = 'step2/SAVE_COLUMN';
+const TOGGLE_PAGE = 'step2/TOGGLE_PAGE';
 const initialState = {
     loaded: false
 };
