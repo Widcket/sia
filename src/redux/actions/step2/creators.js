@@ -12,9 +12,10 @@ export function toggleDimension() {
     };
 }
 
-export function toggleTab() {
+export function toggleTab(defaultTab) {
     return {
-        type: actions.TOGGLE_TAB
+        type: actions.TOGGLE_TAB,
+        defaultTab
     };
 }
 

@@ -1,49 +1,15 @@
 import * as actions from '../actions/step2/definitions';
 
 const initialState = {
-    loaded: false
+    defaultTab: 'tab1'
 };
 
 export default function info(state = initialState, action = {}) {
     switch (action.type) {
-        case actions.FILTER:
+        case actions.SET_DEFAULT_TAB:
             return {
                 ...state,
-                error: action.error
-            };
-        case actions.TOGGLE_DIMENSION:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.TOGGLE_TAB:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.ADD_COLUMN:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.REMOVE_COLUMN:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.EDIT_COLUMN:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.SAVE_COLUMN:
-            return {
-                ...state,
-                error: action.error
-            };
-        case actions.TOGGLE_PAGE:
-            return {
-                ...state,
+                defaultTab: action.defaultTab,
                 error: action.error
             };
         default:

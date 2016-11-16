@@ -8,7 +8,7 @@ const TabPane = Tabs.TabPane;
 export default class Step2 extends Component {
     static propTypes = {
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired
+        // actions: PropTypes.object.isRequired
     }
 
     render() {
@@ -840,7 +840,7 @@ export default class Step2 extends Component {
 
         return (
             <div id="step2">
-                <Tabs defaultActiveKey="tab1">
+                <Tabs defaultActiveKey={this.props.store.defaultTab}>
                     <TabPane tab="Dataset 1" key="tab1">
                         <ReactPivot rows={rows}
                           dimensions={dimensions}
