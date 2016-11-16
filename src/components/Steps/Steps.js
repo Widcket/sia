@@ -11,6 +11,7 @@ const Step = Stepper.Step;
 
 export default class Steps extends Component {
     static propTypes = {
+        stores: PropTypes.array.isRequired,
         step: PropTypes.number.isRequired
     }
 
@@ -18,13 +19,13 @@ export default class Steps extends Component {
     getStep(current) {
         switch (current) {
             case 0:
-                return <Step1 />;
+                return <Step1 store={this.props.stores.step1} />;
             case 1:
-                return <Step2 />;
+                return <Step2 store={this.props.stores.step2} />;
             case 2:
-                return <Step3 />;
+                return <Step3 store={this.props.stores.step3} />;
             case 3:
-                return <Step4 />;
+                return <Step4 store={this.props.stores.step4} />;
             default:
                 return;
         }
