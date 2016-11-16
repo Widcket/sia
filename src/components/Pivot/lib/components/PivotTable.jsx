@@ -237,7 +237,11 @@ export default class PivotTable extends Component {
                               onClick={partial(this.props.onSort, col.title)}
                               style={{cursor: 'pointer'}}
                               key={col.title}>
-                                <Popover content={buttonBar} title="" key={'header-' + col.title}>
+                                <Popover
+                                  content={buttonBar}
+                                  title=""
+                                  overlayStyle={{paddingLeft: 0, paddingRight: 0}}
+                                  key={'header-' + col.title}>
                                     <span>{col.title}</span>
                                 </Popover>
                                 {modal}
