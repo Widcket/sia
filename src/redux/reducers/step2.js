@@ -4,7 +4,7 @@ const initialState = {
     defaultTab: 'tab1'
 };
 
-export default function info(state = initialState, action = {}) {
+export default function step2(state = initialState, action = {}) {
     switch (action.type) {
         case actions.SET_DEFAULT_TAB:
             return {

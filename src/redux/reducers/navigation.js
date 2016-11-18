@@ -4,7 +4,7 @@ const initialState = {
     current: 0
 };
 
-export default function info(state = initialState, action = {}) {
+export default function navigation(state = initialState, action = {}) {
     switch (action.type) {
         case actions.PREVIOUS:
             return {

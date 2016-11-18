@@ -124,7 +124,7 @@ const initialState = {
     yAxisGrid: true
 };
 
-export default function info(state = initialState, action = {}) {
+export default function step3(state = initialState, action = {}) {
     switch (action.type) {
         case actions.SET_DEFAULT_TAB:
             return {

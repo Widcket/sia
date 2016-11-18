@@ -4,7 +4,7 @@ const initialState = {
     stage: 0
 };
 
-export default function info(state = initialState, action = {}) {
+export default function step1(state = initialState, action = {}) {
     switch (action.type) {
         case actions.NEXT:
             return {

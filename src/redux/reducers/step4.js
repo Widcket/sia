@@ -7,7 +7,7 @@ const initialState = {
     includeDataTable: false
 };
 
-export default function info(state = initialState, action = {}) {
+export default function step4(state = initialState, action = {}) {
     switch (action.type) {
         case actions.SET_TITLE:
             return {

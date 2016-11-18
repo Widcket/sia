@@ -90,11 +90,19 @@ class Step4 extends Component {
                                 )}
                             </FormItem>
                             <FormItem>
-                                <Checkbox
-                                  checked={this.props.store.includeDataTable}
-                                  onChange={this.props.actions.includeDataTable}>
-                                    Incluir tabla con los datos
-                                </Checkbox>
+                                {getFieldDecorator('dataTable', {
+                                    rules: [
+                                        {
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Checkbox
+                                      checked={this.props.store.includeDataTable}
+                                      onChange={this.props.actions.includeDataTable}>
+                                        Incluir tabla con los datos
+                                    </Checkbox>
+                                )}
                             </FormItem>
                             <FormItem>
                                 <Button type="primary" htmlType="submit" className="export-button">
