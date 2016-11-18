@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
 import DataFrame from 'dataframe';
 import Emitter from 'wildemitter';
@@ -19,7 +19,7 @@ const ColumnControl = require('./lib/components/ColumnControl.jsx');
 
 function loadStyles() { require('./style.css'); }
 
-export default class ReactPivot extends PureComponent {
+export default class ReactPivot extends Component {
     static defaultProps = {
         rows: [],
         dimensions: [],
