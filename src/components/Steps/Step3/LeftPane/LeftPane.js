@@ -1,5 +1,5 @@
 import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import ChartButton from '../ChartButton/ChartButton';
 import {autobind} from 'core-decorators';
@@ -9,21 +9,11 @@ const Option = Select.Option;
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
 
-export default class LeftPane extends Component {
+export default class LeftPane extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired,
         data: PropTypes.array.isRequired
-    }
-
-    @autobind
-    onSelect(info) {
-        console.log('selected', info);
-    }
-
-    @autobind
-    onCheck(info) {
-        console.log('onCheck', info);
     }
 
     @autobind
@@ -156,8 +146,7 @@ export default class LeftPane extends Component {
                                   checkable
                                   defaultExpandAll
                                   autoExpandParent
-                                  defaultCheckedKeys={['0-0-0', '0-0-1']}
-                                  onSelect={this.onSelect} onCheck={this.onCheck}>
+                                  defaultCheckedKeys={['0-0-0', '0-0-1']} >
                                     <TreeNode title="Dataset 1" key="0-0">
                                         <TreeNode title="Columna 1" key="0-0-0" />
                                         <TreeNode title="Columna 2" key="0-0-1" />

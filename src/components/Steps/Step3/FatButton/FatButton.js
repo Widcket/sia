@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
-export default class FatButton extends Component {
+export default class FatButton extends PureComponent {
     static propTypes = {
         iconClass: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,

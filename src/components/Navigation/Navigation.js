@@ -1,9 +1,9 @@
 import {Col, Row} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
-export default class Navigation extends Component {
+export default class Navigation extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         getPrevious: PropTypes.func.isRequired,

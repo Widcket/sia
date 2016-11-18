@@ -1,12 +1,12 @@
 import {Col, Row} from 'antd';
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 
 import ReactEcharts from 'echarts-for-react';
 import {autobind} from 'core-decorators';
 
 const echarts = require('echarts');
 
-export default class Chart extends Component {
+export default class Chart extends PureComponent {
     @autobind
     onChartReady(chart) {
         chart.hideLoading();

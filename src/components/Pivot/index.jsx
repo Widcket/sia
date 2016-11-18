@@ -1,6 +1,7 @@
+import React, {PureComponent} from 'react';
+
 import DataFrame from 'dataframe';
 import Emitter from 'wildemitter';
-import React from 'react';
 import {Tag} from 'antd';
 import {autobind} from 'core-decorators';
 
@@ -16,12 +17,9 @@ const PivotTable = require('./lib/components/PivotTable.jsx');
 const Dimensions = require('./lib/components/Dimensions.jsx');
 const ColumnControl = require('./lib/components/ColumnControl.jsx');
 
-const Component = React.Component;
-
-
 function loadStyles() { require('./style.css'); }
 
-export default class ReactPivot extends Component {
+export default class ReactPivot extends PureComponent {
     static defaultProps = {
         rows: [],
         dimensions: [],

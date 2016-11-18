@@ -1,10 +1,10 @@
 import {Col, Row} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import Chart from './Chart/Chart';
 import LeftPane from './LeftPane/LeftPane';
 
-export default class Step3 extends Component {
+export default class Step3 extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired,

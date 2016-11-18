@@ -1,11 +1,11 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import ReactPivot from '../../Pivot';
 import {Tabs} from 'antd';
 
 const TabPane = Tabs.TabPane;
 
-export default class Step2 extends Component {
+export default class Step2 extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         data: PropTypes.array.isRequired
