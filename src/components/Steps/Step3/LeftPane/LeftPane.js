@@ -1,130 +1,19 @@
 import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-import FatButton from '../FatButton/FatButton';
+import ChartButton from '../ChartButton/ChartButton';
 import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
-const chartTypes = {
-    line: {
-        name: 'Líneas',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Área'
-            },
-            {
-                name: 'Área invertida'
-            },
-        ]
-    },
-    bar: {
-        name: 'Barras',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Cascada'
-            },
-            {
-                name: 'Barras apiladas'
-            },
-            {
-                name: 'Barras divididas'
-            },
-            {
-                name: 'Barras cruzadas'
-            }
-        ]
-    },
-    scatter: {
-        name: 'Dispersión',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Burbujas'
-            },
-            {
-                name: 'Gran escala'
-            }
-        ]
-    },
-    pie: {
-        name: 'Torta',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Dona'
-            },
-            {
-                name: 'Compuesto'
-            }
-        ]
-    },
-    radar: {
-        name: 'Radar',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Relleno'
-            }
-        ]
-    },
-    chord: {
-        name: 'Cuerdas',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Alternativo'
-            }
-        ]
-    },
-    nodes: {
-        name: 'Grafos',
-        subtypes: [
-            {
-                name: 'Básico'
-            },
-            {
-                name: 'Árbol'
-            }
-        ]
-    },
-    combined: {
-        name: 'Combinados',
-        subtypes: [
-            {
-                name: 'Líneas + barras'
-            },
-            {
-                name: 'Líneas + dispersión'
-            }
-        ]
-    }
-};
 
 export default class LeftPane extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            chartType: chartTypes.line,
-            chartSubtype: 0
-        };
+    static propTypes = {
+        store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired,
+        data: PropTypes.array.isRequired
     }
 
     @autobind
@@ -139,13 +28,36 @@ export default class LeftPane extends Component {
 
     @autobind
     getChartSubtypes() {
-        return this.state.chartType.subtypes.map((element) => {
+        return this.props.store.chartType.subtypes.map((element, i) => {
             return (
-                <Option value={element.name} key={`${this.state.chartType.name}${element.name}`}>
+                <Option value={i.toString()} key={`${this.props.store.chartType.name}${element.name}`}>
                     {element.name}
                 </Option>
             );
         });
+    }
+
+    @autobind
+    getTreeNodes() {
+        const nodes = [];
+        let j = 0;
+
+        this.props.data.forEach((element, i) => {
+            const children = [];
+
+            for (const prop in element) {
+                if (element.hasOwnProperty(prop)) {
+                    children.push(<TreeNode title={prop} key={`${i}-${j}`} />);
+                    j++;
+                }
+            }
+
+            nodes.push(
+                <TreeNode title={`Dataset ${i}`} key={`${i}-${i}`}>{children}</TreeNode>
+            );
+        }, this);
+
+        return nodes;
     }
 
     render() {
@@ -153,37 +65,74 @@ export default class LeftPane extends Component {
 
         return (
             <div id="left-pane">
-                <Tabs defaultActiveKey="tab1">
+                <Tabs defaultActiveKey={this.props.store.defaultTab}>
                     <TabPane tab="Gráfico" key="tab1" className="tab1">
                         <div id="chart-types">
                             <Row>
                                 <Col span="6">
-                                    <FatButton label="Líneas" iconClass="fi flaticon-business-stats" selected />
+                                    <ChartButton
+                                      label="Líneas"
+                                      iconClass="fi flaticon-business-stats"
+                                      chartType={this.props.store.chartTypes.line}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Barras" iconClass="fi flaticon-business-bars-graphic" />
+                                    <ChartButton
+                                      label="Barras"
+                                      iconClass="fi flaticon-business-bars-graphic"
+                                      chartType={this.props.store.chartTypes.bar}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Torta" iconClass="fi flaticon-pie-chart-stats" />
+                                    <ChartButton
+                                      label="Torta"
+                                      iconClass="fi flaticon-pie-chart-stats"
+                                      chartType={this.props.store.chartTypes.pie}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Dispersión" iconClass="fi flaticon-dots-graphic" />
+                                    <ChartButton
+                                      label="Dispersión"
+                                      iconClass="fi flaticon-dots-graphic"
+                                      chartType={this.props.store.chartTypes.scatter}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col span="6">
-                                    <FatButton label="Radar" iconClass="fi flaticon-radar-chart" />
+                                    <ChartButton
+                                      label="Radar"
+                                      iconClass="fi flaticon-radar-chart"
+                                      chartType={this.props.store.chartTypes.radar}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton
+                                    <ChartButton
                                       label="Cuerdas"
-                                      iconClass="fi flaticon-circle-with-irregular-grid-lines" />
+                                      iconClass="fi flaticon-circle-with-irregular-grid-lines"
+                                      chartType={this.props.store.chartTypes.chord}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Grafos" iconClass="fi flaticon-chemical-diagram" />
+                                    <ChartButton
+                                      label="Grafos"
+                                      iconClass="fi flaticon-chemical-diagram"
+                                      chartType={this.props.store.chartTypes.node}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                                 <Col span="6">
-                                    <FatButton label="Mixto" iconClass="fi flaticon-bar-dotted-stats" />
+                                    <ChartButton label="Mixto"
+                                      iconClass="fi flaticon-bar-dotted-stats"
+                                      chartType={this.props.store.chartTypes.mixed}
+                                      activeType={this.props.store.chartType}
+                                      setChartType={this.props.actions.setChartType} />
                                 </Col>
                             </Row>
                         </div>
@@ -192,8 +141,9 @@ export default class LeftPane extends Component {
                                 <span className="data-control-label" id="subtype">Tipo</span>
                                 <Select
                                   className="data-control-select"
-                                  defaultValue={this.state.chartType.subtypes[0].name}
-                                  placeholder="Tipo">
+                                  defaultValue={this.props.store.chartType.subtypes[0].name}
+                                  placeholder="Tipo"
+                                  onSelect={this.props.actions.setChartSubtype}>
                                     { this.getChartSubtypes() }
                                 </Select>
                             </Col>
@@ -224,15 +174,22 @@ export default class LeftPane extends Component {
                             </Panel>
                             <Panel header="Datos" key="datos">
                                 <div className="data-control-element">
-                                    <Slider range defaultValue={[10, 70]} />
+                                    <Slider
+                                      range
+                                      defaultValue={[10, 70]}
+                                      onChange={this.props.actions.setRange} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Invertir</span>
-                                    <Switch defaultChecked={false} />
+                                    <Switch
+                                      defaultChecked={this.props.store.invertData}
+                                      onChange={this.props.actions.invertData} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Transponer</span>
-                                    <Switch defaultChecked={false} />
+                                    <Switch
+                                      defaultChecked={this.props.store.transposeData}
+                                      onChange={this.props.actions.transposeData} />
                                 </div>
                             </Panel>
                         </Collapse>
@@ -241,36 +198,48 @@ export default class LeftPane extends Component {
                         <Row className="data-paneless-control">
                             <Col>
                                 <span className="data-control-label">Título</span>
-                                <Input className="data-control-input" />
+                                <Input className="data-control-input" value={this.props.store.chartTitle} />
                             </Col>
                         </Row>
                         <Collapse defaultActiveKey={['ejeX', 'ejeY']}>
                             <Panel header="Eje X" key="ejeX">
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
-                                    <Switch defaultChecked />
+                                    <Switch
+                                      defaultChecked={this.props.store.xAxis}
+                                      onChange={this.props.actions.toggleXAxis} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Etiquetas</span>
-                                    <Switch defaultChecked />
+                                    <Switch
+                                      defaultChecked={this.props.store.xAxisLabels}
+                                      onChange={this.props.actions.toggleXAxisLabels} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
-                                    <Switch defaultChecked={false} />
+                                    <Switch
+                                      defaultChecked={this.props.store.xAxisGrid}
+                                      onChange={this.props.actions.toggleXAxisGrid} />
                                 </div>
                             </Panel>
                             <Panel header="Eje Y" key="ejeY">
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
-                                    <Switch defaultChecked />
+                                    <Switch
+                                      defaultChecked={this.props.store.yAxis}
+                                      onChange={this.props.actions.toggleYAxis} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Etiquetas</span>
-                                    <Switch defaultChecked />
+                                    <Switch
+                                      defaultChecked={this.props.store.yAxisLabels}
+                                      onChange={this.props.actions.toggleYAxisLabels} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
-                                    <Switch defaultChecked />
+                                    <Switch
+                                      defaultChecked={this.props.store.yAxisGrid}
+                                      onChange={this.props.actions.toggleYAxisGrid} />
                                 </div>
                             </Panel>
                         </Collapse>

@@ -1,5 +1,6 @@
 #left-pane {
     width: 90%;
+    margin-bottom: 1rem;
 
     .tab1 {
         #chart-types {
@@ -59,7 +60,7 @@
         margin-left: 8px;
         margin-bottom: 0.6rem;
         width: auto;
-        display: inline-block;
+        display: block;
 
         &:last-of-type {
             margin-bottom: 0.9rem;
@@ -118,6 +119,10 @@
         &:hover {
             background-color: inherit;
             font-weight: bold;
+        }
+
+        &.ant-tree-node-selected {
+            background-color: initial;
         }
     }
 

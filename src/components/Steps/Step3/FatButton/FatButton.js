@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {autobind} from 'core-decorators';
 
@@ -6,7 +6,8 @@ export default class FatButton extends Component {
     static propTypes = {
         iconClass: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
-        selected: PropTypes.bool
+        selected: PropTypes.bool,
+        onClick: PropTypes.func
     }
 
     @autobind
@@ -21,7 +22,7 @@ export default class FatButton extends Component {
         const styles = require('./FatButton.scss');
 
         return (
-            <div className={this.getClassNames()}>
+            <div className={this.getClassNames()} onClick={this.props.onClick}>
                 <i className={this.props.iconClass} />
                 <span>{this.props.label}</span>
             </div>

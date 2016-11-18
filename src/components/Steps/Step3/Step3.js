@@ -7,7 +7,8 @@ import LeftPane from './LeftPane/LeftPane';
 export default class Step3 extends Component {
     static propTypes = {
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired
+        actions: PropTypes.object.isRequired,
+        data: PropTypes.array.isRequired
     }
 
     render() {
@@ -17,10 +18,13 @@ export default class Step3 extends Component {
             <div id="step3">
                 <Row>
                     <Col span={8}>
-                        <LeftPane />
+                        <LeftPane
+                          data={this.props.data}
+                          store={this.props.store}
+                          actions={this.props.actions} />
                     </Col>
                     <Col span={16} ref="chartContainer">
-                        <Chart />
+                        <Chart data={this.props.data} />
                     </Col>
                 </Row>
             </div>

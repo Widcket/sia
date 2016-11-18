@@ -1,11 +1,12 @@
 .type {
     margin-right: 0.26rem;
     margin-bottom: 0.26rem;
-    padding: 0.6rem 0rem 0.2rem 0rem;
+    padding: 0.4rem 0rem 0.2rem 0rem;
     text-align: center;
     border: 1px solid #d9d9d9;
     border-radius: 3px;
     cursor: pointer;
+    font-size: 0.7rem;
 
     &:hover:not(.selected) {
         border-color: #57c5f7;
@@ -18,6 +19,6 @@
 
     span {
         display: block;
-        margin-top: 0.1rem;
+        margin-top: 0.2rem;
     }
 }

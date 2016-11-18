@@ -74,12 +74,12 @@ export default class App extends Component {
             offset: 2
         };
         const colSizeMD = {
-            span: 18,
-            offset: 3
+            span: 20,
+            offset: 2
         };
         const colSizeLG = {
-            span: 16,
-            offset: 4
+            span: 14,
+            offset: 5
         };
 
         return (
@@ -87,17 +87,18 @@ export default class App extends Component {
                 <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
                     <Steps
                       stores={{
-                        step1: this.props.stores.step1,
-                        step2: this.props.stores.step2,
-                        step3: this.props.stores.step3,
-                        step4: this.props.stores.step4
+                          step1: this.props.stores.step1,
+                          step2: this.props.stores.step2,
+                          step3: this.props.stores.step3,
+                          step4: this.props.stores.step4
                       }}
                       actions={{
-                        step1: this.props.actions.step1,
-                        step2: this.props.actions.step2,
-                        step3: this.props.actions.step3,
-                        step4: this.props.actions.step4
+                          step1: this.props.actions.step1,
+                          step2: this.props.actions.step2,
+                          step3: this.props.actions.step3,
+                          step4: this.props.actions.step4
                       }}
+                      data={this.props.stores.app.data}
                       step={this.props.stores.navigation.current} />
                     <Navigation
                       store={this.props.stores.navigation}
