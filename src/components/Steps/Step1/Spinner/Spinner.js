@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import {Spin} from 'antd';
 
-class Spinner extends Component {
+class Spinner extends PureComponent {
     static propTypes = {
         active: React.PropTypes.bool
     };

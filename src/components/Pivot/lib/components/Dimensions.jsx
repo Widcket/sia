@@ -1,14 +1,13 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
+
 import {Select} from 'antd';
 import {autobind} from 'core-decorators';
 import partial from '../partial';
 
 const _ = {compact: require('lodash/compact')};
-
-const Component = React.Component;
 const Option = Select.Option;
 
-export default class Dimensions extends Component {
+export default class Dimensions extends PureComponent {
     static defaultProps = {
         dimensions: [],
         selectedDimensions: [],

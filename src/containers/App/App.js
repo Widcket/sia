@@ -6,7 +6,7 @@ import * as step4Actions from '../../redux/actions/step4/creators';
 
 import {Col, Grid, Row} from 'antd';
 import {Navigation, Steps} from '../../components';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/reducers/info';
 
 import {autobind} from 'core-decorators';
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 
-export default class App extends Component {
+export default class App extends PureComponent {
     static propTypes = {
         stores: PropTypes.shape({
             app: PropTypes.object.isRequired,
