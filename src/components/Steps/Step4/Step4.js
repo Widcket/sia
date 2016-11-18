@@ -9,7 +9,7 @@ class Step4 extends Component {
     static propTypes = {
         // data: PropTypes.array.isRequired,
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired,
+        // actions: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
     }
 
@@ -48,12 +48,13 @@ class Step4 extends Component {
                                             required: true,
                                             message: 'Debes ingresar un título'
                                         }
-                                    ]
+                                    ],
+                                    valuePropName: 'value',
+                                    initialValue: this.props.store.chartTitle
                                 })(
                                     <Input
                                       type="text"
-                                      placeholder="Título"
-                                      value={this.props.store.chartTitle} />
+                                      placeholder="Título" />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -63,14 +64,15 @@ class Step4 extends Component {
                                             required: true,
                                             message: 'Debes ingresar una descripción'
                                         }
-                                    ]
+                                    ],
+                                    valuePropName: 'value',
+                                    initialValue: this.props.store.chartDescription
                                 })(
                                     <Input
                                       type="text"
                                       placeholder="Descripción"
                                       type="textarea"
-                                      rows={2}
-                                      value={this.props.store.chartDescription} />
+                                      rows={2} />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -79,27 +81,23 @@ class Step4 extends Component {
                                         {
                                             required: false
                                         }
-                                    ]
+                                    ],
+                                    valuePropName: 'value',
+                                    initialValue: this.props.store.chartNotes
                                 })(
                                     <Input
                                       type="text"
                                       placeholder="Notas"
                                       type="textarea"
-                                      rows={4}
-                                      value={this.props.store.chartNotes} />
+                                      rows={4} />
                                 )}
                             </FormItem>
                             <FormItem>
                                 {getFieldDecorator('dataTable', {
-                                    rules: [
-                                        {
-                                            required: false
-                                        }
-                                    ]
+                                    valuePropName: 'checked',
+                                    initialValue: this.props.store.includeDataTable
                                 })(
-                                    <Checkbox
-                                      checked={this.props.store.includeDataTable}
-                                      onChange={this.props.actions.includeDataTable}>
+                                    <Checkbox>
                                         Incluir tabla con los datos
                                     </Checkbox>
                                 )}
