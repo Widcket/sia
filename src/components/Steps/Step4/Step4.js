@@ -8,8 +8,8 @@ const FormItem = Form.Item;
 class Step4 extends Component {
     static propTypes = {
         // data: PropTypes.array.isRequired,
-        // store: PropTypes.object.isRequired,
-        // actions: PropTypes.object.isRequired,
+        store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
     }
 
@@ -50,7 +50,10 @@ class Step4 extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input type="text" placeholder="Título" />
+                                    <Input
+                                      type="text"
+                                      placeholder="Título"
+                                      value={this.props.store.chartTitle} />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -62,7 +65,12 @@ class Step4 extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input type="text" placeholder="Descripción" type="textarea" rows={2} />
+                                    <Input
+                                      type="text"
+                                      placeholder="Descripción"
+                                      type="textarea"
+                                      rows={2}
+                                      value={this.props.store.chartDescription} />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -73,11 +81,20 @@ class Step4 extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input type="text" placeholder="Notas" type="textarea" rows={4} />
+                                    <Input
+                                      type="text"
+                                      placeholder="Notas"
+                                      type="textarea"
+                                      rows={4}
+                                      value={this.props.store.chartNotes} />
                                 )}
                             </FormItem>
                             <FormItem>
-                                <Checkbox>Incluir tabla con los datos</Checkbox>
+                                <Checkbox
+                                  checked={this.props.store.includeDataTable}
+                                  onChange={this.props.actions.includeDataTable}>
+                                    Incluir tabla con los datos
+                                </Checkbox>
                             </FormItem>
                             <FormItem>
                                 <Button type="primary" htmlType="submit" className="export-button">

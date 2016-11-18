@@ -1,18 +1,47 @@
-import * as actions from '../actions/navigation/definitions';
+import * as actions from '../actions/step4/definitions';
 
 const initialState = {
-    current: 0
+    chartTitle: '',
+    chartDescription: '',
+    chartNotes: '',
+    includeDataTable: false
 };
 
 export default function info(state = initialState, action = {}) {
     switch (action.type) {
-        case actions.PREVIOUS:
+        case actions.SET_TITLE:
             return {
-                current: --state.current
+                ...state,
+                chartTitle: action.chartTitle,
+                error: action.error
             };
-        case actions.NEXT:
+        case actions.SET_DESCRIPTION:
             return {
-                current: ++state.current
+                ...state,
+                chartDescription: action.chartDescription,
+                error: action.error
+            };
+        case actions.SET_NOTES:
+            return {
+                ...state,
+                chartNotes: action.chartNotes,
+                error: action.error
+            };
+        case actions.INCLUDE_DATA_TABLE:
+            return {
+                ...state,
+                includeDataTable: !state.includeDataTable,
+                error: action.error
+            };
+        case actions.EXPORT_APK:
+            return {
+                ...state,
+                error: action.error
+            };
+        case actions.EXPORT_NODE:
+            return {
+                ...state,
+                error: action.error
             };
         default:
             return state;
