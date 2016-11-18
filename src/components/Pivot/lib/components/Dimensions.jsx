@@ -54,13 +54,11 @@ export default class Dimensions extends Component {
         const selectedDimensions = this.props.selectedDimensions;
         const nSelected = selectedDimensions.length;
         const nDimensions = this.props.dimensions.length;
-        const difference = [];
 
-        for (let i = 0; i < nDimensions; i++) {
-            if (selectedDimensions.indexOf(this.props.dimensions[i].title) === -1) {
-                difference.push(this.props.dimensions[i]);
-            }
-        }
+        const difference = this.props.dimensions.filter((element) => {
+            if (selectedDimensions.indexOf(element.title) === -1) return true;
+            return false;
+        });
 
         if (nSelected < this.props.dimensions.length) {
             return (
