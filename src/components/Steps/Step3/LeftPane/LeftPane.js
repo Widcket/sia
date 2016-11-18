@@ -190,8 +190,8 @@ export default class LeftPane extends PureComponent {
                                 <Input className="data-control-input" value={this.props.store.chartTitle} />
                             </Col>
                         </Row>
-                        <Collapse defaultActiveKey={['ejeX', 'ejeY']}>
-                            <Panel header="Eje X" key="ejeX">
+                        <Collapse defaultActiveKey={['xAxis', 'yAxis']}>
+                            <Panel header="Eje X" key="xAxis">
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
@@ -211,7 +211,7 @@ export default class LeftPane extends PureComponent {
                                       onChange={this.props.actions.toggleXAxisGrid} />
                                 </div>
                             </Panel>
-                            <Panel header="Eje Y" key="ejeY">
+                            <Panel header="Eje Y" key="yAxis">
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
