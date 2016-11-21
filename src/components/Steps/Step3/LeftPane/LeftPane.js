@@ -213,7 +213,7 @@ export default class LeftPane extends PureComponent {
                                       onChange={this.props.actions.toggleXAxisGrid} />
                                 </div>
                                 <div className="data-panel-control">
-                                    <span className="data-control-label">Area</span>
+                                    <span className="data-control-label">Área</span>
                                     <Switch
                                       defaultChecked={this.props.store.chartConfig.xAxis[0].splitArea.show}
                                       onChange={this.props.actions.toggleXAxisArea} />
@@ -233,7 +233,7 @@ export default class LeftPane extends PureComponent {
                                       onChange={this.props.actions.toggleYAxisGrid} />
                                 </div>
                                 <div className="data-panel-control">
-                                    <span className="data-control-label">Area</span>
+                                    <span className="data-control-label">Área</span>
                                     <Switch
                                       defaultChecked={this.props.store.chartConfig.yAxis[0].splitArea.show}
                                       onChange={this.props.actions.toggleYAxisArea} />
