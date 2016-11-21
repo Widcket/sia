@@ -50,6 +50,11 @@ export default class LeftPane extends PureComponent {
         return nodes;
     }
 
+    @autobind
+    setChartTitle(event) {
+        this.props.actions.setChartTitle(event.target.value);
+    }
+
     render() {
         const style = require('./LeftPane.scss');
 
@@ -187,7 +192,10 @@ export default class LeftPane extends PureComponent {
                         <Row className="data-paneless-control">
                             <Col>
                                 <span className="data-control-label">Título</span>
-                                <Input className="data-control-input" value={this.props.store.chartTitle} />
+                                <Input
+                                  className="data-control-input"
+                                  value={this.props.store.chartTitle}
+                                  onChange={this.setChartTitle} />
                             </Col>
                         </Row>
                         <Collapse defaultActiveKey={['xAxis', 'yAxis']}>
