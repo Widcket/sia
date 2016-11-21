@@ -1,5 +1,12 @@
 import * as actions from './definitions';
 
+export function setEchartsInstance(echarts, series) {
+    return {
+        type: actions.SET_ECHARTS_INSTANCE,
+        echarts
+    };
+}
+
 export function setChartType(chartType) {
     return {
         type: actions.SET_CHART_TYPE,

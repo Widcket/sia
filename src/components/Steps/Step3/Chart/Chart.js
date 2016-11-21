@@ -8,8 +8,14 @@ const echarts = require('echarts');
 
 export default class Chart extends Component {
     static propTypes = {
+        // instance: PropTypes.object.isRequired,
+        setInstance: PropTypes.func.isRequired,
         chartConfig: PropTypes.object.isRequired,
         chartSeries: PropTypes.array.isRequired
+    }
+
+    componentDidMount() {
+        this.props.setInstance(this.refs.echarts.getEchartsInstance());
     }
 
     @autobind
@@ -34,6 +40,7 @@ export default class Chart extends Component {
         return (
             <div id="chart">
                 <ReactEcharts
+                  ref="echarts"
                   option={this.getOptions()}
                   style={{
                       height: '40vh',

@@ -125,7 +125,7 @@ const chartConfig = {
     },
     grid: {
         left: '1%',
-        right: '1%',
+        right: '1.5%',
         bottom: '0%',
         containLabel: true
     },
@@ -182,11 +182,11 @@ const chartSeries = [
 ];
 
 const initialState = {
+    echarts: {},
     defaultTab: 'tab1',
     chartTypes,
     chartType: chartTypes.line,
     chartSubtype: 0,
-    invertData: false,
     transposeData: false,
     chartConfig,
     chartSeries
@@ -196,6 +196,12 @@ export default function step3(state = initialState, action = {}) {
     const newState = { ...state };
 
     switch (action.type) {
+        case actions.SET_ECHARTS_INSTANCE:
+            return {
+                ...state,
+                echarts: action.echarts,
+                error: action.error
+            };
         case actions.SET_DEFAULT_TAB:
             return {
                 ...state,
@@ -227,11 +233,16 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.TOGGLE_INVERT_DATA:
-            return {
-                ...state,
-                invertData: !state.invertData,
-                error: action.error
-            };
+            // TODO: Memoize
+            for (const element of newState.chartSeries) {
+                element.data.reverse();
+            }
+
+            newState.chartConfig.xAxis[0].data.reverse();
+            newState.echarts.setOption({ ...newState.chartConfig }, true);
+            newState.error = action.error;
+
+            return newState;
         case actions.TOGGLE_TRANSPOSE_DATA:
             return {
                 ...state,
@@ -244,32 +255,32 @@ export default function step3(state = initialState, action = {}) {
 
             return newState;
         case actions.TOGGLE_X_AXIS:
-            newState.chartConfig.xAxis[0].show = !state.chartConfig.xAxis[0].show;
+            newState.chartConfig.xAxis[0].show = !newState.chartConfig.xAxis[0].show;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_X_AXIS_GRID:
-            newState.chartConfig.xAxis[0].splitLine.show = !state.chartConfig.xAxis[0].splitLine.show;
+            newState.chartConfig.xAxis[0].splitLine.show = !newState.chartConfig.xAxis[0].splitLine.show;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_X_AXIS_AREA:
-            newState.chartConfig.xAxis[0].splitArea.show = !state.chartConfig.xAxis[0].splitArea.show;
+            newState.chartConfig.xAxis[0].splitArea.show = !newState.chartConfig.xAxis[0].splitArea.show;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS:
-            newState.chartConfig.yAxis[0].show = !state.chartConfig.yAxis[0].show;
+            newState.chartConfig.yAxis[0].show = !newState.chartConfig.yAxis[0].show;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS_GRID:
-            newState.chartConfig.yAxis[0].splitLine.show = !state.chartConfig.yAxis[0].splitLine.show;
+            newState.chartConfig.yAxis[0].splitLine.show = !newState.chartConfig.yAxis[0].splitLine.show;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS_AREA:
-            newState.chartConfig.yAxis[0].splitArea.show = !state.chartConfig.yAxis[0].splitArea.show;
+            newState.chartConfig.yAxis[0].splitArea.show = !newState.chartConfig.yAxis[0].splitArea.show;
             newState.error = action.error;
 
             return newState;

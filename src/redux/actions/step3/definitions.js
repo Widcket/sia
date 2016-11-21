@@ -1,3 +1,4 @@
+export const SET_ECHARTS_INSTANCE = 'step3/SET_ECHARTS_INSTANCE';
 export const SET_DEFAULT_TAB = 'step3/SET_DEFAULT_TAB';
 export const SET_CHART_TYPE = 'step3/SET_CHART_TYPE';
 export const SET_CHART_SUBTYPE = 'step3/SET_CHART_SUBTYPE';

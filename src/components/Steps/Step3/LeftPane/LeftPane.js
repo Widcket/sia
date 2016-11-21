@@ -177,13 +177,13 @@ export default class LeftPane extends PureComponent {
                                     <span className="data-control-label">Invertir</span>
                                     <Switch
                                       defaultChecked={this.props.store.invertData}
-                                      onChange={this.props.actions.invertData} />
+                                      onChange={this.props.actions.toggleInvertData} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Transponer</span>
                                     <Switch
                                       defaultChecked={this.props.store.transposeData}
-                                      onChange={this.props.actions.transposeData} />
+                                      onChange={this.props.actions.toggleTransposeData} />
                                 </div>
                             </Panel>
                         </Collapse>

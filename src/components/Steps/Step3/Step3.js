@@ -25,6 +25,8 @@ export default class Step3 extends PureComponent {
                     </Col>
                     <Col span={16} ref="chartContainer">
                         <Chart
+                          instance={this.props.store.echarts}
+                          setInstance={this.props.actions.setEchartsInstance}
                           chartConfig={this.props.store.chartConfig}
                           chartSeries={this.props.store.chartSeries}
                           data={this.props.data} />
