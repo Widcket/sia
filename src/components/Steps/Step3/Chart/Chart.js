@@ -1,80 +1,28 @@
 import {Col, Row} from 'antd';
-import React, {PureComponent} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import ReactEcharts from 'echarts-for-react';
 import {autobind} from 'core-decorators';
 
 const echarts = require('echarts');
 
-export default class Chart extends PureComponent {
+export default class Chart extends Component {
+    static propTypes = {
+        chartConfig: PropTypes.object.isRequired,
+        chartSeries: PropTypes.array.isRequired
+    }
+
     @autobind
     onChartReady(chart) {
         chart.hideLoading();
     }
 
     @autobind
-    getOption() {
-        const option = {
-            title: {
-                text: 'Gráfico 1'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['Serie 1', 'Serie 2', 'Serie 3']
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {
-                        title: 'PNG'
-                    }
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value'
-                }
-            ],
-            series: [
-                {
-                    name: 'Serie 1',
-                    type: 'line',
-                    stack: '123',
-                    areaStyle: {normal: {}},
-                    data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: 'Serie 2',
-                    type: 'line',
-                    stack: '456',
-                    areaStyle: {normal: {}},
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: 'Serie 3',
-                    type: 'line',
-                    stack: '789',
-                    areaStyle: {normal: {}},
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                }
-            ]
+    getOptions() {
+        return {
+            ...this.props.chartConfig,
+            series: this.props.chartSeries
         };
-
-        return option;
     }
 
     render() {
@@ -86,7 +34,7 @@ export default class Chart extends PureComponent {
         return (
             <div id="chart">
                 <ReactEcharts
-                  option={this.getOption()}
+                  option={this.getOptions()}
                   style={{
                       height: '40vh',
                       width: '100%'

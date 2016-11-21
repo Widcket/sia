@@ -53,15 +53,15 @@ export function toggleXAxis() {
     };
 }
 
-export function toggleXAxisLabels() {
-    return {
-        type: actions.TOGGLE_X_AXIS_LABELS
-    };
-}
-
 export function toggleXAxisGrid() {
     return {
         type: actions.TOGGLE_X_AXIS_GRID
+    };
+}
+
+export function toggleXAxisArea() {
+    return {
+        type: actions.TOGGLE_X_AXIS_AREA
     };
 }
 
@@ -71,14 +71,14 @@ export function toggleYAxis() {
     };
 }
 
-export function toggleYAxisLabels() {
-    return {
-        type: actions.TOGGLE_Y_AXIS_LABELS
-    };
-}
-
 export function toggleYAxisGrid() {
     return {
         type: actions.TOGGLE_Y_AXIS_GRID
+    };
+}
+
+export function toggleYAxisArea() {
+    return {
+        type: actions.TOGGLE_Y_AXIS_AREA
     };
 }

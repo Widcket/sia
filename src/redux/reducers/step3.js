@@ -85,7 +85,7 @@ const chartTypes = {
             }
         ]
     },
-    node: {
+    force: {
         name: 'Grafos',
         subtypes: [
             {
@@ -108,6 +108,79 @@ const chartTypes = {
         ]
     }
 };
+
+const chartConfig = {
+    title: {
+        text: 'Gráfico 1'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {
+                title: 'PNG'
+            }
+        }
+    },
+    grid: {
+        left: '1%',
+        right: '1%',
+        bottom: '0%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            show: true,
+            boundaryGap: false,
+            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            show: true,
+            splitLine: {
+                show: true
+            },
+            splitArea: {
+                show: true
+            }
+        }
+    ],
+};
+
+const chartSeries = [
+    {
+        name: 'Serie 1',
+        type: 'line',
+        stack: '123',
+        areaStyle: { normal: {} },
+        data: [120, 132, 101, 134, 90, 230, 210]
+    },
+    {
+        name: 'Serie 2',
+        type: 'line',
+        stack: '456',
+        areaStyle: { normal: {} },
+        data: [220, 182, 191, 234, 290, 330, 310]
+    },
+    {
+        name: 'Serie 3',
+        type: 'line',
+        stack: '789',
+        areaStyle: { normal: {} },
+        data: [150, 232, 201, 154, 190, 330, 410]
+    }
+];
+
 const initialState = {
     defaultTab: 'tab1',
     chartTypes,
@@ -115,16 +188,13 @@ const initialState = {
     chartSubtype: 0,
     invertData: false,
     transposeData: false,
-    chartTitle: '',
-    xAxis: true,
-    xAxisLabels: true,
-    xAxisGrid: true,
-    yAxis: true,
-    yAxisLabels: true,
-    yAxisGrid: true
+    chartConfig,
+    chartSeries
 };
 
 export default function step3(state = initialState, action = {}) {
+    const newState = { ...state };
+
     switch (action.type) {
         case actions.SET_DEFAULT_TAB:
             return {
@@ -169,47 +239,40 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.SET_CHART_TITLE:
-            return {
-                ...state,
-                chartTitle: action.chartTitle,
-                error: action.error
-            };
+            newState.chartConfig.title.text = action.chartTitle;
+            newState.error = action.error;
+
+            return newState;
         case actions.TOGGLE_X_AXIS:
-            return {
-                ...state,
-                xAxis: !state.xAxis,
-                error: action.error
-            };
-        case actions.TOGGLE_X_AXIS_LABELS:
-            return {
-                ...state,
-                xAxisLabels: !state.xAxisLabels,
-                error: action.error
-            };
+            newState.chartConfig.xAxis[0].show = !state.chartConfig.xAxis[0].show;
+            newState.error = action.error;
+
+            return newState;
         case actions.TOGGLE_X_AXIS_GRID:
-            return {
-                ...state,
-                xAxisGrid: !state.xAxisGrid,
-                error: action.error
-            };
+            newState.chartConfig.xAxis[0].splitLine.show = !state.chartConfig.xAxis[0].splitLine.show;
+            newState.error = action.error;
+
+            return newState;
+        case actions.TOGGLE_X_AXIS_AREA:
+            newState.chartConfig.xAxis[0].splitArea.show = !state.chartConfig.xAxis[0].splitArea.show;
+            newState.error = action.error;
+
+            return newState;
         case actions.TOGGLE_Y_AXIS:
-            return {
-                ...state,
-                yAxis: !state.yAxis,
-                error: action.error
-            };
-        case actions.TOGGLE_Y_AXIS_LABELS:
-            return {
-                ...state,
-                yAxisLabels: !state.yAxisLabels,
-                error: action.error
-            };
+            newState.chartConfig.yAxis[0].show = !state.chartConfig.yAxis[0].show;
+            newState.error = action.error;
+
+            return newState;
         case actions.TOGGLE_Y_AXIS_GRID:
-            return {
-                ...state,
-                yAxisGrid: !state.yAxisGrid,
-                error: action.error
-            };
+            newState.chartConfig.yAxis[0].splitLine.show = !state.chartConfig.yAxis[0].splitLine.show;
+            newState.error = action.error;
+
+            return newState;
+        case actions.TOGGLE_Y_AXIS_AREA:
+            newState.chartConfig.yAxis[0].splitArea.show = !state.chartConfig.yAxis[0].splitArea.show;
+            newState.error = action.error;
+
+            return newState;
         default:
             return state;
     }

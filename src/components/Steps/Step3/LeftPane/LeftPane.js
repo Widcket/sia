@@ -118,7 +118,7 @@ export default class LeftPane extends PureComponent {
                                     <ChartButton
                                       label="Grafos"
                                       iconClass="fi flaticon-chemical-diagram"
-                                      chartType={this.props.store.chartTypes.node}
+                                      chartType={this.props.store.chartTypes.force}
                                       activeType={this.props.store.chartType}
                                       setChartType={this.props.actions.setChartType} />
                                 </Col>
@@ -194,7 +194,7 @@ export default class LeftPane extends PureComponent {
                                 <span className="data-control-label">Título</span>
                                 <Input
                                   className="data-control-input"
-                                  value={this.props.store.chartTitle}
+                                  value={this.props.store.chartConfig.title.text}
                                   onChange={this.setChartTitle} />
                             </Col>
                         </Row>
@@ -203,40 +203,40 @@ export default class LeftPane extends PureComponent {
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
-                                      defaultChecked={this.props.store.xAxis}
+                                      defaultChecked={this.props.store.chartConfig.xAxis[0].show}
                                       onChange={this.props.actions.toggleXAxis} />
-                                </div>
-                                <div className="data-panel-control">
-                                    <span className="data-control-label">Etiquetas</span>
-                                    <Switch
-                                      defaultChecked={this.props.store.xAxisLabels}
-                                      onChange={this.props.actions.toggleXAxisLabels} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
                                     <Switch
-                                      defaultChecked={this.props.store.xAxisGrid}
+                                      defaultChecked={this.props.store.chartConfig.xAxis[0].splitLine.show}
                                       onChange={this.props.actions.toggleXAxisGrid} />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Area</span>
+                                    <Switch
+                                      defaultChecked={this.props.store.chartConfig.xAxis[0].splitArea.show}
+                                      onChange={this.props.actions.toggleXAxisArea} />
                                 </div>
                             </Panel>
                             <Panel header="Eje Y" key="yAxis">
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
-                                      defaultChecked={this.props.store.yAxis}
+                                      defaultChecked={this.props.store.chartConfig.yAxis[0].show}
                                       onChange={this.props.actions.toggleYAxis} />
-                                </div>
-                                <div className="data-panel-control">
-                                    <span className="data-control-label">Etiquetas</span>
-                                    <Switch
-                                      defaultChecked={this.props.store.yAxisLabels}
-                                      onChange={this.props.actions.toggleYAxisLabels} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
                                     <Switch
-                                      defaultChecked={this.props.store.yAxisGrid}
+                                      defaultChecked={this.props.store.chartConfig.yAxis[0].splitLine.show}
                                       onChange={this.props.actions.toggleYAxisGrid} />
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Area</span>
+                                    <Switch
+                                      defaultChecked={this.props.store.chartConfig.yAxis[0].splitArea.show}
+                                      onChange={this.props.actions.toggleYAxisArea} />
                                 </div>
                             </Panel>
                         </Collapse>

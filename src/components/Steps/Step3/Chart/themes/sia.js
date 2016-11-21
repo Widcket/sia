@@ -78,6 +78,11 @@ export default {
                     color: '#666666'
                 }
             },
+            splitArea: {
+                areaStyle: {
+                    color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
+                }
+            },
             splitLine: {
                 lineStyle: {
                     color: ['#eee']
