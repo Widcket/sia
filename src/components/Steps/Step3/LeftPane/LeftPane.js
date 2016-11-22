@@ -29,9 +29,9 @@ export default class LeftPane extends PureComponent {
 
     @autobind
     getValueAxisOptions() {
-        return this.props.store.valueAxis.map((element, i) => {
+        return this.props.store.valueAxisOptions.map((element, i) => {
             return (
-                <Option value={element.key} key={`valueAxis-${element.key}`}>
+                <Option value={element.value} key={`valueAxis-${element.value}`}>
                     {element.name}
                 </Option>
             );
@@ -77,30 +77,87 @@ export default class LeftPane extends PureComponent {
 
     @autobind
     setColumns(columns) {
+        const counts = {};
         const series = [];
+        const set = [];
+        const filteredColumns = columns
+            .filter((element) => {
+                return element.indexOf('-') >= 0;
+            })
+            .map((element) => {
+                const column = element.split('-')[1];
 
-        for (const column of columns) {
-            if (column.indexOf('-') >= 0) {
-                const values = [];
-                const columnName = column.split('-')[1];
+                return column;
+            });
 
-                for (const row of this.props.data) {
-                    if (row[columnName] && values.indexOf(row[columnName]) === -1) {
-                        values.push(row[columnName]);
-                    }
+        let categoryAxisData;
+
+        for (const row of this.props.data) {
+            for (const column of filteredColumns) {
+                counts[column] = counts[column] ? counts[column] : {};
+
+                if (set.indexOf(row[column]) >= 0) {
+                    counts[column][row[column]]++;
+                } else {
+                    counts[column][row[column]] = 1;
+                    set.push(row[column]);
                 }
+            }
+        }
+
+        if (this.props.store.valueAxis.value === 'count') {
+            for (const column of filteredColumns) {
+                const values = Object.values(counts[column]);
+                categoryAxisData = Object.keys(counts[column]);
 
                 series.push({
-                    name: columnName,
+                    name: column,
                     ...this.getTypeSpecificConfig(values),
                     data: values
                 });
             }
+        } else {
+            const totals = {};
+
+            for (const column of filteredColumns) {
+                totals[column] = counts[column].reduce((a, b) => a + b, 0);
+
+                const values = Object.values(counts[column]);
+                categoryAxisData = Object.keys(counts[column]);
+
+                series.push({
+                    name: column,
+                    ...this.getTypeSpecificConfig(values),
+                    data: values
+                });
+            }
+
+            console.dir(totals);
         }
 
-        console.dir(series);
+        this.props.actions.setColumns(series, categoryAxisData);
+    }
 
-        this.props.actions.setColumns(series);
+    @autobind
+    fillData() {
+        let filled = false;
+
+        for (const element of this.props.store.chartSeries) {
+            if (element[element.length - 1] === 0) {
+                filled = true;
+                break;
+            }
+        }
+
+        if (filled) {
+            for (const element of this.props.store.chartSeries) {
+                while (element[element.length - 1] === 0) {
+                    element.pop();
+                }
+            }
+        } else {
+            this.props.actions.toggleFillData();
+        }
     }
 
     render() {
@@ -196,10 +253,19 @@ export default class LeftPane extends PureComponent {
                                     <span className="data-control-label">Valor</span>
                                     <Select
                                       className="data-control-select"
-                                      defaultValue={this.props.store.valueAxis[0].name}
+                                      defaultValue={this.props.store.valueAxisOptions[0].name}
                                       onSelect={this.props.actions.setValueAxis}>
                                         { this.getValueAxisOptions() }
-                                        </Select>
+                                    </Select>
+                                </div>
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Categoría</span>
+                                    <Select
+                                      className="data-control-select"
+                                      defaultValue={this.props.store.valueAxisOptions[0].name}
+                                      onSelect={this.props.actions.setValueAxis}>
+                                        { console.log() }
+                                    </Select>
                                 </div>
                                 <Tree
                                   className="dataset-tree"

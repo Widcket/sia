@@ -28,11 +28,11 @@ export function setValueAxis(valueAxis) {
     };
 }
 
-export function setColumns(columns) {
-    console.log(columns);
+export function setColumns(columns, categoryAxis) {
     return {
         type: actions.SET_COLUMNS,
-        columns
+        columns,
+        categoryAxis
     };
 }
 

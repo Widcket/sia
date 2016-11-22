@@ -140,6 +140,9 @@ const chartConfig = {
             },
             splitArea: {
                 show: false
+            },
+            axisTick: {
+                interval: 'auto'
             }
         }
     ],
@@ -152,7 +155,8 @@ const chartConfig = {
             },
             splitArea: {
                 show: true
-            }
+            },
+            scale: false
         }
     ],
 };
@@ -181,14 +185,14 @@ const chartSeries = [
     }
 ];
 
-const valueAxis = [
+const valueAxisOptions = [
     {
         name: 'Cantidad',
-        key: 'count'
+        value: 'count'
     },
     {
         name: 'Porcentaje',
-        key: 'percent'
+        value: 'percent'
     }
 ];
 
@@ -199,7 +203,8 @@ const initialState = {
     chartType: chartTypes.line,
     chartSubtype: 0,
     transposeData: false,
-    valueAxis: valueAxis,
+    valueAxisOptions: valueAxisOptions,
+    valueAxis: valueAxisOptions[0],
     chartConfig,
     chartSeries
 };
@@ -236,12 +241,34 @@ export default function step3(state = initialState, action = {}) {
             return {
                 ...state,
                 valueAxis: action.valueAxis,
+
                 error: action.error
             };
         case actions.SET_COLUMNS:
             // TODO: Memoize
-            newState.chartSeries = action.columns;
-            newState.echarts.setOption({ ...newState.chartConfig, ...action.columns }, false);
+            let largest = 0;
+
+            if (action.columns.length > 0) {
+                newState.chartConfig.xAxis[0].data = action.categoryAxis;
+                newState.chartConfig.xAxis[0].axisTick.interval = 0;
+                newState.chartSeries = action.columns;
+            } else {
+                newState.chartSeries = [];
+            }
+
+            // Fill with 0s
+
+            for (const element of newState.chartSeries) {
+                if (element.data.length > largest) largest = element.data.length;
+            }
+
+            for (const element of newState.chartSeries) {
+                for (let i = element.data.length; i <= largest; i++) {
+                    element.data.push(0);
+                }
+            }
+
+            newState.echarts.setOption({ ...newState.chartConfig, series: action.columns }, true);
             newState.error = action.error;
 
             return newState;
