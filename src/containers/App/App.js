@@ -78,8 +78,8 @@ export default class App extends PureComponent {
             offset: 2
         };
         const colSizeLG = {
-            span: 14,
-            offset: 5
+            span: 18,
+            offset: 3
         };
 
         return (

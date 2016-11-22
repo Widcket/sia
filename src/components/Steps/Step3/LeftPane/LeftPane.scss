@@ -28,19 +28,8 @@
         & .data-paneless-control:first-of-type {
             margin-top: 0rem;
         }
-        .ant-collapse-content {
-            padding-bottom: 0.9rem;
-        }
 
         .data-panel-control {
-            &:first-of-type {
-                margin-top: 0.9rem;
-            }
-
-            &:last-of-type {
-                margin-bottom: 0rem;
-            }
-
             &:after {
                 content: "";
                 display: table;
@@ -51,7 +40,8 @@
 
     .data-control-label {
         float: left;
-        width: 3.6rem;
+        width: 39%;
+        min-width: 4.4rem;
         font-size: 0.8rem;
         margin-top: 0.25rem;
     }
@@ -62,17 +52,24 @@
         width: auto;
         display: block;
 
+        &:first-of-type {
+            margin-top: 0.9rem;
+        }
+
         &:last-of-type {
-            margin-bottom: 0.9rem;
+            margin-bottom: 0rem;
         }
 
         .data-control-label {
-            width: 6rem;
             margin-top: 0.1rem;
         }
 
         .data-control-element {
             padding: 0.6rem 0rem;
+        }
+
+        .data-control-select {
+            width: 61%;
         }
     }
 
@@ -87,6 +84,7 @@
 
         .data-control-label {
             width: 3.9rem;
+            min-width: 3.9rem;
             margin-top: 0.25rem;
             margin-left: 0.1rem;
 
@@ -113,16 +111,31 @@
         width: 100%;
     }
 
-    .ant-tree li a {
-        transition: all 0.2s ease;
+    .ant-collapse-content {
+        padding-bottom: 0.9rem;
+    }
 
-        &:hover {
-            background-color: inherit;
-            font-weight: bold;
-        }
+    .ant-tree {
+        margin-top: 1rem;
+        padding: 0rem;
 
-        &.ant-tree-node-selected {
-            background-color: initial;
+        li {
+            &:last-of-type {
+                margin-bottom: 0rem;
+            }
+
+            a {
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: inherit;
+                    font-weight: bold;
+                }
+
+                &.ant-tree-node-selected {
+                    background-color: initial;
+                }
+            }
         }
     }
 

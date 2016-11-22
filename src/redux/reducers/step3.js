@@ -161,23 +161,34 @@ const chartSeries = [
     {
         name: 'Serie 1',
         type: 'line',
-        stack: '123',
+        // stack: '123',
         areaStyle: { normal: {} },
         data: [120, 132, 101, 134, 90, 230, 210]
     },
     {
         name: 'Serie 2',
         type: 'line',
-        stack: '456',
+        // stack: '456',
         areaStyle: { normal: {} },
         data: [220, 182, 191, 234, 290, 330, 310]
     },
     {
         name: 'Serie 3',
         type: 'line',
-        stack: '789',
+       // stack: '789',
         areaStyle: { normal: {} },
         data: [150, 232, 201, 154, 190, 330, 410]
+    }
+];
+
+const valueAxis = [
+    {
+        name: 'Cantidad',
+        key: 'count'
+    },
+    {
+        name: 'Porcentaje',
+        key: 'percent'
     }
 ];
 
@@ -188,6 +199,7 @@ const initialState = {
     chartType: chartTypes.line,
     chartSubtype: 0,
     transposeData: false,
+    valueAxis: valueAxis,
     chartConfig,
     chartSeries
 };
@@ -220,12 +232,19 @@ export default function step3(state = initialState, action = {}) {
                 chartSubtype: action.chartSubtype,
                 error: action.error
             };
-        case actions.SET_COLUMNS:
+        case actions.SET_VALUE_AXIS:
             return {
                 ...state,
-                columns: action.columns,
+                valueAxis: action.valueAxis,
                 error: action.error
             };
+        case actions.SET_COLUMNS:
+            // TODO: Memoize
+            newState.chartSeries = action.columns;
+            newState.echarts.setOption({ ...newState.chartConfig, ...action.columns }, false);
+            newState.error = action.error;
+
+            return newState;
         case actions.SET_DATA_RANGE:
             return {
                 ...state,

@@ -21,7 +21,15 @@ export function setChartSubtype(chartSubtype) {
     };
 }
 
+export function setValueAxis(valueAxis) {
+    return {
+        type: actions.SET_CHART_SUBTYPE,
+        valueAxis
+    };
+}
+
 export function setColumns(columns) {
+    console.log(columns);
     return {
         type: actions.SET_COLUMNS,
         columns

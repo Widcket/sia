@@ -20,7 +20,18 @@ export default class LeftPane extends PureComponent {
     getChartSubtypes() {
         return this.props.store.chartType.subtypes.map((element, i) => {
             return (
-                <Option value={i.toString()} key={`${this.props.store.chartType.name}${element.name}`}>
+                <Option value={i.toString()} key={`${this.props.store.chartType.name}-${element.name}`}>
+                    {element.name}
+                </Option>
+            );
+        });
+    }
+
+    @autobind
+    getValueAxisOptions() {
+        return this.props.store.valueAxis.map((element, i) => {
+            return (
+                <Option value={element.key} key={`valueAxis-${element.key}`}>
                     {element.name}
                 </Option>
             );
@@ -43,7 +54,7 @@ export default class LeftPane extends PureComponent {
             }
 
             nodes.push(
-                <TreeNode title={`Dataset ${i}`} key={`${i}-${i}`}>{children}</TreeNode>
+                <TreeNode title={`Dataset ${i}`} key={`D${i}`}>{children}</TreeNode>
             );
         }, this);
 
@@ -53,6 +64,43 @@ export default class LeftPane extends PureComponent {
     @autobind
     setChartTitle(event) {
         this.props.actions.setChartTitle(event.target.value);
+    }
+
+    @autobind
+    getTypeSpecificConfig(values) {
+        return {
+            type: 'line',
+            // stack: '456',
+            areaStyle: { normal: {} }
+        };
+    }
+
+    @autobind
+    setColumns(columns) {
+        const series = [];
+
+        for (const column of columns) {
+            if (column.indexOf('-') >= 0) {
+                const values = [];
+                const columnName = column.split('-')[1];
+
+                for (const row of this.props.data) {
+                    if (row[columnName] && values.indexOf(row[columnName]) === -1) {
+                        values.push(row[columnName]);
+                    }
+                }
+
+                series.push({
+                    name: columnName,
+                    ...this.getTypeSpecificConfig(values),
+                    data: values
+                });
+            }
+        }
+
+        console.dir(series);
+
+        this.props.actions.setColumns(series);
     }
 
     render() {
@@ -137,7 +185,6 @@ export default class LeftPane extends PureComponent {
                                 <Select
                                   className="data-control-select"
                                   defaultValue={this.props.store.chartType.subtypes[0].name}
-                                  placeholder="Tipo"
                                   onSelect={this.props.actions.setChartSubtype}>
                                     { this.getChartSubtypes() }
                                 </Select>
@@ -145,24 +192,27 @@ export default class LeftPane extends PureComponent {
                         </Row>
                         <Collapse defaultActiveKey={['columnas', 'datos']}>
                             <Panel header="Columnas" key="columnas">
+                                <div className="data-panel-control">
+                                    <span className="data-control-label">Valor</span>
+                                    <Select
+                                      className="data-control-select"
+                                      defaultValue={this.props.store.valueAxis[0].name}
+                                      onSelect={this.props.actions.setValueAxis}>
+                                        { this.getValueAxisOptions() }
+                                        </Select>
+                                </div>
                                 <Tree
                                   className="dataset-tree"
                                   showLine
                                   checkable
                                   defaultExpandAll
                                   autoExpandParent
-                                  defaultCheckedKeys={['0-0-0', '0-0-1']} >
-                                    <TreeNode title="Dataset 1" key="0-0">
-                                        <TreeNode title="Columna 1" key="0-0-0" />
-                                        <TreeNode title="Columna 2" key="0-0-1" />
-                                        <TreeNode title="Columna 3" key="0-0-2" />
-                                    </TreeNode>
-                                    <TreeNode title="Dataset 2" key="1-0">
-                                        <TreeNode title="Columna 1" key="1-0-0" />
-                                        <TreeNode title="Columna 2" key="1-0-1" />
-                                    </TreeNode>
-                                    <TreeNode title="Dataset 3" key="2-0">
-                                        <TreeNode title="Columna 1" key="2-0-0" />
+                                  onCheck={this.setColumns}
+                                  defaultCheckedKeys={['0-firstName', '0-lastName', '0-state']} >
+                                    <TreeNode title="Dataset 1" key="D0">
+                                        <TreeNode title="firstName" key="0-firstName" />
+                                        <TreeNode title="lastName" key="0-lastName" />
+                                        <TreeNode title="state" key="0-state" />
                                     </TreeNode>
                                 </Tree>
                             </Panel>
