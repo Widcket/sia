@@ -123,7 +123,7 @@ export default class LeftPane extends PureComponent {
                 return column;
             });
 
-        let categoryAxisData;
+        let categoryAxisData = [];
 
         for (const row of this.props.data) {
             for (const column of filteredColumns) {
@@ -149,7 +149,7 @@ export default class LeftPane extends PureComponent {
                     data: values
                 });
             }
-        } else {
+        } else if (this.props.store.valueAxis.value === 'percent') { // TODO: Implement
             const totals = {};
 
             for (const column of filteredColumns) {
@@ -164,8 +164,6 @@ export default class LeftPane extends PureComponent {
                     data: values
                 });
             }
-
-            console.dir(totals);
         }
 
         this.props.actions.setColumns(series, categoryAxisData);
