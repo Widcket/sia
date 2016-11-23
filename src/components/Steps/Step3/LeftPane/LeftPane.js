@@ -20,7 +20,9 @@ export default class LeftPane extends PureComponent {
     getChartSubtypes() {
         return this.props.store.chartType.subtypes.map((element, i) => {
             return (
-                <Option value={i.toString()} key={`${this.props.store.chartType.name}-${element.name}`}>
+                <Option
+                  value={element.value}
+                  key={`${this.props.store.chartType.name}-${element.name}`}>
                     {element.name}
                 </Option>
             );
@@ -67,12 +69,19 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    getTypeSpecificConfig(values) {
-        return {
-            type: 'line',
-            // stack: '456',
-            areaStyle: { normal: {} }
+    getCustomConfig() {
+        let subtype;
+
+        this.props.store.chartType.subtypes.forEach((element) => {
+            if (element.value === this.props.store.chartSubtype) subtype = element;
+        }, this);
+
+        const newConfig = {
+            ...this.props.store.chartType.config,
+            ...subtype.config
         };
+
+        return newConfig;
     }
 
     @autobind
@@ -112,7 +121,7 @@ export default class LeftPane extends PureComponent {
 
                 series.push({
                     name: column,
-                    ...this.getTypeSpecificConfig(values),
+                    ...this.getCustomConfig(),
                     data: values
                 });
             }
@@ -127,7 +136,7 @@ export default class LeftPane extends PureComponent {
 
                 series.push({
                     name: column,
-                    ...this.getTypeSpecificConfig(values),
+                    ...this.getCustomConfig(),
                     data: values
                 });
             }
