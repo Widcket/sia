@@ -328,30 +328,6 @@ const initialState = {
     chartSeries
 };
 
-const getCustomSeries = (series, type, subtypeValue) => {
-    const result = [];
-
-    for (const serie of series) {
-        let subtype;
-
-        type.subtypes.forEach((element) => {
-            if (element.value === subtypeValue) subtype = element;
-        }, this);
-
-        const newSerie = {
-            ...type.config,
-            ...subtype.config
-        };
-
-        newSerie.name = serie.name;
-        newSerie.data = serie.data;
-
-        result.push(newSerie);
-    }
-
-    return result;
-};
-
 export default function step3(state = initialState, action = {}) {
     const newState = { ...state };
 
@@ -375,8 +351,8 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.SET_CHART_SUBTYPE:
-            newState.chartSeries = getCustomSeries(newState.chartSeries, newState.chartType, action.chartSubtype);
             newState.chartSubtype = action.chartSubtype;
+            newState.chartSeries = action.newSeries;
             newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
             newState.error = action.error;
 

@@ -69,19 +69,43 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    getCustomConfig() {
-        let subtype;
+    getCustomConfig(customSubtype = null) {
+        const subtype = customSubtype ? customSubtype : this.props.store.chartSubtype;
+        let subtypeObject;
 
         this.props.store.chartType.subtypes.forEach((element) => {
-            if (element.value === this.props.store.chartSubtype) subtype = element;
+            if (element.value === subtype) subtypeObject = element;
         }, this);
 
         const newConfig = {
             ...this.props.store.chartType.config,
-            ...subtype.config
+            ...subtypeObject.config
         };
 
         return newConfig;
+    }
+
+    @autobind
+    getCustomSeries(customSubtype = null) {
+        const result = [];
+
+        for (const serie of this.props.store.chartSeries) {
+            const newSerie = this.getCustomConfig(customSubtype);
+
+            newSerie.name = serie.name;
+            newSerie.data = serie.data;
+
+            result.push(newSerie);
+        }
+
+        return result;
+    }
+
+    @autobind
+    setChartSubtype(subtype) {
+        const newSeries = this.getCustomSeries(subtype);
+
+        this.props.actions.setChartSubtype(subtype, newSeries);
     }
 
     @autobind
@@ -251,7 +275,7 @@ export default class LeftPane extends PureComponent {
                                 <Select
                                   className="data-control-select"
                                   defaultValue={this.props.store.chartType.subtypes[0].name}
-                                  onSelect={this.props.actions.setChartSubtype}>
+                                  onSelect={this.setChartSubtype}>
                                     { this.getChartSubtypes() }
                                 </Select>
                             </Col>
