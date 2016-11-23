@@ -171,9 +171,9 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    curry(argument, fn) {
-        return (secondArgument, ...args) => {
-            return fn.apply(this, [argument, secondArgument, ...args]);
+    curry(firstArgument, fn) {
+        return (secondArgument, ...moreArgs) => {
+            return fn.apply(this, [firstArgument, secondArgument, ...moreArgs]);
         };
     }
 
