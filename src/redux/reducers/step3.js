@@ -345,12 +345,8 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.SET_CHART_TYPE:
-            return {
-                ...state,
-                chartType: action.chartType,
-                error: action.error
-            };
         case actions.SET_CHART_SUBTYPE:
+            newState.chartType = action.chartType;
             newState.chartSubtype = action.chartSubtype;
             newState.chartSeries = action.newSeries;
             newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);

@@ -1,12 +1,12 @@
 import {Col, Row} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import ReactEcharts from 'echarts-for-react';
 import {autobind} from 'core-decorators';
 
 const echarts = require('echarts');
 
-export default class Chart extends Component {
+export default class Chart extends PureComponent {
     static propTypes = {
         // instance: PropTypes.object.isRequired,
         setInstance: PropTypes.func.isRequired,

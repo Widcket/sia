@@ -14,11 +14,11 @@ export default class ChartButton extends PureComponent {
 
     @autobind
     runSetChartType() {
-        this.props.setChartType(this.props.chartType);
+        this.props.setChartType(this.props.chartType, this.props.chartType.subtypes[0].value);
     }
 
     render() {
-        const selected = this.props.chartType.name === this.props.activeType.name;
+        const selected = this.props.chartType.value === this.props.activeType.value;
 
         return (
         <FatButton

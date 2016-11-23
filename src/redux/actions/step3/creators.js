@@ -7,16 +7,10 @@ export function setEchartsInstance(echarts, series) {
     };
 }
 
-export function setChartType(chartType) {
+export function setChartType(chartType, chartSubtype, newSeries) {
     return {
         type: actions.SET_CHART_TYPE,
-        chartType
-    };
-}
-
-export function setChartSubtype(chartSubtype, newSeries) {
-    return {
-        type: actions.SET_CHART_SUBTYPE,
+        chartType,
         chartSubtype,
         newSeries
     };

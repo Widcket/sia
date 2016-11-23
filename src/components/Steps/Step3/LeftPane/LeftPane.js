@@ -69,16 +69,17 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    getCustomConfig(customSubtype = null) {
+    getCustomConfig(customType = null, customSubtype = null) {
+        const type = customType ? customType : this.props.store.chartType;
         const subtype = customSubtype ? customSubtype : this.props.store.chartSubtype;
         let subtypeObject = {};
 
-        this.props.store.chartType.subtypes.forEach((element) => {
+        type.subtypes.forEach((element) => {
             if (element.value === subtype) subtypeObject = element;
         }, this);
 
         const newConfig = {
-            ...this.props.store.chartType.config,
+            ...type.config,
             ...subtypeObject.config
         };
 
@@ -86,11 +87,11 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    getCustomSeries(customSubtype = null) {
+    getCustomSeries(customType = null, customSubtype = null) {
         const result = [];
 
         for (const serie of this.props.store.chartSeries) {
-            const newSerie = this.getCustomConfig(customSubtype);
+            const newSerie = this.getCustomConfig(customType, customSubtype);
 
             newSerie.name = serie.name;
             newSerie.data = serie.data;
@@ -102,10 +103,10 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    setChartSubtype(subtype) {
-        const newSeries = this.getCustomSeries(subtype);
+    setChartType(type, subtype) {
+        const newSeries = this.getCustomSeries(type, subtype);
 
-        this.props.actions.setChartSubtype(subtype, newSeries);
+        this.props.actions.setChartType(type, subtype, newSeries);
     }
 
     @autobind
@@ -170,6 +171,13 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
+    curry(argument, fn) {
+        return (secondArgument, ...args) => {
+            return fn.apply(this, [argument, secondArgument, ...args]);
+        };
+    }
+
+    @autobind
     fillData() {
         let filled = false;
 
@@ -206,7 +214,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-business-stats"
                                       chartType={this.props.store.chartTypes.line}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton
@@ -214,7 +222,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-business-bars-graphic"
                                       chartType={this.props.store.chartTypes.bar}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton
@@ -222,7 +230,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-pie-chart-stats"
                                       chartType={this.props.store.chartTypes.pie}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton
@@ -230,7 +238,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-dots-graphic"
                                       chartType={this.props.store.chartTypes.scatter}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                             </Row>
                             <Row>
@@ -240,7 +248,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-radar-chart"
                                       chartType={this.props.store.chartTypes.radar}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton
@@ -248,7 +256,7 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-circle-with-irregular-grid-lines"
                                       chartType={this.props.store.chartTypes.chord}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton
@@ -256,14 +264,14 @@ export default class LeftPane extends PureComponent {
                                       iconClass="fi flaticon-chemical-diagram"
                                       chartType={this.props.store.chartTypes.force}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                                 <Col span="6">
                                     <ChartButton label="Mixto"
                                       iconClass="fi flaticon-bar-dotted-stats"
                                       chartType={this.props.store.chartTypes.mixed}
                                       activeType={this.props.store.chartType}
-                                      setChartType={this.props.actions.setChartType} />
+                                      setChartType={this.setChartType} />
                                 </Col>
                             </Row>
                         </div>
@@ -273,7 +281,7 @@ export default class LeftPane extends PureComponent {
                                 <Select
                                   className="data-control-select"
                                   defaultValue={this.props.store.chartType.subtypes[0].name}
-                                  onSelect={this.setChartSubtype}>
+                                  onSelect={this.curry(this.props.store.chartType, this.setChartType)}>
                                     { this.getChartSubtypes() }
                                 </Select>
                             </Col>
