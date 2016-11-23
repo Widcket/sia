@@ -71,7 +71,7 @@ export default class LeftPane extends PureComponent {
     @autobind
     getCustomConfig(customSubtype = null) {
         const subtype = customSubtype ? customSubtype : this.props.store.chartSubtype;
-        let subtypeObject;
+        let subtypeObject = {};
 
         this.props.store.chartType.subtypes.forEach((element) => {
             if (element.value === subtype) subtypeObject = element;
