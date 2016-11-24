@@ -408,9 +408,6 @@ export default function step3(state = initialState, action = {}) {
                 }
             }
 
-            console.log('chartSeries');
-            console.log(newState.chartSeries);
-
             newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
             newState.error = action.error;
 
