@@ -18,7 +18,7 @@ export default class LeftPane extends PureComponent {
 
     @autobind
     getChartSubtypes() {
-        return this.props.store.chartType.subtypes.map((element, i) => {
+        return Object.values(this.props.store.chartType.subtypes).map((element, i) => {
             return (
                 <Option
                   value={element.value}
@@ -69,21 +69,22 @@ export default class LeftPane extends PureComponent {
     }
 
     @autobind
-    getCustomConfig(customType = null, customSubtype = null) {
-        const type = customType ? customType : this.props.store.chartType;
-        const subtype = customSubtype ? customSubtype : this.props.store.chartSubtype;
-        let subtypeObject = {};
+    getCustomConfig(customType = null, customSubtype = null, series = false) {
+        const type = customType || this.props.store.chartType;
+        const subtype = customSubtype || this.props.store.chartSubtype;
+        const subtypeObject = type.subtypes[subtype];
+        let customConfig;
 
-        type.subtypes.forEach((element) => {
-            if (element.value === subtype) subtypeObject = element;
-        }, this);
+        if (series) {
+            customConfig = { ...subtypeObject.seriesConfig };
+        } else {
+            customConfig = {
+                ...type.config,
+                ...subtypeObject.config
+            };
+        }
 
-        const newConfig = {
-            ...type.config,
-            ...subtypeObject.config
-        };
-
-        return newConfig;
+        return customConfig;
     }
 
     @autobind
@@ -91,7 +92,7 @@ export default class LeftPane extends PureComponent {
         const result = [];
 
         for (const serie of this.props.store.chartSeries) {
-            const newSerie = this.getCustomConfig(customType, customSubtype);
+            const newSerie = this.getCustomConfig(customType, customSubtype, true);
 
             newSerie.name = serie.name;
             newSerie.data = serie.data;
@@ -104,9 +105,10 @@ export default class LeftPane extends PureComponent {
 
     @autobind
     setChartType(type, subtype) {
-        const newSeries = this.getCustomSeries(type, subtype);
+        const series = this.getCustomSeries(type, subtype);
+        const config = this.getCustomConfig(type, subtype);
 
-        this.props.actions.setChartType(type, subtype, newSeries);
+        this.props.actions.setChartType(type, subtype, series, config);
     }
 
     @autobind
@@ -128,7 +130,7 @@ export default class LeftPane extends PureComponent {
 
         for (const row of this.props.data) {
             for (const column of filteredColumns) {
-                counts[column] = counts[column] ? counts[column] : {};
+                counts[column] = counts[column] || {};
 
                 if (set.indexOf(row[column]) >= 0) {
                     counts[column][row[column]]++;
@@ -146,7 +148,7 @@ export default class LeftPane extends PureComponent {
 
                 series.push({
                     name: column,
-                    ...this.getCustomConfig(),
+                    ...this.getCustomConfig(this.props.store.chartType, this.props.store.chartSubtype, true),
                     data: values
                 });
             }
@@ -161,7 +163,7 @@ export default class LeftPane extends PureComponent {
 
                 series.push({
                     name: column,
-                    ...this.getCustomConfig(),
+                    ...this.getCustomConfig(this.props.store.chartType, this.props.store.chartSubtype, true),
                     data: values
                 });
             }
@@ -280,7 +282,7 @@ export default class LeftPane extends PureComponent {
                                 <span className="data-control-label" id="subtype">Tipo</span>
                                 <Select
                                   className="data-control-select"
-                                  defaultValue={this.props.store.chartType.subtypes[0].name}
+                                  defaultValue={this.props.store.chartType.subtypes.basic.name}
                                   onSelect={this.curry(this.props.store.chartType, this.setChartType)}>
                                     { this.getChartSubtypes() }
                                 </Select>

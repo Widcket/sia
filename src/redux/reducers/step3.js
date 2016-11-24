@@ -4,78 +4,74 @@ const chartTypes = {
     line: {
         name: 'Líneas',
         value: 'line',
-        config: {
-            type: 'line',
-            // stack: '456'
-        },
-        subtypes: [
-            {
+        config: {},
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'line'
                 }
             },
-            {
+            area: {
                 name: 'Área',
                 value: 'area',
-                config: {
+                config: {},
+                seriesConfig: {
+                    type: 'line',
                     smooth: true,
                     itemStyle: { normal: { areaStyle: { type: 'default' } } }
                 }
-            },
-            {
-                name: 'Área invertida',
-                value: 'invertedArea',
-                config: {
-
-                }
-            },
-        ]
+            }
+        }
     },
     bar: {
         name: 'Barras',
         value: 'bar',
-        config: {
-            type: 'bar'
-        },
-        subtypes: [
-            {
+        config: {},
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'bar'
                 }
             },
-            {
+            waterfall: {
                 name: 'Cascada',
                 value: 'waterfall',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'bar'
                 }
             },
-            {
+            stackedBars: {
                 name: 'Barras apiladas',
                 value: 'stackedBars',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'bar'
                 }
             },
-            {
+            splitBars: {
                 name: 'Barras divididas',
                 value: 'splitBars',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'bar'
                 }
             },
-            {
+            crossedBars: {
                 name: 'Barras cruzadas',
                 value: 'crossedBars',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'bar'
                 }
             }
-        ]
+        }
     },
     scatter: {
         name: 'Dispersión',
@@ -83,29 +79,32 @@ const chartTypes = {
         config: {
             type: 'scatter'
         },
-        subtypes: [
-            {
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'scatter'
                 }
             },
-            {
+            bubbles: {
                 name: 'Burbujas',
                 value: 'bubbles',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'scatter'
                 }
             },
-            {
+            largeScale: {
                 name: 'Gran escala',
-                value: 'grandScale',
-                config: {
-
+                value: 'largeScale',
+                config: {},
+                seriesConfig: {
+                    type: 'scatter'
                 }
             }
-        ]
+        }
     },
     pie: {
         name: 'Torta',
@@ -113,29 +112,32 @@ const chartTypes = {
         config: {
             type: 'pie'
         },
-        subtypes: [
-            {
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'pie'
                 }
             },
-            {
+            doughnut: {
                 name: 'Dona',
                 value: 'doughnut',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'pie'
                 }
             },
-            {
+            compound: {
                 name: 'Compuesto',
                 value: 'compound',
-                config: {
-
+                config: {},
+                seriesConfig: {
+                    type: 'pie'
                 }
             }
-        ]
+        }
     },
     radar: {
         name: 'Radar',
@@ -143,22 +145,28 @@ const chartTypes = {
         config: {
             type: 'radar'
         },
-        subtypes: [
-            {
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'radar'
                 }
             },
-            {
+            filled: {
                 name: 'Relleno',
                 value: 'filled',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'radar'
                 }
             }
-        ]
+        }
     },
     chord: {
         name: 'Cuerdas',
@@ -166,22 +174,28 @@ const chartTypes = {
         config: {
             type: 'chord'
         },
-        subtypes: [
-            {
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'chord'
                 }
             },
-            {
+            alternative: {
                 name: 'Alternativo',
                 value: 'alternative',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'chord'
                 }
             }
-        ]
+        }
     },
     force: {
         name: 'Grafos',
@@ -189,22 +203,28 @@ const chartTypes = {
         config: {
             type: 'force'
         },
-        subtypes: [
-            {
+        subtypes: {
+            basic: {
                 name: 'Básico',
                 value: 'basic',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'force'
                 }
             },
-            {
+            tree: {
                 name: 'Árbol',
                 value: 'tree',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'force'
                 }
             }
-        ]
+        }
     },
     mixed: {
         name: 'Combinados',
@@ -212,22 +232,28 @@ const chartTypes = {
         config: {
             type: 'line'
         },
-        subtypes: [
-            {
+        subtypes: {
+            linePlusBars: {
                 name: 'Líneas + barras',
                 value: 'linePlusBars',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'line'
                 }
             },
-            {
+            linePlusScatter: {
                 name: 'Líneas + dispersión',
                 value: 'linePlusScatter',
                 config: {
 
+                },
+                seriesConfig: {
+                    type: 'line'
                 }
             }
-        ]
+        }
     }
 };
 
@@ -264,7 +290,7 @@ const chartConfig = {
                 show: false
             },
             axisTick: {
-                interval: 'auto'
+                interval: 0
             }
         }
     ],
@@ -287,19 +313,16 @@ const chartSeries = [
     {
         name: 'Serie 1',
         type: 'line',
-        // stack: '123',
         data: [120, 132, 101, 134, 90, 230, 210]
     },
     {
         name: 'Serie 2',
         type: 'line',
-        // stack: '456',
         data: [220, 182, 191, 234, 290, 330, 310]
     },
     {
         name: 'Serie 3',
         type: 'line',
-        // stack: '789',
         data: [150, 232, 201, 154, 190, 330, 410]
     }
 ];
@@ -320,7 +343,7 @@ const initialState = {
     defaultTab: 'tab1',
     chartTypes,
     chartType: chartTypes.line,
-    chartSubtype: 0,
+    chartSubtype: chartTypes.line.subtypes.basic.value,
     transposeData: false,
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
@@ -346,10 +369,11 @@ export default function step3(state = initialState, action = {}) {
             };
         case actions.SET_CHART_TYPE:
         case actions.SET_CHART_SUBTYPE:
-            newState.chartType = action.chartType;
-            newState.chartSubtype = action.chartSubtype;
+            newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
+            newState.chartType = action.chartType || newState.chartType;
+            newState.chartSubtype = action.chartSubtype || newState.chartSubtype;
             newState.chartSeries = action.newSeries;
-            newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
+            newState.echarts.setOption({ ...newState.chartConfig, series: action.newSeries }, true);
             newState.error = action.error;
 
             return newState;
@@ -384,7 +408,10 @@ export default function step3(state = initialState, action = {}) {
                 }
             }
 
-            newState.echarts.setOption({ ...newState.chartConfig, series: action.columns }, true);
+            console.log('chartSeries');
+            console.log(newState.chartSeries);
+
+            newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
             newState.error = action.error;
 
             return newState;
@@ -401,7 +428,7 @@ export default function step3(state = initialState, action = {}) {
             }
 
             newState.chartConfig.xAxis[0].data.reverse();
-            newState.echarts.setOption({ ...newState.chartConfig }, true);
+            newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, false);
             newState.error = action.error;
 
             return newState;

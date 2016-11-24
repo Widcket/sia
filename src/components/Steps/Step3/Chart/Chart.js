@@ -1,12 +1,12 @@
 import {Col, Row} from 'antd';
-import React, {PropTypes, PureComponent} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import ReactEcharts from 'echarts-for-react';
 import {autobind} from 'core-decorators';
 
 const echarts = require('echarts');
 
-export default class Chart extends PureComponent {
+export default class Chart extends Component {
     static propTypes = {
         // instance: PropTypes.object.isRequired,
         setInstance: PropTypes.func.isRequired,
@@ -43,7 +43,7 @@ export default class Chart extends PureComponent {
                   ref="echarts"
                   option={this.getOptions()}
                   style={{
-                      height: '40vh',
+                      height: '40vw',
                       width: '100%'
                   }}
                   theme="sia"
