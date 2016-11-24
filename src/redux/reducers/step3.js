@@ -481,14 +481,15 @@ export default function step3(state = initialState, action = {}) {
             }
 
             // Fill with 0s
+            if (newState.chartConfig.xAxis[0].data) {
+                for (const element of newState.chartSeries) {
+                    if (element.data.length > largest) largest = element.data.length;
+                }
 
-            for (const element of newState.chartSeries) {
-                if (element.data.length > largest) largest = element.data.length;
-            }
-
-            for (const element of newState.chartSeries) {
-                for (let i = element.data.length; i <= largest; i++) {
-                    element.data.push(0);
+                for (const element of newState.chartSeries) {
+                    for (let i = element.data.length; i <= largest; i++) {
+                        element.data.push(0);
+                    }
                 }
             }
 
