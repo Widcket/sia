@@ -44,6 +44,7 @@ export default class Chart extends Component {
                   option={this.getOptions()}
                   style={{
                       height: '40vw',
+                      minHeight: '400px',
                       width: '100%'
                   }}
                   theme="sia"

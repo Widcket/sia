@@ -475,12 +475,13 @@ export default function step3(state = initialState, action = {}) {
             if (action.columns.length > 0) {
                 if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
                 if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
+
                 newState.chartSeries = action.columns;
             } else {
                 newState.chartSeries = [];
             }
 
-            // Fill with 0s
+            // Fill with 0s to even the length of the data arrays
             if (newState.chartConfig.xAxis[0].data) {
                 for (const element of newState.chartSeries) {
                     if (element.data.length > largest) largest = element.data.length;
