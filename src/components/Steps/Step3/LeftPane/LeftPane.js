@@ -1,5 +1,5 @@
 import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
-import React, {PropTypes, PureComponent} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import ChartButton from '../ChartButton/ChartButton';
 import {autobind} from 'core-decorators';
@@ -9,7 +9,7 @@ const Option = Select.Option;
 const TabPane = Tabs.TabPane;
 const TreeNode = Tree.TreeNode;
 
-export default class LeftPane extends PureComponent {
+export default class LeftPane extends Component {
     static propTypes = {
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired,
@@ -360,19 +360,19 @@ export default class LeftPane extends PureComponent {
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.xAxis[0].show}
+                                      checked={this.props.store.chartConfig.xAxis[0].show}
                                       onChange={this.props.actions.toggleXAxis} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.xAxis[0].splitLine.show}
+                                      checked={this.props.store.chartConfig.xAxis[0].splitLine.show}
                                       onChange={this.props.actions.toggleXAxisGrid} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Área</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.xAxis[0].splitArea.show}
+                                      checked={this.props.store.chartConfig.xAxis[0].splitArea.show}
                                       onChange={this.props.actions.toggleXAxisArea} />
                                 </div>
                             </Panel>
@@ -380,19 +380,19 @@ export default class LeftPane extends PureComponent {
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Eje</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.yAxis[0].show}
+                                      checked={this.props.store.chartConfig.yAxis[0].show}
                                       onChange={this.props.actions.toggleYAxis} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Grilla</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.yAxis[0].splitLine.show}
+                                      checked={this.props.store.chartConfig.yAxis[0].splitLine.show}
                                       onChange={this.props.actions.toggleYAxisGrid} />
                                 </div>
                                 <div className="data-panel-control">
                                     <span className="data-control-label">Área</span>
                                     <Switch
-                                      defaultChecked={this.props.store.chartConfig.yAxis[0].splitArea.show}
+                                      checked={this.props.store.chartConfig.yAxis[0].splitArea.show}
                                       onChange={this.props.actions.toggleYAxisArea} />
                                 </div>
                             </Panel>

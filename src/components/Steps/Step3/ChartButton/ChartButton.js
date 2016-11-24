@@ -14,7 +14,7 @@ export default class ChartButton extends PureComponent {
 
     @autobind
     runSetChartType() {
-        this.props.setChartType(this.props.chartType, this.props.chartType.subtypes[0].value);
+        this.props.setChartType(this.props.chartType, this.props.chartType.subtypes.basic.value);
     }
 
     render() {

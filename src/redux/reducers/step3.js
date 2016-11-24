@@ -1,10 +1,70 @@
 import * as actions from '../actions/step3/definitions';
 
+const hideAxis = {
+    xAxis: [
+        {
+            show: false,
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            }
+        }
+    ],
+    yAxis: [
+        {
+            show: false,
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            }
+        }
+    ]
+};
+
+const showAxis = {
+    xAxis: [
+        {
+            type: 'category',
+            show: true,
+            boundaryGap: false,
+            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            },
+            axisTick: {
+                interval: 0
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            show: true,
+            splitLine: {
+                show: true
+            },
+            splitArea: {
+                show: true
+            },
+            scale: false
+        }
+    ]
+};
+
 const chartTypes = {
     line: {
         name: 'Líneas',
         value: 'line',
-        config: {},
+        config: {
+            ...showAxis
+        },
         subtypes: {
             basic: {
                 name: 'Básico',
@@ -29,7 +89,9 @@ const chartTypes = {
     bar: {
         name: 'Barras',
         value: 'bar',
-        config: {},
+        config: {
+            ...showAxis
+        },
         subtypes: {
             basic: {
                 name: 'Básico',
@@ -73,11 +135,48 @@ const chartTypes = {
             }
         }
     },
+    pie: {
+        name: 'Torta',
+        value: 'pie',
+        config: {
+            ...hideAxis
+        },
+        subtypes: {
+            basic: {
+                name: 'Básico',
+                value: 'basic',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    legendHoverLink: false
+                }
+            },
+            doughnut: {
+                name: 'Dona',
+                value: 'doughnut',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    legendHoverLink: false,
+                    radius: ['25%', '75%']
+                }
+            },
+            compound: {
+                name: 'Compuesto',
+                value: 'compound',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    legendHoverLink: false
+                }
+            }
+        }
+    },
     scatter: {
         name: 'Dispersión',
         value: 'scatter',
         config: {
-            type: 'scatter'
+            ...showAxis
         },
         subtypes: {
             basic: {
@@ -106,44 +205,11 @@ const chartTypes = {
             }
         }
     },
-    pie: {
-        name: 'Torta',
-        value: 'pie',
-        config: {
-            type: 'pie'
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {},
-                seriesConfig: {
-                    type: 'pie'
-                }
-            },
-            doughnut: {
-                name: 'Dona',
-                value: 'doughnut',
-                config: {},
-                seriesConfig: {
-                    type: 'pie'
-                }
-            },
-            compound: {
-                name: 'Compuesto',
-                value: 'compound',
-                config: {},
-                seriesConfig: {
-                    type: 'pie'
-                }
-            }
-        }
-    },
     radar: {
         name: 'Radar',
         value: 'radar',
         config: {
-            type: 'radar'
+            ...hideAxis
         },
         subtypes: {
             basic: {
@@ -153,7 +219,8 @@ const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'radar'
+                    type: 'radar',
+                    polarIndex: 1
                 }
             },
             filled: {
@@ -172,7 +239,7 @@ const chartTypes = {
         name: 'Cuerdas',
         value: 'chord',
         config: {
-            type: 'chord'
+            ...hideAxis
         },
         subtypes: {
             basic: {
@@ -201,7 +268,7 @@ const chartTypes = {
         name: 'Grafos',
         value: 'force',
         config: {
-            type: 'force'
+            ...hideAxis
         },
         subtypes: {
             basic: {
@@ -230,7 +297,7 @@ const chartTypes = {
         name: 'Combinados',
         value: 'combined',
         config: {
-            type: 'line'
+            ...showAxis
         },
         subtypes: {
             linePlusBars: {
@@ -313,16 +380,19 @@ const chartSeries = [
     {
         name: 'Serie 1',
         type: 'line',
+        stack: 'a',
         data: [120, 132, 101, 134, 90, 230, 210]
     },
     {
         name: 'Serie 2',
         type: 'line',
+        stack: 'a',
         data: [220, 182, 191, 234, 290, 330, 310]
     },
     {
         name: 'Serie 3',
         type: 'line',
+        stack: 'a',
         data: [150, 232, 201, 154, 190, 330, 410]
     }
 ];
@@ -338,6 +408,19 @@ const valueAxisOptions = [
     }
 ];
 
+const stacks = {
+    xAxis: {
+        show: [],
+        splitLine: [],
+        splitArea: []
+    },
+    yAxis: {
+        show: [],
+        splitLine: [],
+        splitArea: []
+    }
+};
+
 const initialState = {
     echarts: {},
     defaultTab: 'tab1',
@@ -348,7 +431,8 @@ const initialState = {
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
     chartConfig,
-    chartSeries
+    chartSeries,
+    stacks
 };
 
 export default function step3(state = initialState, action = {}) {
@@ -389,8 +473,8 @@ export default function step3(state = initialState, action = {}) {
             let largest = 0;
 
             if (action.columns.length > 0) {
-                newState.chartConfig.xAxis[0].data = action.categoryAxis;
-                newState.chartConfig.xAxis[0].axisTick.interval = 0;
+                if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
+                if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
                 newState.chartSeries = action.columns;
             } else {
                 newState.chartSeries = [];
@@ -442,31 +526,43 @@ export default function step3(state = initialState, action = {}) {
             return newState;
         case actions.TOGGLE_X_AXIS:
             newState.chartConfig.xAxis[0].show = !newState.chartConfig.xAxis[0].show;
+
+            if (!newState.chartConfig.xAxis[0].show) {
+                newState.chartConfig.xAxis[0].splitLine.show = false;
+                newState.chartConfig.xAxis[0].splitArea.show = false;
+            }
+
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_X_AXIS_GRID:
-            newState.chartConfig.xAxis[0].splitLine.show = !newState.chartConfig.xAxis[0].splitLine.show;
+            newState.chartConfig.xAxis[0].splitLine.show = newState.chartConfig.xAxis[0].splitLine.show ? false : true;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_X_AXIS_AREA:
-            newState.chartConfig.xAxis[0].splitArea.show = !newState.chartConfig.xAxis[0].splitArea.show;
+            newState.chartConfig.xAxis[0].splitArea.show = newState.chartConfig.xAxis[0].splitArea.show ? false : true;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS:
-            newState.chartConfig.yAxis[0].show = !newState.chartConfig.yAxis[0].show;
+            newState.chartConfig.yAxis[0].show = newState.chartConfig.yAxis[0].show ? false : true;
+
+            if (!newState.chartConfig.yAxis[0].show) {
+                newState.chartConfig.yAxis[0].splitLine.show = false;
+                newState.chartConfig.yAxis[0].splitArea.show = false;
+            }
+
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS_GRID:
-            newState.chartConfig.yAxis[0].splitLine.show = !newState.chartConfig.yAxis[0].splitLine.show;
+            newState.chartConfig.yAxis[0].splitLine.show = newState.chartConfig.yAxis[0].splitLine.show ? false : true;
             newState.error = action.error;
 
             return newState;
         case actions.TOGGLE_Y_AXIS_AREA:
-            newState.chartConfig.yAxis[0].splitArea.show = !newState.chartConfig.yAxis[0].splitArea.show;
+            newState.chartConfig.yAxis[0].splitArea.show = newState.chartConfig.yAxis[0].splitArea.show ? false : true;
             newState.error = action.error;
 
             return newState;
