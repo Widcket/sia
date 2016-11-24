@@ -508,7 +508,8 @@ export default function step3(state = initialState, action = {}) {
                 element.data.reverse();
             }
 
-            newState.chartConfig.xAxis[0].data.reverse();
+            if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
+
             newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, false);
             newState.error = action.error;
 
