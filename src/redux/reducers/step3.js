@@ -1,401 +1,99 @@
 import * as actions from '../actions/step3/definitions';
 
-const hideAxis = {
-    xAxis: [
-        {
-            show: false,
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            }
-        }
-    ],
-    yAxis: [
-        {
-            show: false,
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            }
-        }
-    ]
-};
+import {chartConfig, chartSeries} from './step3/chartConfig.js';
 
-const showAxis = {
-    xAxis: [
-        {
-            type: 'category',
-            show: true,
-            boundaryGap: false,
-            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            },
-            axisTick: {
-                interval: 0
-            }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            show: true,
-            splitLine: {
-                show: true
-            },
-            splitArea: {
-                show: true
-            },
-            scale: false
-        }
-    ]
-};
+import chartTypes from './step3/chartTypes.js';
 
-const chartTypes = {
-    line: {
-        name: 'Líneas',
-        value: 'line',
-        config: {
-            ...showAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {},
-                seriesConfig: {
-                    type: 'line'
-                }
-            },
-            area: {
-                name: 'Área',
-                value: 'area',
-                config: {},
-                seriesConfig: {
-                    type: 'line',
-                    smooth: true,
-                    itemStyle: { normal: { areaStyle: { type: 'default' } } }
-                }
-            }
-        }
+const reducers = {
+    SET_CHART_TYPE: (action, newState) => {
+        newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
+        newState.chartType = action.chartType || newState.chartType;
+        newState.chartSubtype = action.chartSubtype || newState.chartSubtype;
+        newState.chartSeries = action.newSeries;
+        newState.echarts.setOption({ ...newState.chartConfig, series: action.newSeries }, true);
+        newState.error = action.error;
+
+        return newState;
     },
-    bar: {
-        name: 'Barras',
-        value: 'bar',
-        config: {
-            ...showAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {},
-                seriesConfig: {
-                    type: 'bar'
-                }
-            },
-            waterfall: {
-                name: 'Cascada',
-                value: 'waterfall',
-                config: {},
-                seriesConfig: {
-                    type: 'bar'
-                }
-            },
-            stackedBars: {
-                name: 'Barras apiladas',
-                value: 'stackedBars',
-                config: {},
-                seriesConfig: {
-                    type: 'bar'
-                }
-            },
-            splitBars: {
-                name: 'Barras divididas',
-                value: 'splitBars',
-                config: {},
-                seriesConfig: {
-                    type: 'bar'
-                }
-            },
-            crossedBars: {
-                name: 'Barras cruzadas',
-                value: 'crossedBars',
-                config: {},
-                seriesConfig: {
-                    type: 'bar'
+    SET_COLUMNS: (action, newState) => {
+        // TODO: Memoize
+        let largest = 0;
+
+        if (action.columns.length > 0) {
+            if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
+            if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
+
+            newState.chartSeries = action.columns;
+        } else {
+            newState.chartSeries = [];
+        }
+
+        // Fill with 0s to even the length of the data arrays
+        if (newState.chartConfig.xAxis[0].data) {
+            for (const element of newState.chartSeries) {
+                if (element.data.length > largest) largest = element.data.length;
+            }
+
+            for (const element of newState.chartSeries) {
+                for (let i = element.data.length; i <= largest; i++) {
+                    element.data.push(0);
                 }
             }
         }
+
+        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
+        newState.error = action.error;
+
+        return newState;
     },
-    pie: {
-        name: 'Torta',
-        value: 'pie',
-        config: {
-            ...hideAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {},
-                seriesConfig: {
-                    type: 'pie',
-                    legendHoverLink: false
-                }
-            },
-            doughnut: {
-                name: 'Dona',
-                value: 'doughnut',
-                config: {},
-                seriesConfig: {
-                    type: 'pie',
-                    legendHoverLink: false,
-                    radius: ['25%', '75%']
-                }
-            },
-            compound: {
-                name: 'Compuesto',
-                value: 'compound',
-                config: {},
-                seriesConfig: {
-                    type: 'pie',
-                    legendHoverLink: false
-                }
-            }
+    TOGGLE_INVERT_DATA: (action, newState) => {
+        // TODO: Memoize
+        for (const element of newState.chartSeries) {
+            element.data.reverse();
         }
+
+        if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
+
+        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, false);
+        newState.error = action.error;
+
+        return newState;
     },
-    scatter: {
-        name: 'Dispersión',
-        value: 'scatter',
-        config: {
-            ...showAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {},
-                seriesConfig: {
-                    type: 'scatter'
-                }
-            },
-            bubbles: {
-                name: 'Burbujas',
-                value: 'bubbles',
-                config: {},
-                seriesConfig: {
-                    type: 'scatter'
-                }
-            },
-            largeScale: {
-                name: 'Gran escala',
-                value: 'largeScale',
-                config: {},
-                seriesConfig: {
-                    type: 'scatter'
-                }
-            }
-        }
+    SET_CHART_TITLE: (action, newState) => {
+        newState.chartConfig.title.text = action.chartTitle;
+        newState.error = action.error;
+
+        return newState;
     },
-    radar: {
-        name: 'Radar',
-        value: 'radar',
-        config: {
-            ...hideAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {
+    TOGGLE_AXIS: (action, newState, axis) => {
+        newState.chartConfig[axis][0].show = !newState.chartConfig[axis][0].show;
 
-                },
-                seriesConfig: {
-                    type: 'radar',
-                    polarIndex: 1
-                }
-            },
-            filled: {
-                name: 'Relleno',
-                value: 'filled',
-                config: {
-
-                },
-                seriesConfig: {
-                    type: 'radar'
-                }
-            }
+        if (!newState.chartConfig[axis][0].show) {
+            newState.chartConfig[axis][0].splitLine.show = false;
+            newState.chartConfig[axis][0].splitArea.show = false;
         }
+
+        newState.error = action.error;
+
+        return newState;
     },
-    chord: {
-        name: 'Cuerdas',
-        value: 'chord',
-        config: {
-            ...hideAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {
+    TOGGLE_AXIS_GRID: (action, newState, axis) => {
+        if (!newState.chartConfig[axis][0].show) newState.chartConfig[axis][0].show = true;
 
-                },
-                seriesConfig: {
-                    type: 'chord'
-                }
-            },
-            alternative: {
-                name: 'Alternativo',
-                value: 'alternative',
-                config: {
+        newState.chartConfig[axis][0].splitLine.show = newState.chartConfig[axis][0].splitLine.show ? false : true;
+        newState.error = action.error;
 
-                },
-                seriesConfig: {
-                    type: 'chord'
-                }
-            }
-        }
+        return newState;
     },
-    force: {
-        name: 'Grafos',
-        value: 'force',
-        config: {
-            ...hideAxis
-        },
-        subtypes: {
-            basic: {
-                name: 'Básico',
-                value: 'basic',
-                config: {
+    TOGGLE_AXIS_AREA: (action, newState, axis) => {
+        if (!newState.chartConfig[axis][0].show) newState.chartConfig[axis][0].show = true;
 
-                },
-                seriesConfig: {
-                    type: 'force'
-                }
-            },
-            tree: {
-                name: 'Árbol',
-                value: 'tree',
-                config: {
+        newState.chartConfig[axis][0].splitArea.show = newState.chartConfig[axis][0].splitArea.show ? false : true;
+        newState.error = action.error;
 
-                },
-                seriesConfig: {
-                    type: 'force'
-                }
-            }
-        }
-    },
-    mixed: {
-        name: 'Combinados',
-        value: 'combined',
-        config: {
-            ...showAxis
-        },
-        subtypes: {
-            linePlusBars: {
-                name: 'Líneas + barras',
-                value: 'linePlusBars',
-                config: {
-
-                },
-                seriesConfig: {
-                    type: 'line'
-                }
-            },
-            linePlusScatter: {
-                name: 'Líneas + dispersión',
-                value: 'linePlusScatter',
-                config: {
-
-                },
-                seriesConfig: {
-                    type: 'line'
-                }
-            }
-        }
+        return newState;
     }
 };
-
-const chartConfig = {
-    title: {
-        text: 'Gráfico 1'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    toolbox: {
-        feature: {
-            saveAsImage: {
-                title: 'PNG'
-            }
-        }
-    },
-    grid: {
-        left: '1%',
-        right: '1.5%',
-        bottom: '0%',
-        containLabel: true
-    },
-    xAxis: [
-        {
-            type: 'category',
-            show: true,
-            boundaryGap: false,
-            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            },
-            axisTick: {
-                interval: 0
-            }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            show: true,
-            splitLine: {
-                show: true
-            },
-            splitArea: {
-                show: true
-            },
-            scale: false
-        }
-    ],
-};
-
-const chartSeries = [
-    {
-        name: 'Serie 1',
-        type: 'line',
-        stack: 'a',
-        data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-        name: 'Serie 2',
-        type: 'line',
-        stack: 'a',
-        data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-        name: 'Serie 3',
-        type: 'line',
-        stack: 'a',
-        data: [150, 232, 201, 154, 190, 330, 410]
-    }
-];
 
 const valueAxisOptions = [
     {
@@ -408,19 +106,6 @@ const valueAxisOptions = [
     }
 ];
 
-const stacks = {
-    xAxis: {
-        show: [],
-        splitLine: [],
-        splitArea: []
-    },
-    yAxis: {
-        show: [],
-        splitLine: [],
-        splitArea: []
-    }
-};
-
 const initialState = {
     echarts: {},
     defaultTab: 'tab1',
@@ -431,8 +116,7 @@ const initialState = {
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
     chartConfig,
-    chartSeries,
-    stacks
+    chartSeries
 };
 
 export default function step3(state = initialState, action = {}) {
@@ -453,14 +137,7 @@ export default function step3(state = initialState, action = {}) {
             };
         case actions.SET_CHART_TYPE:
         case actions.SET_CHART_SUBTYPE:
-            newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
-            newState.chartType = action.chartType || newState.chartType;
-            newState.chartSubtype = action.chartSubtype || newState.chartSubtype;
-            newState.chartSeries = action.newSeries;
-            newState.echarts.setOption({ ...newState.chartConfig, series: action.newSeries }, true);
-            newState.error = action.error;
-
-            return newState;
+            return reducers.SET_CHART_TYPE(action, newState);
         case actions.SET_VALUE_AXIS:
             return {
                 ...state,
@@ -469,35 +146,7 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.SET_COLUMNS:
-            // TODO: Memoize
-            let largest = 0;
-
-            if (action.columns.length > 0) {
-                if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
-                if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
-
-                newState.chartSeries = action.columns;
-            } else {
-                newState.chartSeries = [];
-            }
-
-            // Fill with 0s to even the length of the data arrays
-            if (newState.chartConfig.xAxis[0].data) {
-                for (const element of newState.chartSeries) {
-                    if (element.data.length > largest) largest = element.data.length;
-                }
-
-                for (const element of newState.chartSeries) {
-                    for (let i = element.data.length; i <= largest; i++) {
-                        element.data.push(0);
-                    }
-                }
-            }
-
-            newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
-            newState.error = action.error;
-
-            return newState;
+            return reducers.SET_COLUMNS(action, newState);
         case actions.SET_DATA_RANGE:
             return {
                 ...state,
@@ -505,17 +154,7 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.TOGGLE_INVERT_DATA:
-            // TODO: Memoize
-            for (const element of newState.chartSeries) {
-                element.data.reverse();
-            }
-
-            if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
-
-            newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, false);
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_INVERT_DATA(action, newState);
         case actions.TOGGLE_TRANSPOSE_DATA:
             return {
                 ...state,
@@ -523,52 +162,19 @@ export default function step3(state = initialState, action = {}) {
                 error: action.error
             };
         case actions.SET_CHART_TITLE:
-            newState.chartConfig.title.text = action.chartTitle;
-            newState.error = action.error;
-
-            return newState;
+            return reducers.SET_CHART_TITLE(action, newState);
         case actions.TOGGLE_X_AXIS:
-            newState.chartConfig.xAxis[0].show = !newState.chartConfig.xAxis[0].show;
-
-            if (!newState.chartConfig.xAxis[0].show) {
-                newState.chartConfig.xAxis[0].splitLine.show = false;
-                newState.chartConfig.xAxis[0].splitArea.show = false;
-            }
-
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS(action, newState, 'xAxis');
         case actions.TOGGLE_X_AXIS_GRID:
-            newState.chartConfig.xAxis[0].splitLine.show = newState.chartConfig.xAxis[0].splitLine.show ? false : true;
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS_GRID(action, newState, 'xAxis');
         case actions.TOGGLE_X_AXIS_AREA:
-            newState.chartConfig.xAxis[0].splitArea.show = newState.chartConfig.xAxis[0].splitArea.show ? false : true;
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS_AREA(action, newState, 'xAxis');
         case actions.TOGGLE_Y_AXIS:
-            newState.chartConfig.yAxis[0].show = newState.chartConfig.yAxis[0].show ? false : true;
-
-            if (!newState.chartConfig.yAxis[0].show) {
-                newState.chartConfig.yAxis[0].splitLine.show = false;
-                newState.chartConfig.yAxis[0].splitArea.show = false;
-            }
-
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS(action, newState, 'yAxis');
         case actions.TOGGLE_Y_AXIS_GRID:
-            newState.chartConfig.yAxis[0].splitLine.show = newState.chartConfig.yAxis[0].splitLine.show ? false : true;
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS_GRID(action, newState, 'yAxis');
         case actions.TOGGLE_Y_AXIS_AREA:
-            newState.chartConfig.yAxis[0].splitArea.show = newState.chartConfig.yAxis[0].splitArea.show ? false : true;
-            newState.error = action.error;
-
-            return newState;
+            return reducers.TOGGLE_AXIS_AREA(action, newState, 'yAxis');
         default:
             return state;
     }
