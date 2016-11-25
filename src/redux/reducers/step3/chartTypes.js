@@ -184,7 +184,7 @@ export const chartTypes = {
                 seriesConfig: {
                     type: 'pie',
                     legendHoverLink: false,
-                    radius: ['30%', '75%']
+                    radius: ['40%', '75%']
                 }
             }
         },
