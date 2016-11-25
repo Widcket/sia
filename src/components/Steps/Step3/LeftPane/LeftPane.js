@@ -112,8 +112,8 @@ export default class LeftPane extends Component {
     @autobind
     getCustomConfig(customType = null, customSubtype = null, series = false) {
         const type = customType || this.props.store.chartType;
-        const subtype = customSubtype || this.props.store.chartSubtype;
-        const subtypeObject = type.subtypes[subtype];
+        const subtype = customSubtype || this.props.store.chartSubtype[type.value];
+        const subtypeObject = type.subtypes[subtype] || type.subtypes.basic;
         let customConfig;
 
         if (series) {
@@ -130,10 +130,11 @@ export default class LeftPane extends Component {
 
     @autobind
     getCustomSeries(customType = null, customSubtype = null) {
+        const type = customType || this.props.store.chartType;
         const result = [];
 
-        for (const serie of this.props.store.chartSeries) {
-            const newSerie = this.getCustomConfig(customType, customSubtype, true);
+        for (const serie of this.props.store.chartSeries[type.value]) {
+            const newSerie = this.getCustomConfig(type, customSubtype, true);
 
             newSerie.name = serie.name;
             newSerie.data = serie.data;
@@ -215,14 +216,28 @@ export default class LeftPane extends Component {
 
     @autobind
     curry(firstArgument, fn) {
-        return (secondArgument, ...moreArgs) => {
-            return fn.apply(this, [firstArgument, secondArgument, ...moreArgs]);
+        return (secondArgument) => {
+            return fn.apply(this, [firstArgument, secondArgument]);
         };
     }
 
     render() {
         const style = require('./LeftPane.scss');
         const controls = {
+            subtype: (
+                <Row className="data-paneless-control">
+                    <Col>
+                        <span className="data-control-label" id="subtype">Tipo</span>
+                        <Select
+                          className="data-control-select"
+                          value={this.props.store.chartSubtype[this.props.store.chartType.value]}
+                          onSelect={this.curry(null, this.setChartType)}>
+                            {this.getSelectOptions(Object.values(this.props.store.chartType.subtypes),
+                                this.props.store.chartType.name)}
+                        </Select>
+                    </Col>
+                </Row>
+            ),
             xAxis: (
                 <div className="data-panel-control">
                     <span className="data-control-label">Etiquetas</span>
@@ -291,31 +306,20 @@ export default class LeftPane extends Component {
                     <TabPane tab="Gráfico" key="tab1" className="tab1">
                         <div id="chart-types">
                             <Row>
-                                { this.getChartButton('line', 'Líneas', 'fi flaticon-business-stats') }
-                                { this.getChartButton('bar', 'Barras', 'fi flaticon-business-bars-graphic') }
-                                { this.getChartButton('pie', 'Torta', 'fi flaticon-pie-chart-stats') }
-                                { this.getChartButton('scatter', 'Dispersión', 'fi flaticon-dots-graphic') }
+                                {this.getChartButton('line', 'Líneas', 'fi flaticon-business-stats')}
+                                {this.getChartButton('bar', 'Barras', 'fi flaticon-business-bars-graphic')}
+                                {this.getChartButton('pie', 'Torta', 'fi flaticon-pie-chart-stats')}
+                                {this.getChartButton('scatter', 'Dispersión', 'fi flaticon-dots-graphic')}
                             </Row>
                             <Row>
-                                { this.getChartButton('radar', 'Radar', 'fi flaticon-radar-chart') }
-                                { this.getChartButton('chord', 'Cuerdas',
-                                    'fi flaticon-circle-with-irregular-grid-lines') }
-                                { this.getChartButton('force', 'Grafos', 'fi flaticon-chemical-diagram') }
-                                { this.getChartButton('mixed', 'Mixto', 'fi flaticon-bar-dotted-stats') }
+                                {this.getChartButton('radar', 'Radar', 'fi flaticon-radar-chart')}
+                                {this.getChartButton('chord', 'Cuerdas',
+                                    'fi flaticon-circle-with-irregular-grid-lines')}
+                                {this.getChartButton('force', 'Grafos', 'fi flaticon-chemical-diagram')}
+                                {this.getChartButton('mixed', 'Mixto', 'fi flaticon-bar-dotted-stats')}
                             </Row>
                         </div>
-                        <Row className="data-paneless-control">
-                            <Col>
-                                <span className="data-control-label" id="subtype">Tipo</span>
-                                <Select
-                                  className="data-control-select"
-                                  defaultValue={this.props.store.chartType.subtypes.basic.name}
-                                  onSelect={this.curry(this.props.store.chartType, this.setChartType)}>
-                                    {this.getSelectOptions(Object.values(this.props.store.chartType.subtypes),
-                                        this.props.store.chartType.name)}
-                                </Select>
-                            </Col>
-                        </Row>
+                        {this.getControl(controls.subtype, this.props.store.chartType.controls.subtype)}
                         <Collapse defaultActiveKey={['columnPanel', 'dataPanel']}>
                             <Panel header="Columnas" key="columnPanel">
                                 {this.getControl(controls.xAxis, this.props.store.chartType.controls.columnPanel.xAxis)}

@@ -29,6 +29,7 @@ export default class Step3 extends PureComponent {
                           setInstance={this.props.actions.setEchartsInstance}
                           chartConfig={this.props.store.chartConfig}
                           chartSeries={this.props.store.chartSeries}
+                          chartType={this.props.store.chartType}
                           data={this.props.data} />
                     </Col>
                 </Row>

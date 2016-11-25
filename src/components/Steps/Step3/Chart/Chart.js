@@ -8,10 +8,10 @@ const echarts = require('echarts');
 
 export default class Chart extends Component {
     static propTypes = {
-        // instance: PropTypes.object.isRequired,
         setInstance: PropTypes.func.isRequired,
         chartConfig: PropTypes.object.isRequired,
-        chartSeries: PropTypes.array.isRequired
+        chartSeries: PropTypes.object.isRequired,
+        chartType: PropTypes.object.isRequired
     }
 
     componentDidMount() {
@@ -21,14 +21,6 @@ export default class Chart extends Component {
     @autobind
     onChartReady(chart) {
         chart.hideLoading();
-    }
-
-    @autobind
-    getOptions() {
-        return {
-            ...this.props.chartConfig,
-            series: this.props.chartSeries
-        };
     }
 
     render() {
@@ -41,7 +33,7 @@ export default class Chart extends Component {
             <div id="chart">
                 <ReactEcharts
                   ref="echarts"
-                  option={this.getOptions()}
+                  option={{...this.props.chartConfig, series: this.props.chartSeries[this.props.chartType.value]}}
                   style={{
                       height: '40vw',
                       minHeight: '400px',

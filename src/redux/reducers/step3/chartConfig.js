@@ -50,23 +50,71 @@ export const chartConfig = {
     ],
 };
 
-export const chartSeries = [
-    {
-        name: 'Serie 1',
-        type: 'line',
-        stack: 'a',
-        data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-        name: 'Serie 2',
-        type: 'line',
-        stack: 'a',
-        data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-        name: 'Serie 3',
-        type: 'line',
-        stack: 'a',
-        data: [150, 232, 201, 154, 190, 330, 410]
-    }
-];
+export const chartSeries = {
+    line: [
+        {
+            name: 'Serie 1',
+            type: 'line',
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: 'Serie 2',
+            type: 'line',
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: 'Serie 3',
+            type: 'line',
+            data: [150, 232, 201, 154, 190, 330, 410]
+        }
+    ],
+    bar: [
+        {
+            name: 'Serie 1',
+            type: 'bar',
+            stack: 'Serie 1',
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: 'Serie 2',
+            type: 'bar',
+            stack: 'Serie 1',
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: 'Serie 3',
+            type: 'bar',
+            stack: 'Serie 1',
+            data: [150, 232, 201, 154, 190, 330, 410]
+        }
+    ],
+    pie: [
+        {
+            name: 'Serie 1',
+            type: 'pie',
+            stack: 'a',
+            data: [
+                {
+                    value: 123,
+                    name: 'abc'
+                },
+                {
+                    value: 456,
+                    name: 'dfg'
+                },
+                {
+                    value: 789,
+                    name: 'hij'
+                },
+                {
+                    value: 321,
+                    name: 'klm'
+                },
+                {
+                    value: 654,
+                    name: 'nop'
+                }
+            ]
+        }
+    ]
+};

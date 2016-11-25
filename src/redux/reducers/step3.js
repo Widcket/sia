@@ -1,15 +1,20 @@
 import * as actions from '../actions/step3/definitions';
 
 import {chartConfig, chartSeries} from './step3/chartConfig.js';
-
-import chartTypes from './step3/chartTypes.js';
+import {chartSubtype, chartTypes} from './step3/chartTypes.js';
 
 const reducers = {
     SET_CHART_TYPE: (action, newState) => {
         newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
-        newState.chartType = action.chartType || newState.chartType;
-        newState.chartSubtype = action.chartSubtype || newState.chartSubtype;
-        newState.chartSeries = action.newSeries;
+
+        if (!action.chartType) {
+            newState.chartType = newState.chartType;
+            newState.chartSubtype[newState.chartType.value] = action.chartSubtype;
+        } else {
+            newState.chartType = action.chartType;
+        }
+
+        newState.chartSeries[newState.chartType.value] = action.newSeries;
         newState.echarts.setOption({ ...newState.chartConfig, series: action.newSeries }, true);
         newState.error = action.error;
 
@@ -23,38 +28,40 @@ const reducers = {
             if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
             if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
 
-            newState.chartSeries = action.columns;
+            newState.chartSeries[newState.chartType.value] = action.columns;
         } else {
-            newState.chartSeries = [];
+            newState.chartSeries[newState.chartType.value] = [];
         }
 
         // Fill with 0s to even the length of the data arrays
         if (newState.chartConfig.xAxis[0].data) {
-            for (const element of newState.chartSeries) {
+            for (const element of newState.chartSeries[newState.chartType.value]) {
                 if (element.data.length > largest) largest = element.data.length;
             }
 
-            for (const element of newState.chartSeries) {
+            for (const element of newState.chartSeries[newState.chartType.value]) {
                 for (let i = element.data.length; i <= largest; i++) {
                     element.data.push(0);
                 }
             }
         }
 
-        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, true);
+        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
+            true);
         newState.error = action.error;
 
         return newState;
     },
     TOGGLE_INVERT_DATA: (action, newState) => {
         // TODO: Memoize
-        for (const element of newState.chartSeries) {
+        for (const element of newState.chartSeries[newState.chartType.value]) {
             element.data.reverse();
         }
 
         if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
 
-        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries }, false);
+        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
+            false);
         newState.error = action.error;
 
         return newState;
@@ -111,7 +118,7 @@ const initialState = {
     defaultTab: 'tab1',
     chartTypes,
     chartType: chartTypes.line,
-    chartSubtype: chartTypes.line.subtypes.basic.value,
+    chartSubtype: chartSubtype,
     transposeData: false,
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],

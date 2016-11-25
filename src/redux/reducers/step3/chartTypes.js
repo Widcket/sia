@@ -56,7 +56,7 @@ const showAxis = {
     ]
 };
 
-const chartTypes = {
+export const chartTypes = {
     line: {
         name: 'Líneas',
         value: 'line',
@@ -84,6 +84,7 @@ const chartTypes = {
             }
         },
         controls: {
+            subtype: true,
             columnPanel: {
                 xAxis: true,
                 yAxis: true,
@@ -146,6 +147,7 @@ const chartTypes = {
             }
         },
         controls: {
+            subtype: true,
             columnPanel: {
                 xAxis: true,
                 yAxis: true,
@@ -196,6 +198,7 @@ const chartTypes = {
             }
         },
         controls: {
+            subtype: true,
             columnPanel: {
                 xAxis: false,
                 yAxis: true,
@@ -361,4 +364,13 @@ const chartTypes = {
     }
 };
 
-export default chartTypes;
+export const chartSubtype = {
+    line: 'basic',
+    bar: 'basic',
+    pie: 'basic',
+    scatter: 'basic',
+    radar: 'basic',
+    chord: 'basic',
+    force: 'basic',
+    mixed: 'basic'
+};
