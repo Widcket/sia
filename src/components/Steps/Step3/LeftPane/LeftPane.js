@@ -36,6 +36,21 @@ export default class LeftPane extends Component {
     }
 
     @autobind
+    getPanelessInput(label, value, onChange) {
+        return (
+            <Row className="data-paneless-control">
+                <Col>
+                    <span className="data-control-label">{label}</span>
+                    <Input
+                      className="data-control-input"
+                      value={value}
+                      onChange={onChange} />
+                </Col>
+            </Row>
+        );
+    }
+
+    @autobind
     getPanelSwitch(label, checked, onChange) {
         return (
             <div className="data-panel-control">
@@ -317,15 +332,7 @@ export default class LeftPane extends Component {
                         </Collapse>
                     </TabPane>
                     <TabPane tab="Presentación" key="tab2" className="tab2">
-                        <Row className="data-paneless-control">
-                            <Col>
-                                <span className="data-control-label">Título</span>
-                                <Input
-                                  className="data-control-input"
-                                  value={this.props.store.chartConfig.title.text}
-                                  onChange={this.setChartTitle} />
-                            </Col>
-                        </Row>
+                        {this.getPanelessInput('Título', this.props.store.chartConfig.title.text, this.setChartTitle)}
                         <Collapse defaultActiveKey={['xAxis', 'yAxis']}>
                             <Panel header="Eje X" key="xAxis">
                                 {this.getPanelSwitch('Eje', this.props.store.chartConfig.xAxis[0].show,
