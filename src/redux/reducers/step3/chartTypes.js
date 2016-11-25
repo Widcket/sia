@@ -184,16 +184,7 @@ export const chartTypes = {
                 seriesConfig: {
                     type: 'pie',
                     legendHoverLink: false,
-                    radius: ['25%', '75%']
-                }
-            },
-            compound: {
-                name: 'Compuesto',
-                value: 'compound',
-                config: {},
-                seriesConfig: {
-                    type: 'pie',
-                    legendHoverLink: false
+                    radius: ['30%', '75%']
                 }
             }
         },
