@@ -90,15 +90,17 @@
     }
   },
   "dependencies": {
-    "antd": "^2.4.3",
+    "antd": "^2.5.0",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "core-decorators": "^0.14.0",
     "dataframe": "^1.5.0",
+    "echarts": "^3.3.2",
     "echarts-for-react": "^1.1.5",
     "express": "^4.14.0",
     "history": "^4.4.0",
     "http-proxy": "^1.15.2",
+    "immutable": "^3.8.1",
     "lodash": "^4.16.6",
     "multireducer": "^3.0.2",
     "piping": "^1.0.0-rc.4",
