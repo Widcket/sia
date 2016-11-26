@@ -60,6 +60,7 @@ const reducers = {
 
         if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
 
+        newState.invertData = !newState.invertData;
         newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
             false);
         newState.error = action.error;
@@ -119,6 +120,7 @@ const initialState = {
     chartTypes,
     chartType: chartTypes.line,
     chartSubtype: chartSubtype,
+    invertData: false,
     transposeData: false,
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
