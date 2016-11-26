@@ -124,7 +124,10 @@ const initialState = {
     transposeData: false,
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
-    chartConfig,
+    chartConfig: {
+        ...chartConfig,
+        ...chartTypes.line.config
+    },
     chartSeries
 };
 

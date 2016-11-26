@@ -1,7 +1,11 @@
 const hideAxis = {
     xAxis: [
         {
+            type: 'value',
             show: false,
+            boundaryGap: false,
+            splitNumber: 4,
+            scale: true,
             splitLine: {
                 show: false
             },
@@ -12,7 +16,11 @@ const hideAxis = {
     ],
     yAxis: [
         {
+            type: 'value',
             show: false,
+            boundaryGap: false,
+            splitNumber: 4,
+            scale: true,
             splitLine: {
                 show: false
             },
@@ -30,6 +38,7 @@ const showAxis = {
             show: true,
             boundaryGap: false,
             data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
+            scale: false,
             splitLine: {
                 show: false
             },
@@ -45,15 +54,132 @@ const showAxis = {
         {
             type: 'value',
             show: true,
+            boundaryGap: false,
+            scale: false,
             splitLine: {
                 show: true
             },
             splitArea: {
                 show: true
             },
-            scale: false
         }
     ]
+};
+
+const baseCartesian = {
+    xAxis: [
+        {
+            show: true,
+            boundaryGap: false,
+            splitLine: {
+                show: false
+            },
+            splitArea: {
+                show: false
+            },
+            axisTick: {
+                interval: 0
+            }
+        }
+    ],
+    yAxis: [
+        {
+            show: true,
+            boundaryGap: false,
+            splitLine: {
+                show: true
+            },
+            splitArea: {
+                show: true
+            },
+        }
+    ]
+};
+
+const axis = {
+    line: {
+        xAxis: [
+            {
+                ...baseCartesian.xAxis[0],
+                type: 'category',
+                scale: false,
+                data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
+            }
+        ],
+        yAxis: [
+            {
+                ...baseCartesian.yAxis[0],
+                type: 'value',
+                scale: false
+            }
+        ]
+    },
+    bar: {
+        xAxis: [
+            {
+                ...baseCartesian.xAxis[0],
+                type: 'category',
+                scale: false,
+                data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
+            }
+        ],
+        yAxis: [
+            {
+                ...baseCartesian.yAxis[0],
+                type: 'value',
+                scale: false
+            }
+        ]
+    },
+    pie: {
+        xAxis: [
+            {
+                type: 'category',
+                show: false,
+                boundaryGap: false,
+                scale: false,
+                splitLine: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                },
+                data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                show: false,
+                boundaryGap: false,
+                scale: false,
+                splitLine: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                }
+            }
+        ]
+    },
+    scatter: {
+        xAxis: [
+            {
+                ...baseCartesian.xAxis[0],
+                type: 'value',
+                scale: true,
+                splitNumber: 4
+            }
+        ],
+        yAxis: [
+            {
+                ...baseCartesian.yAxis[0],
+                type: 'value',
+                scale: true,
+                splitNumber: 4
+            }
+        ]
+    }
 };
 
 export const chartTypes = {
@@ -61,7 +187,7 @@ export const chartTypes = {
         name: 'Líneas',
         value: 'line',
         config: {
-            ...showAxis
+            ...axis.line
         },
         subtypes: {
             basic: {
@@ -69,7 +195,8 @@ export const chartTypes = {
                 value: 'basic',
                 config: {},
                 seriesConfig: {
-                    type: 'line'
+                    type: 'line',
+                    clickable: false
                 }
             },
             area: {
@@ -78,6 +205,7 @@ export const chartTypes = {
                 config: {},
                 seriesConfig: {
                     type: 'line',
+                    clickable: false,
                     smooth: true,
                     itemStyle: { normal: { areaStyle: { type: 'default' } } }
                 }
@@ -102,7 +230,7 @@ export const chartTypes = {
         name: 'Barras',
         value: 'bar',
         config: {
-            ...showAxis
+            ...axis.bar
         },
         subtypes: {
             basic: {
@@ -110,7 +238,8 @@ export const chartTypes = {
                 value: 'basic',
                 config: {},
                 seriesConfig: {
-                    type: 'bar'
+                    type: 'bar',
+                    clickable: false
                 }
             },
             waterfall: {
@@ -118,7 +247,8 @@ export const chartTypes = {
                 value: 'waterfall',
                 config: {},
                 seriesConfig: {
-                    type: 'bar'
+                    type: 'bar',
+                    clickable: false
                 }
             },
             stackedBars: {
@@ -126,7 +256,8 @@ export const chartTypes = {
                 value: 'stackedBars',
                 config: {},
                 seriesConfig: {
-                    type: 'bar'
+                    type: 'bar',
+                    clickable: false
                 }
             },
             splitBars: {
@@ -134,7 +265,8 @@ export const chartTypes = {
                 value: 'splitBars',
                 config: {},
                 seriesConfig: {
-                    type: 'bar'
+                    type: 'bar',
+                    clickable: false
                 }
             },
             crossedBars: {
@@ -142,7 +274,8 @@ export const chartTypes = {
                 value: 'crossedBars',
                 config: {},
                 seriesConfig: {
-                    type: 'bar'
+                    type: 'bar',
+                    clickable: false
                 }
             }
         },
@@ -165,7 +298,7 @@ export const chartTypes = {
         name: 'Torta',
         value: 'pie',
         config: {
-            ...hideAxis
+            ...axis.pie
         },
         subtypes: {
             basic: {
@@ -174,6 +307,7 @@ export const chartTypes = {
                 config: {},
                 seriesConfig: {
                     type: 'pie',
+                    clickable: false,
                     legendHoverLink: false
                 }
             },
@@ -183,6 +317,7 @@ export const chartTypes = {
                 config: {},
                 seriesConfig: {
                     type: 'pie',
+                    clickable: false,
                     legendHoverLink: false,
                     radius: ['40%', '75%']
                 }
@@ -207,7 +342,7 @@ export const chartTypes = {
         name: 'Dispersión',
         value: 'scatter',
         config: {
-            ...showAxis
+            ...axis.scatter
         },
         subtypes: {
             basic: {
@@ -215,7 +350,8 @@ export const chartTypes = {
                 value: 'basic',
                 config: {},
                 seriesConfig: {
-                    type: 'scatter'
+                    type: 'scatter',
+                    clickable: false
                 }
             },
             bubbles: {
@@ -223,7 +359,8 @@ export const chartTypes = {
                 value: 'bubbles',
                 config: {},
                 seriesConfig: {
-                    type: 'scatter'
+                    type: 'scatter',
+                    clickable: false
                 }
             },
             largeScale: {
@@ -231,8 +368,23 @@ export const chartTypes = {
                 value: 'largeScale',
                 config: {},
                 seriesConfig: {
-                    type: 'scatter'
+                    type: 'scatter',
+                    clickable: false
                 }
+            }
+        },
+        controls: {
+            subtype: true,
+            columnPanel: {
+                xAxis: true,
+                yAxis: true,
+                data: false,
+                tree: true
+            },
+            dataPanel: {
+                range: true,
+                invert: true,
+                transpose: true
             }
         }
     },
@@ -251,6 +403,7 @@ export const chartTypes = {
                 },
                 seriesConfig: {
                     type: 'radar',
+                    clickable: false,
                     polarIndex: 1
                 }
             },
@@ -261,8 +414,23 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'radar'
+                    type: 'radar',
+                    clickable: false
                 }
+            }
+        },
+        controls: {
+            subtype: true,
+            columnPanel: {
+                xAxis: false,
+                yAxis: true,
+                data: true,
+                tree: false
+            },
+            dataPanel: {
+                range: false,
+                invert: true,
+                transpose: false
             }
         }
     },
@@ -280,7 +448,8 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'chord'
+                    type: 'chord',
+                    clickable: false
                 }
             },
             alternative: {
@@ -290,8 +459,23 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'chord'
+                    type: 'chord',
+                    clickable: false
                 }
+            }
+        },
+        controls: {
+            subtype: true,
+            columnPanel: {
+                xAxis: false,
+                yAxis: true,
+                data: true,
+                tree: false
+            },
+            dataPanel: {
+                range: false,
+                invert: true,
+                transpose: false
             }
         }
     },
@@ -309,7 +493,8 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'force'
+                    type: 'force',
+                    clickable: false
                 }
             },
             tree: {
@@ -319,8 +504,23 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'force'
+                    type: 'force',
+                    clickable: false
                 }
+            }
+        },
+        controls: {
+            subtype: true,
+            columnPanel: {
+                xAxis: false,
+                yAxis: true,
+                data: true,
+                tree: false
+            },
+            dataPanel: {
+                range: false,
+                invert: true,
+                transpose: false
             }
         }
     },
@@ -338,7 +538,8 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'line'
+                    type: 'line',
+                    clickable: false
                 }
             },
             linePlusScatter: {
@@ -348,8 +549,23 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'line'
+                    type: 'line',
+                    clickable: false
                 }
+            }
+        },
+        controls: {
+            subtype: true,
+            columnPanel: {
+                xAxis: true,
+                yAxis: true,
+                data: false,
+                tree: true
+            },
+            dataPanel: {
+                range: true,
+                invert: true,
+                transpose: true
             }
         }
     }

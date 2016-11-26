@@ -3,7 +3,8 @@ export const chartConfig = {
         text: 'Gráfico 1'
     },
     tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        showDelay: 0
     },
     toolbox: {
         feature: {
@@ -15,39 +16,9 @@ export const chartConfig = {
     grid: {
         left: '1%',
         right: '1.5%',
-        bottom: '0%',
+        bottom: '0.5%',
         containLabel: true
-    },
-    xAxis: [
-        {
-            type: 'category',
-            show: true,
-            boundaryGap: false,
-            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            },
-            axisTick: {
-                interval: 0
-            }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            show: true,
-            splitLine: {
-                show: true
-            },
-            splitArea: {
-                show: true
-            },
-            scale: false
-        }
-    ],
+    }
 };
 
 export const chartSeries = {
@@ -72,19 +43,19 @@ export const chartSeries = {
         {
             name: 'Serie 1',
             type: 'bar',
-            stack: 'Serie 1',
+            stack: 'a',
             data: [120, 132, 101, 134, 90, 230, 210]
         },
         {
             name: 'Serie 2',
             type: 'bar',
-            stack: 'Serie 1',
+            stack: 'a',
             data: [220, 182, 191, 234, 290, 330, 310]
         },
         {
             name: 'Serie 3',
             type: 'bar',
-            stack: 'Serie 1',
+            stack: 'b',
             data: [150, 232, 201, 154, 190, 330, 410]
         }
     ],
@@ -92,7 +63,6 @@ export const chartSeries = {
         {
             name: 'Serie 1',
             type: 'pie',
-            stack: 'a',
             data: [
                 {
                     value: 123,
@@ -113,6 +83,35 @@ export const chartSeries = {
                 {
                     value: 654,
                     name: 'nop'
+                }
+            ]
+        }
+    ],
+    scatter: [
+        {
+            name: 'Serie 1',
+            type: 'scatter',
+            symbolSize: (value) => {
+                Math.round(value[2] / 5);
+            },
+            data: [
+                {
+                    value: [12, 34, 56]
+                },
+                {
+                    value: [78, 91, 23]
+                },
+                {
+                    value: [45, 67, 89]
+                },
+                {
+                    value: [21, 43, 65]
+                },
+                {
+                    value: [87, 19, 32]
+                },
+                {
+                    value: [54, 76, 98]
                 }
             ]
         }
