@@ -25,7 +25,6 @@ const reducers = {
         let largest = 0;
 
         if (action.columns.length > 0) {
-            if (newState.chartConfig.xAxis[0].axisTick) newState.chartConfig.xAxis[0].axisTick.interval = 0;
             if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data = action.categoryAxis;
 
             newState.chartSeries[newState.chartType.value] = action.columns;

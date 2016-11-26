@@ -31,41 +31,6 @@ const hideAxis = {
     ]
 };
 
-const showAxis = {
-    xAxis: [
-        {
-            type: 'category',
-            show: true,
-            boundaryGap: false,
-            data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq'],
-            scale: false,
-            splitLine: {
-                show: false
-            },
-            splitArea: {
-                show: false
-            },
-            axisTick: {
-                interval: 0
-            }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            show: true,
-            boundaryGap: false,
-            scale: false,
-            splitLine: {
-                show: true
-            },
-            splitArea: {
-                show: true
-            },
-        }
-    ]
-};
-
 const baseCartesian = {
     xAxis: [
         {
@@ -528,7 +493,7 @@ export const chartTypes = {
         name: 'Combinados',
         value: 'combined',
         config: {
-            ...showAxis
+            ...axis.line
         },
         subtypes: {
             linePlusBars: {
