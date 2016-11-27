@@ -132,16 +132,14 @@ const axis = {
             {
                 ...baseCartesian.xAxis[0],
                 type: 'value',
-                scale: true,
-                splitNumber: 4
+                scale: true
             }
         ],
         yAxis: [
             {
                 ...baseCartesian.yAxis[0],
                 type: 'value',
-                scale: true,
-                splitNumber: 4
+                scale: true
             }
         ]
     }
