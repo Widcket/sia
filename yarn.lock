@@ -1748,9 +1748,9 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dataframe@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/dataframe/-/dataframe-1.5.0.tgz#f0d7c56163653d41537b22f7b888d433f1bb8c51"
+dataframe@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dataframe/-/dataframe-2.0.0.tgz#78d47b8849a7b5bd76af1c909ddaaf729cf94a56"
   dependencies:
     lodash ">=4.1.0"
 
