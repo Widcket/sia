@@ -60,8 +60,22 @@ const reducers = {
         if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
 
         newState.invertData = !newState.invertData;
-        newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
+        newState.echarts.setOption({...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
             false);
+        newState.error = action.error;
+
+        return newState;
+    },
+    TOGGLE_TRANSPOSE_DATA: (action, newState) => {
+        const xAxis = {...newState.chartConfig.yAxis[0]};
+        const yAxis = {...newState.chartConfig.xAxis[0]};
+
+        newState.chartConfig.yAxis[0] = yAxis;
+        newState.chartConfig.xAxis[0] = xAxis;
+
+        newState.transposeData = !newState.transposeData;
+        newState.echarts.setOption({...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
+            true);
         newState.error = action.error;
 
         return newState;
@@ -167,11 +181,7 @@ export default function step3(state = initialState, action = {}) {
         case actions.TOGGLE_INVERT_DATA:
             return reducers.TOGGLE_INVERT_DATA(action, newState);
         case actions.TOGGLE_TRANSPOSE_DATA:
-            return {
-                ...state,
-                transposeData: !state.transposeData,
-                error: action.error
-            };
+            return reducers.TOGGLE_TRANSPOSE_DATA(action, newState);
         case actions.SET_CHART_TITLE:
             return reducers.SET_CHART_TITLE(action, newState);
         case actions.TOGGLE_X_AXIS:

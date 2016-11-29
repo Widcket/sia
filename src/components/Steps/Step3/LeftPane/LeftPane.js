@@ -52,8 +52,6 @@ export default class LeftPane extends Component {
 
     @autobind
     getPanelSwitch(label, checked, onChange) {
-        console.log(this.props.store.chartConfig.xAxis);
-
         return (
             <div className="data-panel-control">
                 <span className="data-control-label">{label}</span>
