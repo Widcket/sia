@@ -293,6 +293,7 @@ export default class LeftPane extends Component {
                     <Slider
                       range
                       value={this.props.store.rangeX}
+                      tipFormatter={(value) => `${value}%`}
                       onChange={this.props.actions.setRangeX} />
                 </div>
             ),
@@ -302,6 +303,7 @@ export default class LeftPane extends Component {
                     <Slider
                       range
                       value={this.props.store.rangeY}
+                      tipFormatter={(value) => `${value}%`}
                       onChange={this.props.actions.setRangeY} />
                 </div>
             ),
