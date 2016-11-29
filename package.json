@@ -94,7 +94,7 @@
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "core-decorators": "^0.14.0",
-    "dataframe": "^2.0.0",
+    "dataframe": "^2.0.1",
     "echarts": "^3.3.2",
     "echarts-for-react": "^1.1.5",
     "express": "^4.14.0",
