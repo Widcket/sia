@@ -32,10 +32,33 @@ const hideAxis = {
 };
 
 const baseCartesian = {
+    calculable: true,
+    dataZoom: [
+        {
+            show: false,
+            type: 'slider',
+            xAxisIndex: [0]
+        },
+        {
+            show: false,
+            type: 'slider',
+            yAxisIndex: [0]
+        },
+        {
+            type: 'inside',
+            xAxisIndex: [0]
+        },
+        {
+            type: 'inside',
+            yAxisIndex: [0]
+        }
+    ],
     xAxis: [
         {
             show: true,
-            boundaryGap: false,
+            scale: true,
+            // triggerEvent: false,
+            // silent: true,
             splitLine: {
                 show: false
             },
@@ -50,49 +73,53 @@ const baseCartesian = {
     yAxis: [
         {
             show: true,
-            boundaryGap: false,
+            scale: true,
+            // triggerEvent: false,
+            // silent: true,
             splitLine: {
                 show: true
             },
             splitArea: {
                 show: true
-            },
+            }
         }
     ]
 };
 
 const axis = {
     line: {
+        dataZoom: baseCartesian.dataZoom,
+        calculable: baseCartesian.calculable,
         xAxis: [
             {
                 ...baseCartesian.xAxis[0],
                 type: 'category',
-                scale: false,
+                boundaryGap: false,
                 data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
             }
         ],
         yAxis: [
             {
                 ...baseCartesian.yAxis[0],
-                type: 'value',
-                scale: false
+                boundaryGap: false,
+                type: 'value'
             }
         ]
     },
     bar: {
+        dataZoom: baseCartesian.dataZoom,
+        calculable: baseCartesian.calculable,
         xAxis: [
             {
                 ...baseCartesian.xAxis[0],
                 type: 'category',
-                scale: false,
                 data: ['abc', 'def', 'ghi', 'jk', 'lm', 'no', 'pq']
             }
         ],
         yAxis: [
             {
                 ...baseCartesian.yAxis[0],
-                type: 'value',
-                scale: false
+                type: 'value'
             }
         ]
     },
@@ -102,7 +129,7 @@ const axis = {
                 type: 'category',
                 show: false,
                 boundaryGap: false,
-                scale: false,
+                scale: true,
                 splitLine: {
                     show: false
                 },
@@ -117,7 +144,7 @@ const axis = {
                 type: 'value',
                 show: false,
                 boundaryGap: false,
-                scale: false,
+                scale: true,
                 splitLine: {
                     show: false
                 },
@@ -128,18 +155,20 @@ const axis = {
         ]
     },
     scatter: {
+        dataZoom: baseCartesian.dataZoom,
+        calculable: baseCartesian.calculable,
         xAxis: [
             {
                 ...baseCartesian.xAxis[0],
-                type: 'value',
-                scale: true
+                boundaryGap: false,
+                type: 'value'
             }
         ],
         yAxis: [
             {
                 ...baseCartesian.yAxis[0],
-                type: 'value',
-                scale: true
+                boundaryGap: false,
+                type: 'value'
             }
         ]
     }

@@ -91,8 +91,8 @@ export const chartSeries = {
         {
             name: 'Serie 1',
             type: 'scatter',
-            symbolSize: (value) => {
-                Math.round(value[2] / 5);
+            symbolSize: function (val) {
+                return val[2] * 40;
             },
             data: [
                 [12, 34, 56],
@@ -106,8 +106,8 @@ export const chartSeries = {
         {
             name: 'Serie 2',
             type: 'scatter',
-            symbolSize: (value) => {
-                Math.round(value[2] / 5);
+            symbolSize: function (val) {
+                return val[2] * 40;
             },
             data: [
                 [23, 44, 63],
