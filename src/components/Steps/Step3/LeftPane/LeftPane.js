@@ -287,12 +287,22 @@ export default class LeftPane extends Component {
                     </TreeNode>
                 </Tree>
             ),
-            range: (
+            rangeX: (
                 <div className="data-control-element">
+                    <span className="data-control-label">Rango X</span>
                     <Slider
                       range
                       defaultValue={[10, 70]}
-                      onChange={this.props.actions.setRange} />
+                      onChange={this.props.actions.setRangeX} />
+                </div>
+            ),
+            rangeY: (
+                <div className="data-control-element">
+                    <span className="data-control-label">Rango Y</span>
+                    <Slider
+                      range
+                      defaultValue={[0, 100]}
+                      onChange={this.props.actions.setRangeY} />
                 </div>
             ),
             invert: this.getPanelSwitch('Invertir', this.props.store.invertData, this.props.actions.toggleInvertData),
@@ -328,7 +338,12 @@ export default class LeftPane extends Component {
                                 {this.getControl(controls.tree, this.props.store.chartType.controls.columnPanel.tree)}
                             </Panel>
                             <Panel header="Datos" key="dataPanel">
-                                {this.getControl(controls.range, this.props.store.chartType.controls.dataPanel.range)}
+                                <div id="data-ranges">
+                                    {this.getControl(controls.rangeX,
+                                        this.props.store.chartType.controls.dataPanel.rangeX)}
+                                    {this.getControl(controls.rangeY,
+                                        this.props.store.chartType.controls.dataPanel.rangeY)}
+                                </div>
                                 {this.getControl(controls.invert, this.props.store.chartType.controls.dataPanel.invert)}
                                 {this.getControl(controls.transpose,
                                     this.props.store.chartType.controls.dataPanel.transpose)}

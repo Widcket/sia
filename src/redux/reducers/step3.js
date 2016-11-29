@@ -135,6 +135,8 @@ const initialState = {
     chartSubtype: chartSubtype,
     invertData: false,
     transposeData: false,
+    rangeX: [],
+    rangeY: [],
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
     chartConfig: {

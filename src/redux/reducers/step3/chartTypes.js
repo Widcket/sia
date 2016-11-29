@@ -212,7 +212,8 @@ export const chartTypes = {
                 tree: true
             },
             dataPanel: {
-                range: true,
+                rangeX: true,
+                rangeY: true,
                 invert: true,
                 transpose: true
             }
@@ -280,7 +281,8 @@ export const chartTypes = {
                 tree: true
             },
             dataPanel: {
-                range: true,
+                rangeX: true,
+                rangeY: true,
                 invert: true,
                 transpose: true
             }
@@ -324,7 +326,8 @@ export const chartTypes = {
                 tree: false
             },
             dataPanel: {
-                range: false,
+                rangeX: false,
+                rangeY: false,
                 invert: true,
                 transpose: false
             }
@@ -374,7 +377,8 @@ export const chartTypes = {
                 tree: true
             },
             dataPanel: {
-                range: true,
+                rangeX: true,
+                rangeY: true,
                 invert: true,
                 transpose: true
             }
@@ -420,7 +424,8 @@ export const chartTypes = {
                 tree: false
             },
             dataPanel: {
-                range: false,
+                rangeX: false,
+                rangeY: false,
                 invert: true,
                 transpose: false
             }
@@ -465,7 +470,8 @@ export const chartTypes = {
                 tree: false
             },
             dataPanel: {
-                range: false,
+                rangeX: false,
+                rangeY: false,
                 invert: true,
                 transpose: false
             }
@@ -510,7 +516,8 @@ export const chartTypes = {
                 tree: false
             },
             dataPanel: {
-                range: false,
+                rangeX: false,
+                rangeY: false,
                 invert: true,
                 transpose: false
             }
@@ -555,7 +562,8 @@ export const chartTypes = {
                 tree: true
             },
             dataPanel: {
-                range: true,
+                rangeX: true,
+                rangeY: true,
                 invert: true,
                 transpose: true
             }

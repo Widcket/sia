@@ -32,10 +32,17 @@ export function setColumns(columns, categoryAxis) {
     };
 }
 
-export function setDataRange(dataRange) {
+export function setRangeX(rangeX) {
     return {
-        type: actions.SET_DATA_RANGE,
-        dataRange
+        type: actions.SET_RANGE_X,
+        rangeX
+    };
+}
+
+export function setRangeY(rangeY) {
+    return {
+        type: actions.SET_RANGE_Y,
+        rangeY
     };
 }
 

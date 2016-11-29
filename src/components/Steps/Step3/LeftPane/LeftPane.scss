@@ -139,8 +139,15 @@
         }
     }
 
-    .ant-slider {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+    #data-ranges {
+        margin: 1rem 0rem;
+
+        .data-control-label {
+            margin-bottom: 0.5rem;
+        }
+
+        .ant-slider {
+            clear: both;
+        }
     }
 }
