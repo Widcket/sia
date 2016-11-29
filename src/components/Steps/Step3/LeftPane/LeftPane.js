@@ -292,7 +292,7 @@ export default class LeftPane extends Component {
                     <span className="data-control-label">Rango X</span>
                     <Slider
                       range
-                      defaultValue={[10, 70]}
+                      value={this.props.store.rangeX}
                       onChange={this.props.actions.setRangeX} />
                 </div>
             ),
@@ -301,7 +301,7 @@ export default class LeftPane extends Component {
                     <span className="data-control-label">Rango Y</span>
                     <Slider
                       range
-                      defaultValue={[0, 100]}
+                      value={this.props.store.rangeY}
                       onChange={this.props.actions.setRangeY} />
                 </div>
             ),

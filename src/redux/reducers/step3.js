@@ -51,6 +51,26 @@ const reducers = {
 
         return newState;
     },
+    SET_RANGE_X: (action, newState) => {
+        newState.rangeX = action.rangeX;
+        newState.chartConfig.dataZoom[0].start = action.rangeX[0];
+        newState.chartConfig.dataZoom[0].end = action.rangeX[1];
+        newState.chartConfig.dataZoom[2].start = action.rangeX[0];
+        newState.chartConfig.dataZoom[2].end = action.rangeX[1];
+        newState.error = action.error;
+
+        return newState;
+    },
+    SET_RANGE_Y: (action, newState) => {
+        newState.rangeY = action.rangeY;
+        newState.chartConfig.dataZoom[1].start = action.rangeY[0];
+        newState.chartConfig.dataZoom[1].end = action.rangeY[1];
+        newState.chartConfig.dataZoom[3].start = action.rangeY[0];
+        newState.chartConfig.dataZoom[3].end = action.rangeY[1];
+        newState.error = action.error;
+
+        return newState;
+    },
     TOGGLE_INVERT_DATA: (action, newState) => {
         // TODO: Memoize
         for (const element of newState.chartSeries[newState.chartType.value]) {
@@ -135,8 +155,8 @@ const initialState = {
     chartSubtype: chartSubtype,
     invertData: false,
     transposeData: false,
-    rangeX: [],
-    rangeY: [],
+    rangeX: [0, 100],
+    rangeY: [0, 100],
     valueAxisOptions: valueAxisOptions,
     valueAxis: valueAxisOptions[0],
     chartConfig: {
@@ -174,12 +194,10 @@ export default function step3(state = initialState, action = {}) {
             };
         case actions.SET_COLUMNS:
             return reducers.SET_COLUMNS(action, newState);
-        case actions.SET_DATA_RANGE:
-            return {
-                ...state,
-                dataRange: action.dataRange,
-                error: action.error
-            };
+        case actions.SET_RANGE_X:
+            return reducers.SET_RANGE_X(action, newState);
+        case actions.SET_RANGE_Y:
+            return reducers.SET_RANGE_Y(action, newState);
         case actions.TOGGLE_INVERT_DATA:
             return reducers.TOGGLE_INVERT_DATA(action, newState);
         case actions.TOGGLE_TRANSPOSE_DATA:

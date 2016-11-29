@@ -37,19 +37,23 @@ const baseCartesian = {
         {
             show: false,
             type: 'slider',
+            throttle: 200,
             xAxisIndex: [0]
         },
         {
             show: false,
             type: 'slider',
+            throttle: 200,
             yAxisIndex: [0]
         },
         {
             type: 'inside',
+            throttle: 200,
             xAxisIndex: [0]
         },
         {
             type: 'inside',
+            throttle: 200,
             yAxisIndex: [0]
         }
     ],
