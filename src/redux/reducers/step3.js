@@ -78,6 +78,7 @@ const reducers = {
         }
 
         if (newState.chartConfig.xAxis[0].data) newState.chartConfig.xAxis[0].data.reverse();
+        if (newState.chartConfig.yAxis[0].data) newState.chartConfig.yAxis[0].data.reverse();
 
         newState.invertData = !newState.invertData;
         newState.echarts.setOption({...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},

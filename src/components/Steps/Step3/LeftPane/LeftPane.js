@@ -332,17 +332,17 @@ export default class LeftPane extends Component {
                         {this.getControl(controls.subtype, this.props.store.chartType.controls.subtype)}
                         <Collapse defaultActiveKey={['columnPanel', 'dataPanel']}>
                             <Panel header="Columnas" key="columnPanel">
-                                {this.getControl(controls.xAxis, this.props.store.chartType.controls.columnPanel.xAxis)}
                                 {this.getControl(controls.yAxis, this.props.store.chartType.controls.columnPanel.yAxis)}
+                                {this.getControl(controls.xAxis, this.props.store.chartType.controls.columnPanel.xAxis)}
                                 {this.getControl(controls.data, this.props.store.chartType.controls.columnPanel.data)}
                                 {this.getControl(controls.tree, this.props.store.chartType.controls.columnPanel.tree)}
                             </Panel>
                             <Panel header="Datos" key="dataPanel">
                                 <div id="data-ranges">
-                                    {this.getControl(controls.rangeX,
-                                        this.props.store.chartType.controls.dataPanel.rangeX)}
                                     {this.getControl(controls.rangeY,
                                         this.props.store.chartType.controls.dataPanel.rangeY)}
+                                    {this.getControl(controls.rangeX,
+                                        this.props.store.chartType.controls.dataPanel.rangeX)}
                                 </div>
                                 {this.getControl(controls.invert, this.props.store.chartType.controls.dataPanel.invert)}
                                 {this.getControl(controls.transpose,
