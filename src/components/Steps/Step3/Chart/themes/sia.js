@@ -65,7 +65,7 @@ export default {
         dataZoom: {
             dataBackgroundColor: '#efefff',
             fillerColor: 'rgba(182,162,222,0.2)',
-            handleColor: '#38b8f2'
+            handleColor: '#1f90e6'
         },
 
         grid: {
@@ -111,14 +111,14 @@ export default {
 
         timeline: {
             lineStyle: {
-                color: '#38b8f2'
+                color: '#1f90e6'
             },
             controlStyle: {
                 normal: {
-                    color: '#38b8f2'
+                    color: '#1f90e6'
                 },
                 emphasis: {
-                    color: '#38b8f2'
+                    color: '#1f90e6'
                 }
             },
             symbol: 'emptyCircle',
