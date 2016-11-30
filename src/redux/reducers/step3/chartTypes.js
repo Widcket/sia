@@ -317,6 +317,18 @@ export const chartTypes = {
                     legendHoverLink: false,
                     radius: ['40%', '75%']
                 }
+            },
+            nightingale: {
+                name: 'Nightingale',
+                value: 'nightingale',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    clickable: false,
+                    legendHoverLink: false,
+                    radius: ['40%', '75%'],
+                    roseType: 'angle'
+                }
             }
         },
         controls: {
