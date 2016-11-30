@@ -326,8 +326,19 @@ export const chartTypes = {
                     type: 'pie',
                     clickable: false,
                     legendHoverLink: false,
-                    radius: ['40%', '75%'],
-                    roseType: 'angle'
+                    roseType: 'area'
+                }
+            },
+            nightingaleDonut: {
+                name: 'Dona Nightingale',
+                value: 'nightingaleDonut',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    clickable: false,
+                    legendHoverLink: false,
+                    roseType: 'area',
+                    radius: ['40%', '75%']
                 }
             }
         },
