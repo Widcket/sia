@@ -307,17 +307,6 @@ export const chartTypes = {
                     legendHoverLink: false
                 }
             },
-            doughnut: {
-                name: 'Dona',
-                value: 'doughnut',
-                config: {},
-                seriesConfig: {
-                    type: 'pie',
-                    clickable: false,
-                    legendHoverLink: false,
-                    radius: ['40%', '75%']
-                }
-            },
             nightingale: {
                 name: 'Nightingale',
                 value: 'nightingale',
@@ -327,6 +316,17 @@ export const chartTypes = {
                     clickable: false,
                     legendHoverLink: false,
                     roseType: 'area'
+                }
+            },
+            doughnut: {
+                name: 'Dona',
+                value: 'doughnut',
+                config: {},
+                seriesConfig: {
+                    type: 'pie',
+                    clickable: false,
+                    legendHoverLink: false,
+                    radius: ['40%', '75%']
                 }
             },
             nightingaleDonut: {
