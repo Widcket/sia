@@ -1,44 +1,48 @@
 #app {
-    @font-face {
-        font-family: anticon;
-        src: url('https://at.alicdn.com/t/font_uzv8nkw1nabgldi.eot');
-        src: url('https://at.alicdn.com/t/font_uzv8nkw1nabgldi.eot?#iefix') format('embedded-opentype')
-    }
+    #container {
+        max-width: 1000px;
 
-    .anticon {
-        display: inline-block;
-        font-style: normal;
-        vertical-align: baseline;
-        text-align: center;
-        text-transform: none;
-        text-rendering: auto;
-        line-height: 1;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale
-    }
+        @font-face {
+            font-family: anticon;
+            src: url('https://at.alicdn.com/t/font_uzv8nkw1nabgldi.eot');
+            src: url('https://at.alicdn.com/t/font_uzv8nkw1nabgldi.eot?#iefix') format('embedded-opentype')
+        }
 
-    .ant-collapse {
-        background-color: #fafafa;
-        user-select: none;
-    }
+        .anticon {
+            display: inline-block;
+            font-style: normal;
+            vertical-align: baseline;
+            text-align: center;
+            text-transform: none;
+            text-rendering: auto;
+            line-height: 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
 
-    .ant-slider-track {
-        background-color: #1f90e6;
-    }
-
-    .ant-slider-handle {
-        border-color: #1f90e6;
-    }
-
-    .ant-select-dropdown-menu-item-disabled, .ant-select-dropdown-menu-item-disabled:hover  {
-        font-weight: bold;
-        cursor: default;
-    }
-
-    @-moz-document url-prefix() {
         .ant-collapse {
-            margin-bottom: 1px;
+            background-color: #fafafa;
+            user-select: none;
+        }
+
+        .ant-slider-track {
+            background-color: #1f90e6;
+        }
+
+        .ant-slider-handle {
+            border-color: #1f90e6;
+        }
+
+        .ant-select-dropdown-menu-item-disabled, .ant-select-dropdown-menu-item-disabled:hover  {
+            font-weight: bold;
+            cursor: default;
+        }
+
+        @-moz-document url-prefix() {
+            .ant-collapse {
+                margin-bottom: 1px;
+            }
         }
     }
 }

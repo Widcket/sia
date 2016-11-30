@@ -65,26 +65,24 @@ export default class App extends PureComponent {
     render() {
         const styles = require('./App.scss');
 
-        const colSizeXS = {
-            span: 22,
-            offset: 1
-        };
-        const colSizeSM = {
-            span: 20,
-            offset: 2
-        };
-        const colSizeMD = {
-            span: 20,
-            offset: 2
-        };
-        const colSizeLG = {
-            span: 18,
-            offset: 3
+        const colSizes = {
+            xs: {
+                span: 22
+            },
+            sm: {
+                span: 20
+            },
+            md: {
+                span: 20
+            },
+            lg: {
+                span: 18
+            }
         };
 
         return (
-            <Row id="app" type="flex" align="middle">
-                <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG}>
+            <Row id="app" type="flex" align="middle" justify="center">
+                <Col xs={colSizes.xs} sm={colSizes.sm} md={colSizes.md} lg={colSizes.lg} id="container">
                     <Steps
                       stores={{
                           step1: this.props.stores.step1,
