@@ -239,7 +239,7 @@ export default class LeftPane extends Component {
                 </Row>
             ),
             category: (
-                <div className="data-panel-control" id="category-picker">
+                <div className="data-panel-control column-picker">
                     <span className="data-control-label">Categorías</span>
                     <Cascader
                       options={this.props.store.categories}
@@ -254,17 +254,21 @@ export default class LeftPane extends Component {
                       placeholder="Dataset/Columna" />
                 </div>
             ),
-            data: ( // TODO: Deselect all columns but one
-                <div className="data-panel-control">
+            data: (
+                // TODO: Deselect all columns but one
+                <div className="data-panel-control column-picker">
                     <span className="data-control-label">Datos</span>
-                    <Select
-                      className="data-control-select"
+                    <Cascader
+                      options={this.props.store.categories}
                       defaultValue={
-                        this.props.store.categories[this.props.store.category[0]].children[this.props.store.category[1]]
+                      [
+                          this.props.store.categories[this.props.store.category[0]].value,
+                          this.props.store.categories[this.props.store.category[0]]
+                              .children[this.props.store.category[1]].value
+                      ]
                       }
-                      onSelect={console.log}>
-                        { console.log() }
-                    </Select>
+                      onChange={console.log}
+                      placeholder="Dataset/Columna" />
                 </div>
             ),
             tree: (
