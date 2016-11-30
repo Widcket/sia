@@ -298,7 +298,7 @@ export const chartTypes = {
         },
         subtypes: {
             basic: {
-                name: 'Básico',
+                name: 'Básica',
                 value: 'basic',
                 config: {},
                 seriesConfig: {
