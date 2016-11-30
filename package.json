@@ -123,6 +123,7 @@
     "superagent": "^3.1.0",
     "url-loader": "^0.5.7",
     "webpack-isomorphic-tools": "^2.6.4",
+    "whatwg-fetch": "^2.0.1",
     "wildemitter": "^1.2.0"
   },
   "devDependencies": {
