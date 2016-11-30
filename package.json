@@ -114,6 +114,7 @@
     "redux": "^3.6.0",
     "redux-async-connect": "^1.0.0-rc4",
     "redux-form": "^6.1.1",
+    "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
     "scroll-behavior": "^0.8.2",
     "serialize-javascript": "^1.3.0",
