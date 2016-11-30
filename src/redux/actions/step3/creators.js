@@ -17,7 +17,7 @@ export function setChartType(chartType, chartSubtype, newSeries, newConfig) {
     };
 }
 
-export function setcategory(category) {
+export function setCategory(category) {
     return {
         type: actions.SET_CHART_SUBTYPE,
         category

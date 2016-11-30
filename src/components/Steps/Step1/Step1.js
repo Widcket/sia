@@ -8,18 +8,18 @@ import {autobind} from 'core-decorators';
 class Step1 extends Component {
     static propTypes = {
         store: PropTypes.object.isRequired,
-        // actions: PropTypes.object.isRequired
+        actions: PropTypes.object.isRequired
     }
 
     @autobind
     getStage(stage) {
         switch (stage) {
             case 0:
-                return <ConnectForm />;
+                return <ConnectForm store={this.props.store} actions={this.props.actions} />;
             case 1:
-                return <Spinner active />;
+                return <Spinner store={this.props.store} actions={this.props.actions} active />;
             case 2:
-                return <DatasetPicker />;
+                return <DatasetPicker store={this.props.store} actions={this.props.actions} />;
             default:
                 return;
         }

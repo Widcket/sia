@@ -1,23 +1,26 @@
 import {Button, Col, Form, Icon, Input, Row} from 'antd';
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {autobind} from 'core-decorators';
 
 const FormItem = Form.Item;
 
 class ConnectForm extends Component {
+    static propTypes = {
+        form: PropTypes.object.isRequired,
+        // store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired
+    }
+
     @autobind
     handleSubmit(e) {
         e.preventDefault();
 
-        this
-            .props
-            .form
-            .validateFields((err, values) => {
-                if (err) return;
+        this.props.form.validateFields((err, values) => {
+            if (err) return console.error('Could not connect!');
 
-                console.log('Received values of form: ', values);
-            });
+            this.props.actions.getDatasetList(values.url, values.token);
+        });
     }
 
     render() {

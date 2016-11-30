@@ -28,11 +28,9 @@ export default function createStore(history, client, data) {
     const store = finalCreateStore(reducer, data);
 
     if (__DEVELOPMENT__ && module.hot) {
-        module
-            .hot
-            .accept('./reducer', () => {
-                store.replaceReducer(require('./reducer'));
-            });
+        module.hot.accept('./reducer', () => {
+            store.replaceReducer(require('./reducer'));
+        });
     }
 
     return store;

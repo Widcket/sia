@@ -1,1 +1,5 @@
 export const NEXT = 'step1/NEXT';
+export const GET_DATASET_COUNT = 'step1/GET_DATASET_COUNT';
+export const GET_DATASET_COUNT_FAILED = 'step1/GET_DATASET_COUNT_FAILED';
+export const GET_DATASET_LIST = 'step1/GET_DATASET_LIST';
+export const GET_DATASET_LIST_FAILED = 'step1/GET_DATASET_LIST_FAILED';
