@@ -183,32 +183,15 @@ export default class LeftPane extends Component {
             }
         }
 
-        if (this.props.store.valueAxis.value === 'count') {
-            for (const column of filteredColumns) {
-                const values = Object.values(counts[column]);
-                categoryAxisData = Object.keys(counts[column]);
+        for (const column of filteredColumns) {
+            const values = Object.values(counts[column]);
+            categoryAxisData = Object.keys(counts[column]);
 
-                series.push({
-                    name: column,
-                    ...this.getCustomConfig(this.props.store.chartType, this.props.store.chartSubtype, true),
-                    data: values
-                });
-            }
-        } else if (this.props.store.valueAxis.value === 'percent') { // TODO: Implement
-            const totals = {};
-
-            for (const column of filteredColumns) {
-                totals[column] = counts[column].reduce((a, b) => a + b, 0);
-
-                const values = Object.values(counts[column]);
-                categoryAxisData = Object.keys(counts[column]);
-
-                series.push({
-                    name: column,
-                    ...this.getCustomConfig(this.props.store.chartType, this.props.store.chartSubtype, true),
-                    data: values
-                });
-            }
+            series.push({
+                name: column,
+                ...this.getCustomConfig(this.props.store.chartType, this.props.store.chartSubtype, true),
+                data: values
+            });
         }
 
         this.props.actions.setColumns(series, categoryAxisData);
