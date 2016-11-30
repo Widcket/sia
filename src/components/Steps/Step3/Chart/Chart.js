@@ -35,7 +35,7 @@ export default class Chart extends Component {
                   ref="echarts"
                   option={{...this.props.chartConfig, series: this.props.chartSeries[this.props.chartType.value]}}
                   style={{
-                      height: '40vh',
+                      height: '45vh',
                       minHeight: '400px',
                       maxHeight: '600px',
                       width: '100%'
