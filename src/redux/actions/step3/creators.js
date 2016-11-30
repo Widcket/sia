@@ -17,10 +17,10 @@ export function setChartType(chartType, chartSubtype, newSeries, newConfig) {
     };
 }
 
-export function setValueAxis(valueAxis) {
+export function setcategory(category) {
     return {
         type: actions.SET_CHART_SUBTYPE,
-        valueAxis
+        category
     };
 }
 

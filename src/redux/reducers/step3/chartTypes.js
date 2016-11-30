@@ -210,8 +210,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: true,
-                yAxis: true,
+                category: true,
                 data: false,
                 tree: true
             },
@@ -279,8 +278,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: true,
-                yAxis: true,
+                category: true,
                 data: false,
                 tree: true
             },
@@ -324,8 +322,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: false,
-                yAxis: true,
+                category: false,
                 data: true,
                 tree: false
             },
@@ -375,8 +372,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: true,
-                yAxis: true,
+                category: true,
                 data: false,
                 tree: true
             },
@@ -422,8 +418,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: false,
-                yAxis: true,
+                category: false,
                 data: true,
                 tree: false
             },
@@ -435,9 +430,9 @@ export const chartTypes = {
             }
         }
     },
-    chord: {
+    sankey: {
         name: 'Cuerdas',
-        value: 'chord',
+        value: 'sankey',
         config: {
             ...hideAxis
         },
@@ -449,7 +444,7 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'chord',
+                    type: 'sankey',
                     clickable: false
                 }
             },
@@ -460,7 +455,7 @@ export const chartTypes = {
 
                 },
                 seriesConfig: {
-                    type: 'chord',
+                    type: 'sankey',
                     clickable: false
                 }
             }
@@ -468,8 +463,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: false,
-                yAxis: true,
+                category: false,
                 data: true,
                 tree: false
             },
@@ -514,8 +508,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: false,
-                yAxis: true,
+                category: false,
                 data: true,
                 tree: false
             },
@@ -560,8 +553,7 @@ export const chartTypes = {
         controls: {
             subtype: true,
             columnPanel: {
-                xAxis: true,
-                yAxis: true,
+                category: true,
                 data: false,
                 tree: true
             },
@@ -581,7 +573,7 @@ export const chartSubtype = {
     pie: 'basic',
     scatter: 'basic',
     radar: 'basic',
-    chord: 'basic',
+    sankey: 'basic',
     force: 'basic',
     mixed: 'basic'
 };

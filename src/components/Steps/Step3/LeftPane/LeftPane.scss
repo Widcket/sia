@@ -139,6 +139,17 @@
         }
     }
 
+    #category-picker {
+        .data-control-label {
+            margin-bottom: 0.5rem;
+        }
+
+        .ant-cascader-picker {
+            clear: both;
+            width: 100%;
+        }
+    }
+
     #data-ranges {
         margin: 1rem 0rem;
 

@@ -20,6 +20,13 @@ const reducers = {
 
         return newState;
     },
+    SET_CATEGORY: (action, newState) => {
+        // TODO: Set xAxis data in chartConfig
+        newState.category = action.category;
+        newState.error = action.error;
+
+        return newState;
+    },
     SET_COLUMNS: (action, newState) => {
         // TODO: Memoize
         let largest = 0;
@@ -137,14 +144,24 @@ const reducers = {
     }
 };
 
-const valueAxisOptions = [
+const categories = [
     {
-        name: 'Cantidad',
-        value: 'count'
-    },
-    {
-        name: 'Porcentaje',
-        value: 'percent'
+        value: 'dataset1',
+        label: 'Dataset 1',
+        children: [
+            {
+                value: 'firstName',
+                label: 'First Name',
+            },
+            {
+                value: 'lastName',
+                label: 'Last Name',
+            },
+            {
+                value: 'state',
+                label: 'State',
+            }
+        ]
     }
 ];
 
@@ -158,8 +175,8 @@ const initialState = {
     transposeData: false,
     rangeX: [0, 100],
     rangeY: [0, 100],
-    valueAxisOptions: valueAxisOptions,
-    valueAxis: valueAxisOptions[0],
+    categories,
+    category: [0, 0],
     chartConfig: {
         ...chartConfig,
         ...chartTypes.line.config
@@ -186,13 +203,8 @@ export default function step3(state = initialState, action = {}) {
         case actions.SET_CHART_TYPE:
         case actions.SET_CHART_SUBTYPE:
             return reducers.SET_CHART_TYPE(action, newState);
-        case actions.SET_VALUE_AXIS:
-            return {
-                ...state,
-                valueAxis: action.valueAxis,
-
-                error: action.error
-            };
+        case actions.SET_CATEGORY:
+            return reducers.SET_CATEGORY(action, newState);
         case actions.SET_COLUMNS:
             return reducers.SET_COLUMNS(action, newState);
         case actions.SET_RANGE_X:

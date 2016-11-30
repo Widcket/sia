@@ -1,4 +1,4 @@
-import {Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
+import {Cascader, Col, Collapse, Input, Row, Select, Slider, Switch, Tabs, Tree} from 'antd';
 import React, {Component, PropTypes} from 'react';
 
 import ChartButton from '../ChartButton/ChartButton';
@@ -238,26 +238,20 @@ export default class LeftPane extends Component {
                     </Col>
                 </Row>
             ),
-            xAxis: (
-                <div className="data-panel-control">
-                    <span className="data-control-label">Etiquetas</span>
-                    <Select
-                      className="data-control-select"
-                      defaultValue={this.props.store.valueAxisOptions[0].name}
-                      onSelect={this.props.actions.setValueAxis}>
-                        { console.log() }
-                    </Select>
-                </div>
-            ),
-            yAxis: (
-                <div className="data-panel-control">
-                    <span className="data-control-label">Valores</span>
-                    <Select
-                      className="data-control-select"
-                      defaultValue={this.props.store.valueAxisOptions[0].name}
-                      onSelect={this.props.actions.setValueAxis}>
-                        { this.getSelectOptions(this.props.store.valueAxisOptions, 'valueAxis') }
-                    </Select>
+            category: (
+                <div className="data-panel-control" id="category-picker">
+                    <span className="data-control-label">Categorías</span>
+                    <Cascader
+                      options={this.props.store.categories}
+                      defaultValue={
+                      [
+                          this.props.store.categories[this.props.store.category[0]].value,
+                          this.props.store.categories[this.props.store.category[0]]
+                              .children[this.props.store.category[1]].value
+                      ]
+                      }
+                      onChange={console.log}
+                      placeholder="Dataset/Columna" />
                 </div>
             ),
             data: ( // TODO: Deselect all columns but one
@@ -265,8 +259,10 @@ export default class LeftPane extends Component {
                     <span className="data-control-label">Datos</span>
                     <Select
                       className="data-control-select"
-                      defaultValue={this.props.store.valueAxisOptions[0].name}
-                      onSelect={this.props.actions.setValueAxis}>
+                      defaultValue={
+                        this.props.store.categories[this.props.store.category[0]].children[this.props.store.category[1]]
+                      }
+                      onSelect={console.log}>
                         { console.log() }
                     </Select>
                 </div>
@@ -325,7 +321,7 @@ export default class LeftPane extends Component {
                             </Row>
                             <Row>
                                 {this.getChartButton('radar', 'Radar', 'fi flaticon-radar-chart')}
-                                {this.getChartButton('chord', 'Cuerdas',
+                                {this.getChartButton('sankey', 'Cuerdas',
                                     'fi flaticon-circle-with-irregular-grid-lines')}
                                 {this.getChartButton('force', 'Grafos', 'fi flaticon-chemical-diagram')}
                                 {this.getChartButton('mixed', 'Mixto', 'fi flaticon-bar-dotted-stats')}
@@ -334,8 +330,8 @@ export default class LeftPane extends Component {
                         {this.getControl(controls.subtype, this.props.store.chartType.controls.subtype)}
                         <Collapse defaultActiveKey={['columnPanel', 'dataPanel']}>
                             <Panel header="Columnas" key="columnPanel">
-                                {this.getControl(controls.yAxis, this.props.store.chartType.controls.columnPanel.yAxis)}
-                                {this.getControl(controls.xAxis, this.props.store.chartType.controls.columnPanel.xAxis)}
+                                {this.getControl(controls.category,
+                                    this.props.store.chartType.controls.columnPanel.category)}
                                 {this.getControl(controls.data, this.props.store.chartType.controls.columnPanel.data)}
                                 {this.getControl(controls.tree, this.props.store.chartType.controls.columnPanel.tree)}
                             </Panel>
