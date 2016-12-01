@@ -4,6 +4,8 @@ import {chartConfig, chartSeries} from './step3/chartConfig.js';
 import {chartSubtype, chartTypes} from './step3/chartTypes.js';
 
 const reducers = {
+    SET_ECHARTS_INSTANCE: (action, newState) => ({...newState, echarts: action.echarts }),
+    SET_DEFAULT_TAB: (action, newState) => ({...newState, defaultTab: action.defaultTab}),
     SET_CHART_TYPE: (action, newState) => {
         newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
 
@@ -16,17 +18,11 @@ const reducers = {
 
         newState.chartSeries[newState.chartType.value] = action.newSeries;
         newState.echarts.setOption({ ...newState.chartConfig, series: action.newSeries }, true);
-        newState.error = action.error;
 
         return newState;
     },
-    SET_CATEGORY: (action, newState) => {
-        // TODO: Set xAxis data in chartConfig
-        newState.category = action.category;
-        newState.error = action.error;
-
-        return newState;
-    },
+    // TODO: Set xAxis data in chartConfig
+    SET_CATEGORY: (action, newState) => ({...newState, category: ++newState.stage}),
     SET_COLUMNS: (action, newState) => {
         // TODO: Memoize
         let largest = 0;
@@ -54,7 +50,6 @@ const reducers = {
 
         newState.echarts.setOption({ ...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
             true);
-        newState.error = action.error;
 
         return newState;
     },
@@ -64,7 +59,6 @@ const reducers = {
         newState.chartConfig.dataZoom[0].end = action.rangeX[1];
         newState.chartConfig.dataZoom[2].start = action.rangeX[0];
         newState.chartConfig.dataZoom[2].end = action.rangeX[1];
-        newState.error = action.error;
 
         return newState;
     },
@@ -74,7 +68,6 @@ const reducers = {
         newState.chartConfig.dataZoom[1].end = action.rangeY[1];
         newState.chartConfig.dataZoom[3].start = action.rangeY[0];
         newState.chartConfig.dataZoom[3].end = action.rangeY[1];
-        newState.error = action.error;
 
         return newState;
     },
@@ -90,7 +83,6 @@ const reducers = {
         newState.invertData = !newState.invertData;
         newState.echarts.setOption({...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
             false);
-        newState.error = action.error;
 
         return newState;
     },
@@ -104,13 +96,11 @@ const reducers = {
         newState.transposeData = !newState.transposeData;
         newState.echarts.setOption({...newState.chartConfig, series: newState.chartSeries[newState.chartType.value]},
             true);
-        newState.error = action.error;
 
         return newState;
     },
     SET_CHART_TITLE: (action, newState) => {
         newState.chartConfig.title.text = action.chartTitle;
-        newState.error = action.error;
 
         return newState;
     },
@@ -122,15 +112,12 @@ const reducers = {
             newState.chartConfig[axis][0].splitArea.show = false;
         }
 
-        newState.error = action.error;
-
         return newState;
     },
     TOGGLE_AXIS_GRID: (action, newState, axis) => {
         if (!newState.chartConfig[axis][0].show) newState.chartConfig[axis][0].show = true;
 
         newState.chartConfig[axis][0].splitLine.show = newState.chartConfig[axis][0].splitLine.show ? false : true;
-        newState.error = action.error;
 
         return newState;
     },
@@ -138,7 +125,6 @@ const reducers = {
         if (!newState.chartConfig[axis][0].show) newState.chartConfig[axis][0].show = true;
 
         newState.chartConfig[axis][0].splitArea.show = newState.chartConfig[axis][0].splitArea.show ? false : true;
-        newState.error = action.error;
 
         return newState;
     }
@@ -189,17 +175,9 @@ export default function step3(state = initialState, action = {}) {
 
     switch (action.type) {
         case actions.SET_ECHARTS_INSTANCE:
-            return {
-                ...state,
-                echarts: action.echarts,
-                error: action.error
-            };
+            return reducers.SET_ECHARTS_INSTANCE(action, newState);
         case actions.SET_DEFAULT_TAB:
-            return {
-                ...state,
-                defaultTab: action.defaultTab,
-                error: action.error
-            };
+            return reducers.SET_DEFAULT_TAB(action, newState);
         case actions.SET_CHART_TYPE:
         case actions.SET_CHART_SUBTYPE:
             return reducers.SET_CHART_TYPE(action, newState);
