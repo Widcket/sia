@@ -2,20 +2,33 @@ import * as actions from '../actions/step1/definitions';
 
 const reducers = {
     NEXT: (action, newState) => ({...newState, stage: ++newState.stage}),
-    GET_DATASET_COUNT: (action, newState) => ({...newState }),
-    GET_DATASET_COUNT_FAILED: (action, newState) => ({...newState }),
-    GET_DATASET_LIST: (action, newState) => ({...newState}),
-    GET_DATASET_LIST_FAILED: (action, newState) => ({...newState }),
+    GET_DATASET_COUNT: (action, newState) => ({...newState}),
+    GET_DATASET_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_DATASET_LIST: (action, newState) => {
+        const datasets = [];
+
+        for (const dataset of action.data) {
+            datasets.push({
+                id: dataset.id,
+                name: dataset.name
+            });
+        }
+
+        return {...newState, datasets};
+    },
+    GET_DATASET_LIST_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_DATASET_FILES: (action, newState) => ({...newState}),
-    GET_DATASET_FILES_FAILED: (action, newState) => ({...newState }),
+    GET_DATASET_FILES_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_DATASET_FILE_FIELDS: (action, newState) => ({...newState}),
-    GET_DATASET_FILE_FIELDS_FAILED: (action, newState) => ({...newState }),
+    GET_DATASET_FILE_FIELDS_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_DATASET_FILE_CONTENTS: (action, newState) => ({...newState}),
-    GET_DATASET_FILE_CONTENTS_FAILED: (action, newState) => ({...newState}),
+    GET_DATASET_FILE_CONTENTS_FAILED: (action, newState) => ({...newState, error: action.error}),
 };
 
 const initialState = {
-    stage: 0
+    stage: 0,
+    datasets: [],
+    error: null
 };
 
 export default function step1(state = initialState, action = {}) {
