@@ -20,6 +20,7 @@ class ConnectForm extends Component {
             if (err) return console.error('Could not connect!');
 
             this.props.actions.getDatasetList(values.url, values.token);
+            this.props.actions.getFiletypeList(values.token);
         });
     }
 

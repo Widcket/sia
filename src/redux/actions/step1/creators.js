@@ -5,16 +5,12 @@ import * as actions from './definitions';
 const endpoints = {
     base: null,
     datasets: null,
-    datasetCount: null
+    datasetCount: null,
+    fileTypes: null,
+    fileTypesCount: null
 };
 
-export function next() {
-    return {
-        type: actions.NEXT
-    };
-}
-
-export function getDatasetList(url, token) {
+const generateEndpoints = (url) => {
     if (url.endsWith('/')) {
         const urlArray = [...url];
 
@@ -23,19 +19,34 @@ export function getDatasetList(url, token) {
     }
     else endpoints.base = url;
 
-    endpoints.datasets = url + '/datasets';
+    endpoints.datasets = endpoints.base + '/datasets';
     endpoints.datasetCount = endpoints.datasets + '/count';
+    endpoints.fileTypes = endpoints.base + '/filetypes';
+    endpoints.fileTypesCount = endpoints.base + '/filetypes/count';
+};
+
+
+export function next() {
+    return {
+        type: actions.NEXT
+    };
+}
+
+export function getDatasetList(url, token) {
+    generateEndpoints(url);
 
     return (dispatch, getState) => {
         fetch(endpoints.datasetCount, {
             method: 'GET',
             mode: 'cors',
             headers: {
-                Accepts: 'application/json',
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
+            console.error(error.message);
+
             dispatch({
                 type: actions.GET_DATASET_COUNT_FAILED,
                 error: error.message
@@ -53,11 +64,13 @@ export function getDatasetList(url, token) {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                    Accepts: 'application/json',
+                    Accept: 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => response.json(), (error) => {
+                console.error(error.message);
+
                 dispatch({
                     type: actions.GET_DATASET_LIST_FAILED,
                     error: error.message
@@ -73,6 +86,60 @@ export function getDatasetList(url, token) {
     };
 }
 
+export function getFiletypeList(token) {
+    return (dispatch, getState) => {
+        fetch(endpoints.fileTypesCount, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then((response) => response.json(), (error) => {
+            console.error(error.message);
+
+            dispatch({
+                type: actions.GET_FILETYPE_COUNT_FAILED,
+                error: error.message
+            });
+        })
+        .then((value) => {
+            console.log(value);
+            const url = endpoints.fileTypes + `?limit=${value.data.count}&fields=id,name,api`;
+
+            dispatch({
+                type: actions.GET_FILETYPE_COUNT,
+                count: value.data.count
+            });
+
+            fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => response.json(), (error) => {
+                console.error(error.message);
+
+                dispatch({
+                    type: actions.GET_FILETYPE_LIST_FAILED,
+                    error: error.message
+                });
+            })
+            .then((value) => {
+                console.log(value);
+                dispatch({
+                    type: actions.GET_FILETYPE_LIST,
+                    data: value.data
+                });
+            });
+        });
+    };
+}
+
 export function getDatasetFiles(id, token) {
     return (dispatch, getState) => {
         const url = `${endpoints.datasets}/${id}/files`;
@@ -81,19 +148,22 @@ export function getDatasetFiles(id, token) {
             method: 'GET',
             mode: 'cors',
             headers: {
-                Accepts: 'application/json',
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
+            console.error(error.message);
+
             dispatch({
-                type: actions.GET_DATASET_FILES_FAILED,
+                type: actions.GET_FILE_LIST_FAILED,
                 error: error.message
             });
         })
         .then((value) => {
+            console.log(value);
             dispatch({
-                type: actions.GET_DATASET_FILES,
+                type: actions.GET_FILE_LIST,
                 files: value.data
             });
         });
@@ -108,19 +178,22 @@ export function getFileFields(id, token) {
             method: 'GET',
             mode: 'cors',
             headers: {
-                Accepts: 'application/json',
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
+            console.error(error.message);
+
             dispatch({
-                type: actions.GET_DATASET_FILE_FIELDS_FAILED,
+                type: actions.GET_FILE_FIELDS_FAILED,
                 error: error.message
             });
         })
         .then((value) => {
+            console.log(value);
             dispatch({
-                type: actions.GET_DATASET_FILE_FIELDS,
+                type: actions.GET_FILE_FIELDS,
                 fields: value.data[0] // TODO: Identify field types
             });
         });
@@ -135,19 +208,22 @@ export function getFileContents(id, limit, token) {
             method: 'GET',
             mode: 'cors',
             headers: {
-                Accepts: 'application/json',
+                Accept: 'application/json',
                 Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
+            console.error(error.message);
+
             dispatch({
-                type: actions.GET_DATASET_FILE_CONTENTS_FAILED,
+                type: actions.GET_FILE_CONTENTS_FAILED,
                 error: error.message
             });
         })
         .then((value) => {
+            console.log(value);
             dispatch({
-                type: actions.GET_DATASET_FILE_CONTENTS,
+                type: actions.GET_FILE_CONTENTS,
                 data: value.data
             });
         });
