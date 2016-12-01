@@ -76,6 +76,9 @@ export function getDatasetList(url, token) {
                     type: actions.GET_DATASET_LIST,
                     data: value.data
                 });
+                dispatch({
+                    type: actions.NEXT
+                });
             });
         });
     };
@@ -216,5 +219,13 @@ export function getFileContents(id, limit, token) {
                 data: value.data
             });
         });
+    };
+}
+
+export function selectDatasets(selectedItems, chosenItems) {
+    return {
+        type: actions.SELECT_DATASETS,
+        selectedItems,
+        chosenItems
     };
 }

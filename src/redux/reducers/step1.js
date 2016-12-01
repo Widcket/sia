@@ -5,6 +5,7 @@ const reducers = {
     GET_DATASET_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_DATASET_LIST: (action, newState) => {
         const datasets = {};
+        const datasetPickerItems = [];
 
         for (const dataset of action.data) {
             datasets[dataset.id] = {
@@ -12,11 +13,24 @@ const reducers = {
                 name: dataset.name,
                 files: []
             };
+
+            datasetPickerItems.push({
+                key: dataset.id,
+                title: dataset.name,
+                chosen: false
+            });
         }
 
-        return {...newState, datasets};
+        newState.datasets = datasets;
+        newState.datasetPickerItems = datasetPickerItems;
+
+        return newState;
     },
-    GET_DATASET_LIST_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_DATASET_LIST_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
     GET_FILE_LIST: (action, newState) => {
         const files = [];
 
@@ -37,7 +51,7 @@ const reducers = {
             }
         }
 
-        return {...newState};
+        return newState;
     },
     GET_FILE_LIST_FAILED: (action, newState) => ({...newState, error: action.error }),
     GET_FILETYPE_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
@@ -48,17 +62,38 @@ const reducers = {
             if (type.api) filetypes.push(type.id);
         }
 
-        return {...newState, filetypes};
+        newState.filetypes = filetypes;
+
+        return newState;
     },
-    GET_FILETYPE_LIST_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_FILETYPE_LIST_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
     GET_FILE_FIELDS: (action, newState) => {
-        return {...newState};
+        return newState;
     },
-    GET_FILE_FIELDS_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_FILE_FIELDS_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
     GET_FILE_CONTENTS: (action, newState) => {
-        return {...newState};
+        return newState;
     },
-    GET_FILE_CONTENTS_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_FILE_CONTENTS_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
+    SELECT_DATASETS: (action, newState) => {
+        newState.pickedDatasets = action.chosenItems;
+
+        if (action.selectedItems[0]) newState.pickedDatasets.push(action.selectedItems[0]);
+
+        return newState;
+    }
 };
 
 const initialState = {
@@ -66,6 +101,8 @@ const initialState = {
     datasets: {},
     filetypes: [],
     files: {},
+    datasetPickerItems: [],
+    pickedDatasets: [],
     error: null
 };
 
@@ -99,6 +136,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.GET_FILE_CONTENTS(action, newState);
         case actions.GET_FILE_CONTENTS_FAILED:
             return reducers.GET_FILE_CONTENTS_FAILED(action, newState);
+        case actions.SELECT_DATASETS:
+            return reducers.SELECT_DATASETS(action, newState);
         default:
             return state;
     }

@@ -4,8 +4,16 @@ import {chartConfig, chartSeries} from './step3/chartConfig.js';
 import {chartSubtype, chartTypes} from './step3/chartTypes.js';
 
 const reducers = {
-    SET_ECHARTS_INSTANCE: (action, newState) => ({...newState, echarts: action.echarts }),
-    SET_DEFAULT_TAB: (action, newState) => ({...newState, defaultTab: action.defaultTab}),
+    SET_ECHARTS_INSTANCE: (action, newState) => {
+        newState.echarts = action.echarts;
+
+        return newState;
+    },
+    SET_DEFAULT_TAB: (action, newState) => {
+        newState.defaultTab = action.defaultTab;
+
+        return newState;
+    },
     SET_CHART_TYPE: (action, newState) => {
         newState.chartConfig = { ...newState.chartConfig, ...action.newConfig };
 
@@ -22,7 +30,11 @@ const reducers = {
         return newState;
     },
     // TODO: Set xAxis data in chartConfig
-    SET_CATEGORY: (action, newState) => ({...newState, category: ++newState.stage}),
+    SET_CATEGORY: (action, newState) => {
+        newState.category = ++newState.stage;
+
+        return newState;
+    },
     SET_COLUMNS: (action, newState) => {
         // TODO: Memoize
         let largest = 0;

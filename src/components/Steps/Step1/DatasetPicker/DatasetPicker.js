@@ -1,51 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Transfer} from 'antd';
+import {autobind} from 'core-decorators';
 
 export default class DatasetPicker extends Component {
     static propTypes = {
-
+        store: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired
     }
 
-    constructor() {
-        super();
-
-        this.state = {
-            mockData: [],
-            targetKeys: []
-        };
-    }
-
-    componentDidMount() {
-        this.getMock();
-    }
-
-    getMock() {
-        const targetKeys = [];
-        const mockData = [];
-
-        for (let i = 0; i < 20; i++) {
-            const data = {
-                key: i.toString(),
-                title: `Dataset ${i + 1}`,
-                description: `Desripción del dataset ${i + 1}`,
-                chosen: Math.random() * 1.2 > 1,
-            };
-
-            if (data.chosen) targetKeys.push(data.key);
-
-            mockData.push(data);
-        }
-
-        this.setState({ mockData, targetKeys });
-    }
-
-    filterOption(inputValue, option) {
-        return option.description.indexOf(inputValue) > -1;
-    }
-
-    handleChange(targetKeys) {
-        this.setState({ targetKeys });
+    @autobind
+    handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
+        this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
+        this.setState({});
     }
 
     render() {
@@ -53,14 +20,14 @@ export default class DatasetPicker extends Component {
 
         return (
             <Transfer className="picker"
-              dataSource={this.state.mockData}
-              targetKeys={this.state.targetKeys}
-              filterOption={this.filterOption}
+              dataSource={this.props.store.datasetPickerItems}
+              selectedKeys={this.props.store.pickedDatasets}
+              targetKeys={[...this.props.store.pickedDatasets]}
               titles={['', '']}
               searchPlaceholder="Buscar..."
-              notFoundContent=""
-              onChange={this.handleChange}
-              render={item => item.title}
+              notFoundContent=" "
+              onSelectChange={this.handleSelectChange}
+              render={(item) => item.title}
               showSearch
             />
         );

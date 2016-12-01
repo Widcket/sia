@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-top: -1.5rem;
 
     & > .ant-transfer-list {
         flex-grow: 1;
@@ -11,19 +12,33 @@
         height: 38vh;
         padding-top: 0rem;
 
+        &:first-child {
+            margin-right: 1rem;
+
+            .ant-checkbox-wrapper {
+                display: none;
+            }
+        }
+
         .ant-transfer-list-header {
             display: none;
         }
     }
 
     & > div:last-of-type {
+        // display: none;
+
         .ant-transfer-list-body {
-            padding-top: 0rem;
+            padding-top: 0.5rem;
         }
 
         .ant-transfer-list-body-search-wrapper {
             height: 0rem;
             display: none;
         }
+    }
+
+    .ant-transfer-operation {
+        display: none;
     }
 }
