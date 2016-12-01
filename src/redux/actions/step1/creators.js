@@ -105,7 +105,6 @@ export function getFiletypeList(token) {
             });
         })
         .then((value) => {
-            console.log(value);
             const url = endpoints.fileTypes + `?limit=${value.data.count}&fields=id,name,api`;
 
             dispatch({
@@ -130,7 +129,6 @@ export function getFiletypeList(token) {
                 });
             })
             .then((value) => {
-                console.log(value);
                 dispatch({
                     type: actions.GET_FILETYPE_LIST,
                     data: value.data
@@ -161,7 +159,6 @@ export function getDatasetFiles(id, token) {
             });
         })
         .then((value) => {
-            console.log(value);
             dispatch({
                 type: actions.GET_FILE_LIST,
                 files: value.data
@@ -191,7 +188,6 @@ export function getFileFields(id, token) {
             });
         })
         .then((value) => {
-            console.log(value);
             dispatch({
                 type: actions.GET_FILE_FIELDS,
                 fields: value.data[0] // TODO: Identify field types
@@ -221,7 +217,6 @@ export function getFileContents(id, limit, token) {
             });
         })
         .then((value) => {
-            console.log(value);
             dispatch({
                 type: actions.GET_FILE_CONTENTS,
                 data: value.data
