@@ -6,8 +6,8 @@ const endpoints = {
     base: null,
     datasets: null,
     datasetCount: null,
-    fileTypes: null,
-    fileTypesCount: null
+    filetypes: null,
+    filetypesCount: null
 };
 
 const generateEndpoints = (url) => {
@@ -21,8 +21,8 @@ const generateEndpoints = (url) => {
 
     endpoints.datasets = endpoints.base + '/datasets';
     endpoints.datasetCount = endpoints.datasets + '/count';
-    endpoints.fileTypes = endpoints.base + '/filetypes';
-    endpoints.fileTypesCount = endpoints.base + '/filetypes/count';
+    endpoints.filetypes = endpoints.base + '/filetypes';
+    endpoints.filetypesCount = endpoints.base + '/filetypes/count';
 };
 
 
@@ -88,7 +88,7 @@ export function getDatasetList(url, token) {
 
 export function getFiletypeList(token) {
     return (dispatch, getState) => {
-        fetch(endpoints.fileTypesCount, {
+        fetch(endpoints.filetypesCount, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -105,7 +105,7 @@ export function getFiletypeList(token) {
             });
         })
         .then((value) => {
-            const url = endpoints.fileTypes + `?limit=${value.data.count}&fields=id,name,api`;
+            const url = endpoints.filetypes + `?limit=${value.data.count}&fields=id,name,api`;
 
             dispatch({
                 type: actions.GET_FILETYPE_COUNT,
