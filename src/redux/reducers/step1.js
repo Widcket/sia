@@ -2,7 +2,6 @@ import * as actions from '../actions/step1/definitions';
 
 const reducers = {
     NEXT: (action, newState) => ({...newState, stage: ++newState.stage}),
-    GET_DATASET_COUNT: (action, newState) => ({...newState}),
     GET_DATASET_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_DATASET_LIST: (action, newState) => {
         const datasets = {};
@@ -41,7 +40,6 @@ const reducers = {
         return {...newState};
     },
     GET_FILE_LIST_FAILED: (action, newState) => ({...newState, error: action.error }),
-    GET_FILETYPE_COUNT: (action, newState) => ({...newState}),
     GET_FILETYPE_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
     GET_FILETYPE_LIST: (action, newState) => {
         const filetypes = [];
@@ -53,9 +51,13 @@ const reducers = {
         return {...newState, filetypes};
     },
     GET_FILETYPE_LIST_FAILED: (action, newState) => ({...newState, error: action.error}),
-    GET_FILE_FIELDS: (action, newState) => ({...newState}),
+    GET_FILE_FIELDS: (action, newState) => {
+        return {...newState};
+    },
     GET_FILE_FIELDS_FAILED: (action, newState) => ({...newState, error: action.error}),
-    GET_FILE_CONTENTS: (action, newState) => ({...newState}),
+    GET_FILE_CONTENTS: (action, newState) => {
+        return {...newState};
+    },
     GET_FILE_CONTENTS_FAILED: (action, newState) => ({...newState, error: action.error}),
 };
 
@@ -63,6 +65,7 @@ const initialState = {
     stage: 0,
     datasets: {},
     filetypes: [],
+    files: {},
     error: null
 };
 
@@ -72,8 +75,6 @@ export default function step1(state = initialState, action = {}) {
     switch (action.type) {
         case actions.NEXT:
             return reducers.NEXT(action, newState);
-        case actions.GET_DATASET_COUNT:
-            return reducers.GET_DATASET_COUNT(action, newState);
         case actions.GET_DATASET_COUNT_FAILED:
             return reducers.GET_DATASET_COUNT_FAILED(action, newState);
         case actions.GET_DATASET_LIST:
@@ -84,8 +85,6 @@ export default function step1(state = initialState, action = {}) {
             return reducers.GET_FILE_LIST(action, newState);
         case actions.GET_FILE_LIST_FAILED:
             return reducers.GET_FILE_LIST_FAILED(action, newState);
-        case actions.GET_FILETYPE_COUNT:
-            return reducers.GET_FILETYPE_COUNT(action, newState);
         case actions.GET_FILETYPE_COUNT_FAILED:
             return reducers.GET_FILETYPE_COUNT_FAILED(action, newState);
         case actions.GET_FILETYPE_LIST:

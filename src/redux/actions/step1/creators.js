@@ -55,11 +55,6 @@ export function getDatasetList(url, token) {
         .then((value) => {
             const url = endpoints.datasets + `?limit=${value.data.count}&fields=id,name`;
 
-            dispatch({
-                type: actions.GET_DATASET_COUNT,
-                count: value.data.count
-            });
-
             fetch(url, {
                 method: 'GET',
                 mode: 'cors',
@@ -106,11 +101,6 @@ export function getFiletypeList(token) {
         })
         .then((value) => {
             const url = endpoints.filetypes + `?limit=${value.data.count}&fields=id,name,api`;
-
-            dispatch({
-                type: actions.GET_FILETYPE_COUNT,
-                count: value.data.count
-            });
 
             fetch(url, {
                 method: 'GET',
@@ -188,9 +178,13 @@ export function getFileFields(id, token) {
             });
         })
         .then((value) => {
+            const fields = value.data[0];
+
+            delete fields._id;
+
             dispatch({
                 type: actions.GET_FILE_FIELDS,
-                fields: value.data[0] // TODO: Identify field types
+                fields  // TODO: Identify field types
             });
         });
     };
