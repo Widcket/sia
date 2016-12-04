@@ -90,7 +90,7 @@
     }
   },
   "dependencies": {
-    "antd": "^2.5.0",
+    "antd": "^2.5.1",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "core-decorators": "^0.14.0",
