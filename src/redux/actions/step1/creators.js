@@ -169,7 +169,6 @@ export function getDatasetFiles(id) {
             });
         }
         else {
-            console.log('no files');
             dispatch({
                 type: actions.GET_FILE_LIST
             });
