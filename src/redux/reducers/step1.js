@@ -130,6 +130,16 @@ const reducers = {
         if (action.selectedItems[0]) newState.pickedFiles.push(action.selectedItems[0]);
 
         return newState;
+    },
+    ENABLE_FILE_SPINNER: (action, newState) => {
+        newState.loadingFiles = true;
+
+        return newState;
+    },
+    DISABLE_FILE_SPINNER: (action, newState) => {
+        newState.loadingFiles = false;
+
+        return newState;
     }
 };
 
@@ -143,6 +153,7 @@ const initialState = {
     filePickerItems: [],
     pickedDatasets: [],
     pickedFiles: [],
+    loadingFiles: false,
     error: null
 };
 
@@ -182,6 +193,10 @@ export default function step1(state = initialState, action = {}) {
             return reducers.SELECT_DATASETS(action, newState);
         case actions.SELECT_FILES:
             return reducers.SELECT_FILES(action, newState);
+        case actions.ENABLE_FILE_SPINNER:
+            return reducers.ENABLE_FILE_SPINNER(action, newState);
+        case actions.DISABLE_FILE_SPINNER:
+            return reducers.DISABLE_FILE_SPINNER(action, newState);
         default:
             return state;
     }

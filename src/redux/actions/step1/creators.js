@@ -138,6 +138,10 @@ export function getDatasetFiles(id) {
         return (dispatch, getState) => {
             const url = `${endpoints.datasets}/${id}/files`;
 
+            dispatch({
+                type: actions.ENABLE_FILE_SPINNER
+            });
+
             fetch(url, {
                 method: 'GET',
                 mode: 'cors',
@@ -158,6 +162,9 @@ export function getDatasetFiles(id) {
                 dispatch({
                     type: actions.GET_FILE_LIST,
                     files: value.data
+                });
+                dispatch({
+                    type: actions.DISABLE_FILE_SPINNER
                 });
             });
         };
@@ -246,5 +253,11 @@ export function selectFiles(selectedItems, chosenItems) {
         type: actions.SELECT_FILES,
         selectedItems,
         chosenItems
+    };
+}
+
+export function toggleFileSpinner() {
+    return {
+        type: actions.ENABLE_FILE_SPINNER
     };
 }

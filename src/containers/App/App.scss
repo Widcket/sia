@@ -21,6 +21,14 @@
             -moz-osx-font-smoothing: grayscale
         }
 
+        .spinner {
+            margin-top: -0.3rem;
+
+            .ant-spin-dot {
+                padding-bottom: 1rem;
+            }
+        }
+
         .ant-collapse:not(.ant-collapse-borderless) {
             background-color: #fafafa;
             user-select: none;

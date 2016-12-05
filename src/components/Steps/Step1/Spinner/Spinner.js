@@ -17,7 +17,11 @@ class Spinner extends PureComponent {
         const colSizeLG = { span: 12, offset: 6 };
 
         return (
-            <Spin tip="Cargando datasets..." spinning={this.props.active} className="spinner" />
+            <Spin
+              tip="Cargando datasets..."
+              size="large"
+              spinning={this.props.active}
+              className="spinner spinner-solo" />
         );
     }
 }

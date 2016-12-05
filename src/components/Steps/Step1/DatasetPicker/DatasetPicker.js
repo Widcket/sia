@@ -1,4 +1,4 @@
-import {Collapse, Transfer} from 'antd';
+import {Collapse, Spin, Transfer} from 'antd';
 import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
@@ -26,7 +26,7 @@ export default class DatasetPicker extends PureComponent {
     handleDatasetSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
 
-        if (sourceSelectedKeys) this.props.actions.getDatasetFiles(sourceSelectedKeys);
+        if (sourceSelectedKeys.length > 0) this.props.actions.getDatasetFiles(sourceSelectedKeys);
     }
 
     @autobind
@@ -38,7 +38,7 @@ export default class DatasetPicker extends PureComponent {
         );
 
         return {
-            label: customLabel,  // for displayed item
+            label: customLabel  // for displayed item
         };
     }
 
@@ -52,16 +52,18 @@ export default class DatasetPicker extends PureComponent {
               onChange={this.handlePanelChange}
               accordion>
                 <Panel header="Datasets" key="pickerPanel-1">
-                    <Transfer className="picker"
-                      dataSource={this.props.store.datasetPickerItems}
-                      selectedKeys={this.props.store.pickedDatasets}
-                      targetKeys={[...this.props.store.pickedDatasets]}
-                      titles={['', '']}
-                      searchPlaceholder="Buscar..."
-                      notFoundContent=" "
-                      onSelectChange={this.handleDatasetSelect}
-                      render={(item) => item.title}
-                      showSearch />
+                    <Spin tip="Cargando archivos..." spinning={this.props.store.loadingFiles} className="spinner">
+                        <Transfer className="picker"
+                          dataSource={this.props.store.datasetPickerItems}
+                          selectedKeys={this.props.store.pickedDatasets}
+                          targetKeys={[...this.props.store.pickedDatasets]}
+                          titles={['', '']}
+                          searchPlaceholder="Buscar..."
+                          notFoundContent=" "
+                          onSelectChange={this.handleDatasetSelect}
+                          render={(item) => item.title}
+                          showSearch />
+                    </Spin>
                 </Panel>
                 <Panel header="Archivos" key="pickerPanel-2">
                     <Transfer className="picker"
