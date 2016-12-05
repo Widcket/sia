@@ -134,32 +134,34 @@ export function getFiletypeList(token) {
 }
 
 export function getDatasetFiles(id) {
-    return (dispatch, getState) => {
-        const url = `${endpoints.datasets}/${id}/files`;
+    if (id) {
+        return (dispatch, getState) => {
+            const url = `${endpoints.datasets}/${id}/files`;
 
-        fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`
-            }
-        })
-        .then((response) => response.json(), (error) => {
-            console.error(error.message);
+            fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${authToken}`
+                }
+            })
+            .then((response) => response.json(), (error) => {
+                console.error(error.message);
 
-            dispatch({
-                type: actions.GET_FILE_LIST_FAILED,
-                error: error.message
+                dispatch({
+                    type: actions.GET_FILE_LIST_FAILED,
+                    error: error.message
+                });
+            })
+            .then((value) => {
+                dispatch({
+                    type: actions.GET_FILE_LIST,
+                    files: value.data
+                });
             });
-        })
-        .then((value) => {
-            dispatch({
-                type: actions.GET_FILE_LIST,
-                files: value.data
-            });
-        });
-    };
+        };
+    }
 }
 
 export function getFileFields(id, token) {

@@ -25,7 +25,8 @@ export default class DatasetPicker extends PureComponent {
     @autobind
     handleDatasetSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
-        this.props.actions.getDatasetFiles(sourceSelectedKeys);
+
+        if (sourceSelectedKeys) this.props.actions.getDatasetFiles(sourceSelectedKeys);
     }
 
     @autobind

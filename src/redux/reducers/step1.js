@@ -45,29 +45,31 @@ const reducers = {
             }
         }
 
-        for (const file of action.files) {
-            const record = {
-                id: file.id,
-                name: file.name
-            };
+        if (action.files) {
+            for (const file of action.files) {
+                const record = {
+                    id: file.id,
+                    name: file.name
+                };
 
-            if (typeof file.type === 'string' || file.type instanceof String) {
-                if (newState.filetypes.includes(file.type)) {
-                    newState.datasets[file.dataset].files.push(record);
-                    filePickerItems.push({
-                        key: record.id,
-                        title: record.name,
-                        chosen: false
-                    });
+                if (typeof file.type === 'string' || file.type instanceof String) {
+                    if (newState.filetypes.includes(file.type)) {
+                        newState.datasets[file.dataset].files.push(record);
+                        filePickerItems.push({
+                            key: record.id,
+                            title: record.name,
+                            chosen: false
+                        });
+                    }
                 }
-            }
-            else if (typeof file.type === 'object' &&
-                file.type !== null &&
-                file.type.constructor === Object &&
-                file.type.hasOwnProperty('isPrototypeOf') === false &&
-                file.type.message.toString() === '[object Object]') {
-                if (newState.filetypes.includes(file.type.id)) {
-                    newState.datasets[file.dataset.id].files.push(record);
+                else if (typeof file.type === 'object' &&
+                    file.type !== null &&
+                    file.type.constructor === Object &&
+                    file.type.hasOwnProperty('isPrototypeOf') === false &&
+                    file.type.message.toString() === '[object Object]') {
+                    if (newState.filetypes.includes(file.type.id)) {
+                        newState.datasets[file.dataset.id].files.push(record);
+                    }
                 }
             }
         }
