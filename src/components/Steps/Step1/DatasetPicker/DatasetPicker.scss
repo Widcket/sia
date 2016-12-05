@@ -22,6 +22,14 @@
         .ant-transfer-list-header {
             display: none;
         }
+
+        .ant-transfer-list-content-item {
+            transition: none;
+
+            &:not(.ant-transfer-list-content-item-disabled):hover {
+                font-weight: bold;
+            }
+        }
     }
 
     & > div:last-of-type {

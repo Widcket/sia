@@ -33,11 +33,32 @@ const reducers = {
     },
     GET_FILE_LIST: (action, newState) => {
         const files = [];
+        const filePickerItems = [];
 
-        for (const file of action.data) {
+        for (const dataset of newState.pickedDatasets) {
+            for (const file of newState.datasets[dataset].files) {
+                filePickerItems.push({
+                    key: file.id,
+                    title: file.name,
+                    chosen: false
+                });
+            }
+        }
+
+        for (const file of action.files) {
+            const record = {
+                id: file.id,
+                name: file.name
+            };
+
             if (typeof file.type === 'string' || file.type instanceof String) {
                 if (newState.filetypes.includes(file.type)) {
-                    newState.datasets[file.dataset.id].files.push(file.id);
+                    newState.datasets[file.dataset].files.push(record);
+                    filePickerItems.push({
+                        key: record.id,
+                        title: record.name,
+                        chosen: false
+                    });
                 }
             }
             else if (typeof file.type === 'object' &&
@@ -46,10 +67,12 @@ const reducers = {
                 file.type.hasOwnProperty('isPrototypeOf') === false &&
                 file.type.message.toString() === '[object Object]') {
                 if (newState.filetypes.includes(file.type.id)) {
-                    newState.datasets[file.dataset.id].files.push(file.id);
+                    newState.datasets[file.dataset.id].files.push(record);
                 }
             }
         }
+
+        newState.filePickerItems = filePickerItems;
 
         return newState;
     },
@@ -108,6 +131,7 @@ const initialState = {
     files: {},
     pickerPanel: 'pickerPanel-1',
     datasetPickerItems: [],
+    filePickerItems: [],
     pickedDatasets: [],
     error: null
 };

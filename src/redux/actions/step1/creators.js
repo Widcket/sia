@@ -25,6 +25,7 @@ const generateEndpoints = (url) => {
     endpoints.filetypesCount = endpoints.base + '/filetypes/count';
 };
 
+let authToken;
 
 export function next() {
     return {
@@ -34,6 +35,7 @@ export function next() {
 
 export function getDatasetList(url, token) {
     generateEndpoints(url);
+    authToken = token;
 
     return (dispatch, getState) => {
         fetch(endpoints.datasetCount, {
@@ -41,7 +43,7 @@ export function getDatasetList(url, token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authToken}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -60,7 +62,7 @@ export function getDatasetList(url, token) {
                 mode: 'cors',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${authToken}`
                 }
             })
             .then((response) => response.json(), (error) => {
@@ -91,7 +93,7 @@ export function getFiletypeList(token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authToken}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -110,7 +112,7 @@ export function getFiletypeList(token) {
                 mode: 'cors',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${authToken}`
                 }
             })
             .then((response) => response.json(), (error) => {
@@ -131,7 +133,7 @@ export function getFiletypeList(token) {
     };
 }
 
-export function getDatasetFiles(id, token) {
+export function getDatasetFiles(id) {
     return (dispatch, getState) => {
         const url = `${endpoints.datasets}/${id}/files`;
 
@@ -140,7 +142,7 @@ export function getDatasetFiles(id, token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authToken}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -169,7 +171,7 @@ export function getFileFields(id, token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authToken}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -202,7 +204,7 @@ export function getFileContents(id, limit, token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authToken}`
             }
         })
         .then((response) => response.json(), (error) => {

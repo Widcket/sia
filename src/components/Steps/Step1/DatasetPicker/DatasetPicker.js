@@ -1,15 +1,17 @@
 import {Collapse, Transfer} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
 
-export default class DatasetPicker extends Component {
+export default class DatasetPicker extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired
     }
+
+    startDataset = true;
 
     @autobind
     handlePanelChange(panel) {
@@ -23,7 +25,20 @@ export default class DatasetPicker extends Component {
     @autobind
     handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
-        this.setState({});
+        this.props.actions.getDatasetFiles(sourceSelectedKeys);
+    }
+
+    @autobind
+    renderItem(item) {
+        const customLabel = (
+            <span className="custom-item">
+                {item.title} - {item.description}
+            </span>
+        );
+
+        return {
+            label: customLabel,  // for displayed item
+        };
     }
 
     render() {
@@ -49,7 +64,7 @@ export default class DatasetPicker extends Component {
                 </Panel>
                 <Panel header="Archivos" key="pickerPanel-2">
                     <Transfer className="picker"
-                      dataSource={this.props.store.datasetPickerItems}
+                      dataSource={this.props.store.filePickerItems}
                       selectedKeys={this.props.store.pickedDatasets}
                       targetKeys={[...this.props.store.pickedDatasets]}
                       titles={['', '']}
