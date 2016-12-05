@@ -1,7 +1,7 @@
 import {Collapse, Transfer} from 'antd';
 import React, {Component, PropTypes} from 'react';
 
-import { autobind } from 'core-decorators';
+import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
 
@@ -13,8 +13,6 @@ export default class DatasetPicker extends Component {
 
     @autobind
     handlePanelChange(panel) {
-        console.log(panel);
-
         if (!panel) {
             if (this.props.store.pickerPanel === 'pickerPanel-1') this.props.actions.setPickerPanel('pickerPanel-2');
             else this.props.actions.setPickerPanel('pickerPanel-1');
