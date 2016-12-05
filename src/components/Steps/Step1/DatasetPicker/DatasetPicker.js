@@ -23,7 +23,7 @@ export default class DatasetPicker extends PureComponent {
     }
 
     @autobind
-    handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
+    handleDatasetSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
         this.props.actions.getDatasetFiles(sourceSelectedKeys);
     }
@@ -58,21 +58,19 @@ export default class DatasetPicker extends PureComponent {
                       titles={['', '']}
                       searchPlaceholder="Buscar..."
                       notFoundContent=" "
-                      onSelectChange={this.handleSelectChange}
+                      onSelectChange={this.handleDatasetSelect}
                       render={(item) => item.title}
                       showSearch />
                 </Panel>
                 <Panel header="Archivos" key="pickerPanel-2">
                     <Transfer className="picker"
                       dataSource={this.props.store.filePickerItems}
-                      selectedKeys={this.props.store.pickedDatasets}
-                      targetKeys={[...this.props.store.pickedDatasets]}
+                      selectedKeys={this.props.store.pickedFiles}
+                      targetKeys={[...this.props.store.pickedFiles]}
                       titles={['', '']}
-                      searchPlaceholder="Buscar..."
                       notFoundContent=" "
-                      onSelectChange={this.handleSelectChange}
-                      render={(item) => item.title}
-                      showSearch />
+                      onSelectChange={this.props.actions.selectFiles}
+                      render={(item) => item.title} />
                 </Panel>
             </Collapse>
         );

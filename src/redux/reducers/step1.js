@@ -121,6 +121,13 @@ const reducers = {
         if (action.selectedItems[0]) newState.pickedDatasets.push(action.selectedItems[0]);
 
         return newState;
+    },
+    SELECT_FILES: (action, newState) => {
+        newState.pickedFiles = action.chosenItems;
+
+        if (action.selectedItems[0]) newState.pickedFiles.push(action.selectedItems[0]);
+
+        return newState;
     }
 };
 
@@ -133,6 +140,7 @@ const initialState = {
     datasetPickerItems: [],
     filePickerItems: [],
     pickedDatasets: [],
+    pickedFiles: [],
     error: null
 };
 
@@ -170,6 +178,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.SET_PICKER_PANEL(action, newState);
         case actions.SELECT_DATASETS:
             return reducers.SELECT_DATASETS(action, newState);
+        case actions.SELECT_FILES:
+            return reducers.SELECT_FILES(action, newState);
         default:
             return state;
     }

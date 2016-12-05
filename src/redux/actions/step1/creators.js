@@ -238,3 +238,11 @@ export function selectDatasets(selectedItems, chosenItems) {
         chosenItems
     };
 }
+
+export function selectFiles(selectedItems, chosenItems) {
+    return {
+        type: actions.SELECT_FILES,
+        selectedItems,
+        chosenItems
+    };
+}
