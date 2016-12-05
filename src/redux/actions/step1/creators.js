@@ -222,6 +222,13 @@ export function getFileContents(id, limit, token) {
     };
 }
 
+export function setPickerPanel(pickerPanel) {
+    return {
+        type: actions.SET_PICKER_PANEL,
+        pickerPanel
+    };
+}
+
 export function selectDatasets(selectedItems, chosenItems) {
     return {
         type: actions.SELECT_DATASETS,

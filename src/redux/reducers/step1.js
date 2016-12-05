@@ -87,6 +87,11 @@ const reducers = {
 
         return newState;
     },
+    SET_PICKER_PANEL: (action, newState) => {
+        newState.pickerPanel = action.pickerPanel;
+
+        return newState;
+    },
     SELECT_DATASETS: (action, newState) => {
         newState.pickedDatasets = action.chosenItems;
 
@@ -101,6 +106,7 @@ const initialState = {
     datasets: {},
     filetypes: [],
     files: {},
+    pickerPanel: 'pickerPanel-1',
     datasetPickerItems: [],
     pickedDatasets: [],
     error: null
@@ -136,6 +142,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.GET_FILE_CONTENTS(action, newState);
         case actions.GET_FILE_CONTENTS_FAILED:
             return reducers.GET_FILE_CONTENTS_FAILED(action, newState);
+        case actions.SET_PICKER_PANEL:
+            return reducers.SET_PICKER_PANEL(action, newState);
         case actions.SELECT_DATASETS:
             return reducers.SELECT_DATASETS(action, newState);
         default:

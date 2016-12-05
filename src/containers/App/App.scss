@@ -21,9 +21,15 @@
             -moz-osx-font-smoothing: grayscale
         }
 
-        .ant-collapse {
+        .ant-collapse:not(.ant-collapse-borderless) {
             background-color: #fafafa;
             user-select: none;
+        }
+
+        .ant-collapse-borderless {
+            .ant-collapse-content {
+                padding-top: 1.4rem;
+            }
         }
 
         .ant-slider-track {
