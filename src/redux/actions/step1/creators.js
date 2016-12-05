@@ -134,8 +134,8 @@ export function getFiletypeList(token) {
 }
 
 export function getDatasetFiles(id) {
-    if (id) {
-        return (dispatch, getState) => {
+    return (dispatch, getState) => {
+        if (id) {
             const url = `${endpoints.datasets}/${id}/files`;
 
             dispatch({
@@ -167,8 +167,14 @@ export function getDatasetFiles(id) {
                     type: actions.DISABLE_FILE_SPINNER
                 });
             });
-        };
-    }
+        }
+        else {
+            console.log('no files');
+            dispatch({
+                type: actions.GET_FILE_LIST
+            });
+        }
+    };
 }
 
 export function getFileFields(id, token) {

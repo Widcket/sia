@@ -25,8 +25,7 @@ export default class DatasetPicker extends PureComponent {
     @autobind
     handleDatasetSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectDatasets(sourceSelectedKeys, targetSelectedKeys);
-
-        if (sourceSelectedKeys.length > 0) this.props.actions.getDatasetFiles(sourceSelectedKeys);
+        this.props.actions.getDatasetFiles(sourceSelectedKeys.pop());
     }
 
     @autobind
@@ -52,7 +51,10 @@ export default class DatasetPicker extends PureComponent {
               onChange={this.handlePanelChange}
               accordion>
                 <Panel header="Datasets" key="pickerPanel-1">
-                    <Spin tip="Cargando archivos..." spinning={this.props.store.loadingFiles} className="spinner">
+                    <Spin
+                      tip="Cargando lista de archivos..."
+                      spinning={this.props.store.loadingFiles}
+                      className="spinner">
                         <Transfer className="picker"
                           dataSource={this.props.store.datasetPickerItems}
                           selectedKeys={this.props.store.pickedDatasets}
