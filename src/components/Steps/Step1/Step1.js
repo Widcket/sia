@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import ConnectForm from './ConnectForm/ConnectForm';
 import DatasetPicker from './DatasetPicker/DatasetPicker';
-import Spinner from './Spinner/Spinner';
+import Spinner from '../../Spinner/Spinner';
 import {autobind} from 'core-decorators';
 
 class Step1 extends Component {
@@ -20,7 +20,7 @@ class Step1 extends Component {
                 return (<Spinner
                   store={this.props.store}
                   actions={this.props.actions}
-                  legend="Loading datasets..."
+                  legend="Cargando datasets..."
                   active />);
             case 2:
                 return <DatasetPicker store={this.props.store} actions={this.props.actions} />;

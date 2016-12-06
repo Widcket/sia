@@ -1,9 +1,10 @@
-import {Collapse, Spin, Transfer} from 'antd';
+import {Collapse, Spin, Tabs, Transfer} from 'antd';
 import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
 const Panel = Collapse.Panel;
+const TabPane = Tabs.TabPane;
 
 export default class DatasetPicker extends PureComponent {
     static propTypes = {
@@ -12,9 +13,31 @@ export default class DatasetPicker extends PureComponent {
     }
 
     @autobind
+    getTabs() {
+        const tabs = [];
+        let i = 1;
+
+        for (const file of this.props.store.pickedFiles) {
+            tabs.push(
+                <TabPane tab={this.props.store.files[file].name} key={'fileTab-' + i}>
+                    Content of Tab Pane 1
+                </TabPane>
+            );
+            i++;
+        }
+
+        return tabs;
+    }
+
+    @autobind
     handlePanelChange(panel) {
         if (!panel) {
-            if (this.props.store.pickerPanel === 'pickerPanel-1') this.props.actions.setPickerPanel('pickerPanel-2');
+            if (this.props.store.pickerPanel === 'pickerPanel-1') {
+                this.props.actions.setPickerPanel('pickerPanel-2');
+            }
+            else if (this.props.store.pickerPanel === 'pickerPanel-2') {
+                this.props.actions.setPickerPanel('pickerPanel-3');
+            }
             else this.props.actions.setPickerPanel('pickerPanel-1');
         }
         else this.props.actions.setPickerPanel(panel);
@@ -74,6 +97,11 @@ export default class DatasetPicker extends PureComponent {
                       notFoundContent=" "
                       onSelectChange={this.props.actions.selectFiles}
                       render={(item) => item.title} />
+                </Panel>
+                <Panel header="Registros" key="pickerPanel-3">
+                    <Tabs defaultActiveKey="fileTab-1" size="small" onChange={console.log}>
+                        {this.getTabs()}
+                    </Tabs>
                 </Panel>
             </Collapse>
         );

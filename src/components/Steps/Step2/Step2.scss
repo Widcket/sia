@@ -1,4 +1,7 @@
 #step2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: none !important;
 
     .strong {

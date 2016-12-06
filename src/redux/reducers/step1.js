@@ -34,6 +34,7 @@ const reducers = {
     GET_FILE_LIST: (action, newState) => {
         const files = [];
         const filePickerItems = [];
+        const fileDictionary = {};
 
         for (const dataset of newState.pickedDatasets) {
             for (const file of newState.datasets[dataset].files) {
@@ -42,6 +43,10 @@ const reducers = {
                     title: file.name,
                     chosen: false
                 });
+                fileDictionary[file.id] = {
+                    name: file.name,
+                    id: file.id
+                };
             }
         }
 
@@ -75,6 +80,7 @@ const reducers = {
         }
 
         newState.filePickerItems = filePickerItems;
+        newState.files = fileDictionary;
 
         return newState;
     },
