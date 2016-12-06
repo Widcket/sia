@@ -1,8 +1,14 @@
 #step1 > .ant-collapse-borderless {
     margin-bottom: 3rem;
+    align-self: flex-start;
+    width: 100%;
 
     .ant-tabs {
         height: 38vh;
+
+        .ant-tabs-bar {
+            border-bottom: 0px;
+        }
     }
 }
 
