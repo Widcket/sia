@@ -18,11 +18,14 @@ export default class DatasetPicker extends PureComponent {
         let i = 1;
 
         for (const file of this.props.store.pickedFiles) {
-            tabs.push(
-                <TabPane tab={this.props.store.files[file].name} key={'fileTab-' + i}>
-                    Content of Tab Pane 1
-                </TabPane>
-            );
+            if (this.props.store.files[file]) {
+                tabs.push(
+                    <TabPane tab={this.props.store.files[file].name} key={'fileTab-' + i}>
+                        Content of Tab Pane 1
+                    </TabPane>
+                );
+            }
+
             i++;
         }
 
@@ -30,17 +33,22 @@ export default class DatasetPicker extends PureComponent {
     }
 
     @autobind
+    getActiveTab() {
+        return this.props.store.activeTab;
+    }
+
+    @autobind
     handlePanelChange(panel) {
         if (!panel) {
-            if (this.props.store.pickerPanel === 'pickerPanel-1') {
-                this.props.actions.setPickerPanel('pickerPanel-2');
+            if (this.props.store.activePanel === 'pickerPanel-1') {
+                this.props.actions.setActivePanel('pickerPanel-2');
             }
-            else if (this.props.store.pickerPanel === 'pickerPanel-2') {
-                this.props.actions.setPickerPanel('pickerPanel-3');
+            else if (this.props.store.activePanel === 'pickerPanel-2') {
+                this.props.actions.setActivePanel('pickerPanel-3');
             }
-            else this.props.actions.setPickerPanel('pickerPanel-1');
+            else this.props.actions.setActivePanel('pickerPanel-1');
         }
-        else this.props.actions.setPickerPanel(panel);
+        else this.props.actions.setActivePanel(panel);
     }
 
     @autobind
@@ -68,7 +76,7 @@ export default class DatasetPicker extends PureComponent {
         return (
             <Collapse
               bordered={false}
-              activeKey={[this.props.store.pickerPanel]}
+              activeKey={[this.props.store.activePanel]}
               onChange={this.handlePanelChange}
               accordion>
                 <Panel header="Datasets" key="pickerPanel-1">
@@ -99,7 +107,10 @@ export default class DatasetPicker extends PureComponent {
                       render={(item) => item.title} />
                 </Panel>
                 <Panel header="Registros" key="pickerPanel-3">
-                    <Tabs defaultActiveKey="fileTab-1" size="small" onChange={console.log}>
+                    <Tabs
+                      activeKey={this.getActiveTab()}
+                      size="small"
+                      onChange={this.props.actions.setActiveTab}>
                         {this.getTabs()}
                     </Tabs>
                 </Panel>

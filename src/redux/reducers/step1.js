@@ -34,21 +34,6 @@ const reducers = {
     GET_FILE_LIST: (action, newState) => {
         const files = [];
         const filePickerItems = [];
-        const fileDictionary = {};
-
-        for (const dataset of newState.pickedDatasets) {
-            for (const file of newState.datasets[dataset].files) {
-                filePickerItems.push({
-                    key: file.id,
-                    title: file.name,
-                    chosen: false
-                });
-                fileDictionary[file.id] = {
-                    name: file.name,
-                    id: file.id
-                };
-            }
-        }
 
         if (action.files) {
             for (const file of action.files) {
@@ -60,11 +45,6 @@ const reducers = {
                 if (typeof file.type === 'string' || file.type instanceof String) {
                     if (newState.filetypes.includes(file.type)) {
                         newState.datasets[file.dataset].files.push(record);
-                        filePickerItems.push({
-                            key: record.id,
-                            title: record.name,
-                            chosen: false
-                        });
                     }
                 }
                 else if (typeof file.type === 'object' &&
@@ -79,8 +59,21 @@ const reducers = {
             }
         }
 
+        for (const dataset of newState.pickedDatasets) {
+            for (const file of newState.datasets[dataset].files) {
+                filePickerItems.push({
+                    key: file.id,
+                    title: file.name,
+                    chosen: false
+                });
+                newState.files[file.id] = {
+                    name: file.name,
+                    id: file.id
+                };
+            }
+        }
+
         newState.filePickerItems = filePickerItems;
-        newState.files = fileDictionary;
 
         return newState;
     },
@@ -118,22 +111,42 @@ const reducers = {
 
         return newState;
     },
-    SET_PICKER_PANEL: (action, newState) => {
-        newState.pickerPanel = action.pickerPanel;
+    SET_ACTIVE_PANEL: (action, newState) => {
+        newState.activePanel = action.activePanel;
 
         return newState;
     },
     SELECT_DATASETS: (action, newState) => {
         newState.pickedDatasets = action.chosenItems;
 
-        if (action.selectedItems[0]) newState.pickedDatasets.push(action.selectedItems[0]);
+        if (action.selectedItems[0]) { // We added a dataset
+            newState.pickedDatasets.push(action.selectedItems[0]);
+        }
+        else { // We removed a dataset
+            const pickedFiles = [];
+
+            // Rebuild picked files list (minus removed dataset's files)
+            for (const dataset of newState.pickedDatasets) {
+                if (newState.datasets[dataset].files) {
+                    for (const file of newState.datasets[dataset].files) {
+                        const index = newState.pickedFiles.indexOf(file.id);
+
+                        if (index >= 0) pickedFiles.push(file.id);
+                    }
+                }
+            }
+
+            newState.pickedFiles = pickedFiles;
+        }
 
         return newState;
     },
     SELECT_FILES: (action, newState) => {
         newState.pickedFiles = action.chosenItems;
 
-        if (action.selectedItems[0]) newState.pickedFiles.push(action.selectedItems[0]);
+        if (action.selectedItems[0]) {
+            newState.pickedFiles.push(action.selectedItems[0]);
+        }
 
         return newState;
     },
@@ -146,7 +159,12 @@ const reducers = {
         newState.loadingFiles = false;
 
         return newState;
-    }
+    },
+    SET_ACTIVE_TAB: (action, newState) => {
+        newState.activeTab = action.activeTab;
+
+        return newState;
+    },
 };
 
 const initialState = {
@@ -154,12 +172,13 @@ const initialState = {
     datasets: {},
     filetypes: [],
     files: {},
-    pickerPanel: 'pickerPanel-1',
+    activePanel: 'pickerPanel-1',
     datasetPickerItems: [],
     filePickerItems: [],
     pickedDatasets: [],
     pickedFiles: [],
     loadingFiles: false,
+    activeTab: 'fileTab-1',
     error: null
 };
 
@@ -193,8 +212,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.GET_FILE_CONTENTS(action, newState);
         case actions.GET_FILE_CONTENTS_FAILED:
             return reducers.GET_FILE_CONTENTS_FAILED(action, newState);
-        case actions.SET_PICKER_PANEL:
-            return reducers.SET_PICKER_PANEL(action, newState);
+        case actions.SET_ACTIVE_PANEL:
+            return reducers.SET_ACTIVE_PANEL(action, newState);
         case actions.SELECT_DATASETS:
             return reducers.SELECT_DATASETS(action, newState);
         case actions.SELECT_FILES:
@@ -203,6 +222,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.ENABLE_FILE_SPINNER(action, newState);
         case actions.DISABLE_FILE_SPINNER:
             return reducers.DISABLE_FILE_SPINNER(action, newState);
+        case actions.SET_ACTIVE_TAB:
+            return reducers.SET_ACTIVE_TAB(action, newState);
         default:
             return state;
     }

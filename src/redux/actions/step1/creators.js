@@ -238,10 +238,10 @@ export function getFileContents(id, limit, token) {
     };
 }
 
-export function setPickerPanel(pickerPanel) {
+export function setActivePanel(activePanel) {
     return {
-        type: actions.SET_PICKER_PANEL,
-        pickerPanel
+        type: actions.SET_ACTIVE_PANEL,
+        activePanel
     };
 }
 
@@ -264,5 +264,12 @@ export function selectFiles(selectedItems, chosenItems) {
 export function toggleFileSpinner() {
     return {
         type: actions.ENABLE_FILE_SPINNER
+    };
+}
+
+export function setActiveTab(activeTab) {
+    return {
+        type: actions.SET_ACTIVE_TAB,
+        activeTab
     };
 }
