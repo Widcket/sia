@@ -17,7 +17,11 @@ class Step1 extends Component {
             case 0:
                 return <ConnectForm store={this.props.store} actions={this.props.actions} />;
             case 1:
-                return <Spinner store={this.props.store} actions={this.props.actions} active />;
+                return (<Spinner
+                  store={this.props.store}
+                  actions={this.props.actions}
+                  legend="Loading datasets..."
+                  active />);
             case 2:
                 return <DatasetPicker store={this.props.store} actions={this.props.actions} />;
             default:

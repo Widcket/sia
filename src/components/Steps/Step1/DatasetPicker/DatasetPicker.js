@@ -11,8 +11,6 @@ export default class DatasetPicker extends PureComponent {
         actions: PropTypes.object.isRequired
     }
 
-    startDataset = true;
-
     @autobind
     handlePanelChange(panel) {
         if (!panel) {

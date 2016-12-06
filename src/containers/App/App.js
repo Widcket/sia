@@ -7,7 +7,6 @@ import * as step4Actions from '../../redux/actions/step4/creators';
 import {Col, Grid, Row} from 'antd';
 import {Navigation, Steps} from '../../components';
 import React, {PropTypes, PureComponent} from 'react';
-import {isLoaded as isInfoLoaded, load as loadInfo} from 'redux/reducers/info';
 
 import {autobind} from 'core-decorators';
 import {bindActionCreators} from 'redux';
@@ -61,6 +60,11 @@ export default class App extends PureComponent {
             }).isRequired
         }).isRequired
     };
+
+    @autobind
+    getNext() {
+
+    }
 
     render() {
         const styles = require('./App.scss');

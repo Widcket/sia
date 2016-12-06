@@ -4,6 +4,7 @@ import {Spin} from 'antd';
 
 class Spinner extends PureComponent {
     static propTypes = {
+        legend: React.PropTypes.string,
         active: React.PropTypes.bool
     };
     static defaultProps = { active: false };
@@ -11,14 +12,9 @@ class Spinner extends PureComponent {
     render() {
         const styles = require('./Spinner.scss');
 
-        const colSizeXS = { span: 16, offset: 4 };
-        const colSizeSM = { span: 12, offset: 6 };
-        const colSizeMD = { span: 12, offset: 6 };
-        const colSizeLG = { span: 12, offset: 6 };
-
         return (
             <Spin
-              tip="Cargando datasets..."
+              tip={this.props.legend}
               size="large"
               spinning={this.props.active}
               className="spinner spinner-solo" />
