@@ -137,6 +137,7 @@ const reducers = {
             }
 
             newState.pickedFiles = pickedFiles;
+            newState.activeTab = 'fileTab-1';
         }
 
         return newState;
@@ -144,9 +145,8 @@ const reducers = {
     SELECT_FILES: (action, newState) => {
         newState.pickedFiles = action.chosenItems;
 
-        if (action.selectedItems[0]) {
-            newState.pickedFiles.push(action.selectedItems[0]);
-        }
+        if (action.selectedItems[0]) newState.pickedFiles.push(action.selectedItems[0]);
+        else newState.activeTab = 'fileTab-1';
 
         return newState;
     },
