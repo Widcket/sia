@@ -4,7 +4,7 @@ require('babel-polyfill');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const assetsPath = path.resolve(__dirname, '../static/dist');
+const assetsPath = path.resolve(__dirname.toLowerCase(), '../static/dist');
 const host = (process.env.HOST || 'localhost');
 const port = (+process.env.PORT + 1) || 3001;
 
@@ -70,7 +70,7 @@ reactTransform[1].transforms.push({
 
 module.exports = {
     devtool: 'inline-source-map',
-    context: path.resolve(__dirname, '..'),
+    context: path.resolve(__dirname.toLowerCase(), '../'),
     entry: {
         'main': [
             'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
@@ -99,7 +99,7 @@ module.exports = {
             loader: 'style!css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less'
         }, {
             test: /\.css$/,
-            loader: 'style!css?modules&importLoaders=2'
+            loader: 'style!css?importLoaders=2'
         }, {
             test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url?limit=10000&mimetype=application/font-woff'
@@ -134,7 +134,7 @@ module.exports = {
         new webpack.IgnorePlugin(/webpack-stats\.json$/),
         new webpack.DefinePlugin({
             __CLIENT__: true,
-            __SERVER__: false,
+            __SERVER__: true,
             __DEVELOPMENT__: true,
             __DEVTOOLS__: true // <-------- DISABLE redux-devtools HERE
         }),
