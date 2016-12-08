@@ -3,7 +3,8 @@
 require('../server.babel'); // babel registration (runtime transpilation for node)
 
 const path = require('path');
-const rootDir = path.resolve(__dirname, '..');
+
+const rootDir = path.resolve(__dirname.toLowerCase(), '..');
 /**
  * Define isomorphic constants.
  */
@@ -17,7 +18,7 @@ if (__DEVELOPMENT__) {
         hook: true,
         ignore: /(\/\.|~$|\.json|\.scss$)/i
     })) {
-        return;
+        console.error('No piping configured');
     }
 }
 
@@ -25,6 +26,6 @@ if (__DEVELOPMENT__) {
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../webpack/webpack-isomorphic-tools'))
     .development(__DEVELOPMENT__)
-    .server(rootDir, function() {
+    .server(rootDir, () => {
         require('../src/server');
     });

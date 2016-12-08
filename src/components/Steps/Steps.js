@@ -58,7 +58,7 @@ export default class Steps extends PureComponent {
                       actions={this.props.actions.step4} />
                 );
             default:
-                return;
+                break;
         }
     }
 

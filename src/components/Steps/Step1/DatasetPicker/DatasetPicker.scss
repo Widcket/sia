@@ -5,9 +5,56 @@
 
     .ant-tabs {
         height: 38vh;
+        overflow: visible;
+
+        .tab-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            .tab-content-panel {
+                width: 40%;
+            }
+
+            .tab-content-main {
+                width: calc(60% - 1rem);
+
+                .ant-card-body {
+                    padding: 12px;
+                }
+            }
+        }
 
         .ant-tabs-bar {
             border-bottom: 0px;
+        }
+
+        .ant-card {
+            margin-top: 0.5rem;
+
+            thead {
+                display: none;
+            }
+
+            .ant-card-head {
+                height: 36px;
+                line-height: 36px;
+                padding: 0 14px;
+
+                .ant-card-head-title {
+                    font-size: 12px;
+                }
+            }
+
+            .ant-card-body {
+                padding: 6px;
+            }
+
+            .ant-table-small {
+                border: 0px;
+                border-radius: 0px;
+            }
         }
     }
 }

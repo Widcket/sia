@@ -61,17 +61,6 @@ export default class Html extends Component {
                           rel="stylesheet"
                           type="text/css"
                           charSet="UTF-8" />)}
-                    {/* (will be present only in development mode) */}
-                    {/* can smoothen the initial style flash (flicker) on page load in development mode. */}
-                    {/* ideally one could also include here the style for the current page (Home.scss, About.scss, etc) */}
-                    {Object
-                        .keys(assets.styles)
-                        .length === 0
-                        ? <style
-                          dangerouslySetInnerHTML={{
-                              __html: require('../containers/App/App.scss')._style
-                          }} />
-                        : null}
                 </head>
                 <body>
                     <div

@@ -1,4 +1,4 @@
-import {Collapse, Spin, Tabs, Transfer} from 'antd';
+import {Card, Collapse, Spin, Table, Tabs, Transfer} from 'antd';
 import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
@@ -15,13 +15,62 @@ export default class DatasetPicker extends PureComponent {
     @autobind
     getTabs() {
         const tabs = [];
+        const columns = [
+            {
+                title: 'Clave',
+                dataIndex: 'clave'
+            },
+            {
+                titile: 'Valor',
+                dataIndex: 'valor'
+            }
+        ];
+        const fileInfo = [
+            {
+                key: 'rows',
+                clave: 'Filas',
+                valor: 'asd'
+            },
+            {
+                key: 'columns',
+                clave: 'Columnas',
+                valor: 'asd'
+            },
+            {
+                key: 'createdAt',
+                clave: 'Creación',
+                valor: 'asd'
+            },
+            {
+                key: 'modifiedAt',
+                clave: 'Última modificación',
+                valor: 'asd'
+            }
+        ];
+        const fileFields = [
+            {
+
+            }
+        ];
         let i = 1;
 
         for (const file of this.props.store.pickedFiles) {
             if (this.props.store.files[file]) {
                 tabs.push(
                     <TabPane tab={this.props.store.files[file].name} key={'fileTab-' + i}>
-                        Content of Tab Pane 1
+                        <div className="tab-content">
+                            <div className="tab-content-panel">
+                                <Card title="Archivo">
+                                    <Table columns={columns} dataSource={fileInfo} size="small" pagination={false} />
+                                </Card>
+                                <Card title="Campos">
+                                    <Table columns={columns} dataSource={fileFields} size="small" pagination={false} />
+                                </Card>
+                            </div>
+                            <Card className="tab-content-main" title="Registros">
+                                Cantidad
+                            </Card>
+                        </div>
                     </TabPane>
                 );
             }

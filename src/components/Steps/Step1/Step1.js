@@ -25,7 +25,7 @@ class Step1 extends Component {
             case 2:
                 return <DatasetPicker store={this.props.store} actions={this.props.actions} />;
             default:
-                return;
+                break;
         }
     }
 

@@ -59,7 +59,7 @@ export default class Step2 extends PureComponent {
                     </Tabs>
                 );
             default:
-                return;
+                break;
         }
     }
 
