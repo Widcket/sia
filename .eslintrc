@@ -101,8 +101,8 @@
         "__DEVELOPMENT__": true,
         "__CLIENT__": true,
         "__SERVER__": true,
-        "__DISABLE_SSR__": true,
-        "__DEVTOOLS__": true,
+        "__DISABLE_SSR__": false,
+        "__DEVTOOLS__": false,
         "socket": true,
         "webpackIsomorphicTools": true
     }
