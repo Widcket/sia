@@ -4,7 +4,7 @@ require('../server.babel'); // babel registration (runtime transpilation for nod
 
 const path = require('path');
 
-const rootDir = path.resolve(__dirname.toLowerCase(), '..');
+const rootDir = path.resolve('.');
 /**
  * Define isomorphic constants.
  */

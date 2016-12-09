@@ -7,7 +7,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const strip = require('strip-loader');
 
-const projectRootPath = path.resolve(__dirname.toLowerCase(), '../');
+const projectRootPath = path.resolve('..');
 const assetsPath = path.resolve(projectRootPath, './static/dist');
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
@@ -16,7 +16,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('.
 
 module.exports = {
     devtool: 'source-map',
-    context: path.resolve(__dirname.toLowerCase(), '../'),
+    context: path.resolve('.'),
     entry: {
         'main': [
             './src/client.js'

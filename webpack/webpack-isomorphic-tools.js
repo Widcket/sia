@@ -25,9 +25,7 @@ module.exports = {
         fonts: {
             extensions: [
                 'woff',
-                'woff2',
-                'ttf',
-                'eot'
+                'woff2'
             ],
             parser: WebpackIsomorphicToolsPlugin.url_loader_parser
         },
