@@ -29,14 +29,9 @@ class ConnectForm extends Component {
         const styles = require('./ConnectForm.scss');
         const {getFieldDecorator} = this.props.form;
 
-        const colSizeXS = { span: 16, offset: 4 };
-        const colSizeSM = { span: 12, offset: 6 };
-        const colSizeMD = { span: 12, offset: 6 };
-        const colSizeLG = { span: 12, offset: 6 };
-
         return (
-            <Row>
-                <Col xs={colSizeXS} sm={colSizeSM} md={colSizeMD} lg={colSizeLG} className="col">
+            <Row type="flex" align="middle" justify="center">
+                <Col className="col">
                     <div className="connect-form">
                         <h1>Conecta a una instancia de ODIN</h1>
                         <Form onSubmit={this.handleSubmit} className="login-form">
