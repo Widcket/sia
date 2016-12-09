@@ -93,25 +93,16 @@ module.exports = {
             loader: 'json-loader'
         }, {
             test: /\.scss$/,
-            loader: 'style!css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+            loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
         }, {
             test: /\.less$/,
-            loader: 'style!css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less'
+            loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!less'
         }, {
             test: /\.css$/,
-            loader: 'style!css?importLoaders=2'
+            loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!'
         }, {
             test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url?limit=10000&mimetype=application/font-woff'
-        }, {
-            test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-            loader: 'url?limit=10000&mimetype=application/font-woff'
-        }, {
-            test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-            loader: 'url?limit=10000&mimetype=application/octet-stream'
-        }, {
-            test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-            loader: 'file'
         }, {
             test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url?limit=10000&mimetype=image/svg+xml'

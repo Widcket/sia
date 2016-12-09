@@ -39,16 +39,16 @@ module.exports = {
         }, {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract('style',
-                'css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+                'css?sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
             )
         }, {
             test: /\.less$/,
             loader: ExtractTextPlugin.extract('style',
-                'css?importLoaders=2&sourceMap!autoprefixer?browsers=last 2 version!less'
+                'css?sourceMap!autoprefixer?browsers=last 2 version!less'
             )
         }, {
             test: /\.css$/,
-            loader: 'css?importLoaders=2'
+            loader: 'css?sourceMap!autoprefixer?browsers=last 2 version!'
         }, {
             test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url?limit=10000&mimetype=application/font-woff'
