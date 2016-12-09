@@ -126,7 +126,7 @@ module.exports = {
             'src',
             'node_modules'
         ],
-        extensions: ['', '.json', '.js', '.jsx']
+        extensions: ['', '.less', '.json', '.js', '.jsx']
     },
     plugins: [
         // hot reload

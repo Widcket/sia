@@ -3,6 +3,8 @@ import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
+const InputNumber = require('antd/lib/input-number');
+
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
 
@@ -69,6 +71,7 @@ export default class DatasetPicker extends PureComponent {
                             </div>
                             <Card className="tab-content-main" title="Registros">
                                 Cantidad
+                                <InputNumber min={1} max={10} defaultValue={3} onChange={console.log} />
                             </Card>
                         </div>
                     </TabPane>
