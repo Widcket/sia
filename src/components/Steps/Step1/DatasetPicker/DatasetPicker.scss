@@ -55,6 +55,28 @@
                 border: 0px;
                 border-radius: 0px;
             }
+
+            .control-wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-top: 0.5rem;
+
+                &:first-child {
+                    margin-top: 0rem;
+                }
+            }
+
+            .control-label {
+                width: 20%;
+                min-width: 3rem;
+                display: inline-block;
+            }
+
+            .slider-wrapper {
+                width: 80%;
+                display: inline-block;
+            }
         }
     }
 }

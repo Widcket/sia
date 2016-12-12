@@ -1,9 +1,10 @@
-import {Card, Collapse, Spin, Table, Tabs, Transfer} from 'antd';
+import {Card, Collapse, Slider, Spin, Table, Tabs, Transfer} from 'antd';
 import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
 const InputNumber = require('antd/lib/input-number');
+const inputNumberStyle = require('antd/lib/input-number/style');
 
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
@@ -23,7 +24,7 @@ export default class DatasetPicker extends PureComponent {
                 dataIndex: 'clave'
             },
             {
-                titile: 'Valor',
+                title: 'Valor',
                 dataIndex: 'valor'
             }
         ];
@@ -70,8 +71,20 @@ export default class DatasetPicker extends PureComponent {
                                 </Card>
                             </div>
                             <Card className="tab-content-main" title="Registros">
-                                Cantidad
-                                <InputNumber min={1} max={10} defaultValue={3} onChange={console.log} />
+                                <div className="control-wrapper">
+                                    <div className="control-label">
+                                        Cantidad
+                                    </div>
+                                    <InputNumber min={1} max={10} defaultValue={200} onChange={console.log} />
+                                </div>
+                                <div className="control-wrapper">
+                                    <div className="control-label">
+                                        Desde
+                                    </div>
+                                    <div className="slider-wrapper">
+                                        <Slider defaultValue={0} />
+                                    </div>
+                                </div>
                             </Card>
                         </div>
                     </TabPane>
