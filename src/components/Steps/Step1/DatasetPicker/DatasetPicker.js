@@ -123,6 +123,12 @@ export default class DatasetPicker extends PureComponent {
     }
 
     @autobind
+    handleFileSelect(sourceSelectedKeys, targetSelectedKeys) {
+        this.props.actions.selectFiles(sourceSelectedKeys, targetSelectedKeys);
+        this.props.actions.getFileFields(sourceSelectedKeys.pop());
+    }
+
+    @autobind
     renderItem(item) {
         const customLabel = (
             <span className="custom-item">
@@ -162,14 +168,19 @@ export default class DatasetPicker extends PureComponent {
                     </Spin>
                 </Panel>
                 <Panel header="Archivos" key="pickerPanel-2">
-                    <Transfer className="picker"
-                      dataSource={this.props.store.filePickerItems}
-                      selectedKeys={this.props.store.pickedFiles}
-                      targetKeys={[...this.props.store.pickedFiles]}
-                      titles={['', '']}
-                      notFoundContent=" "
-                      onSelectChange={this.props.actions.selectFiles}
-                      render={(item) => item.title} />
+                    <Spin
+                      tip="Cargando info del archivo..."
+                      spinning={this.props.store.loadingFileInfo}
+                      className="spinner">
+                        <Transfer className="picker"
+                          dataSource={this.props.store.filePickerItems}
+                          selectedKeys={this.props.store.pickedFiles}
+                          targetKeys={[...this.props.store.pickedFiles]}
+                          titles={['', '']}
+                          notFoundContent=" "
+                          onSelectChange={this.handleFileSelect}
+                          render={(item) => item.title} />
+                    </Spin>
                 </Panel>
                 <Panel header="Registros" key="pickerPanel-3">
                     <Tabs

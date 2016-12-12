@@ -6,6 +6,7 @@ const endpoints = {
     base: null,
     datasets: null,
     datasetCount: null,
+    files: null,
     filetypes: null,
     filetypesCount: null
 };
@@ -21,6 +22,7 @@ const generateEndpoints = (url) => {
 
     endpoints.datasets = endpoints.base + '/datasets';
     endpoints.datasetCount = endpoints.datasets + '/count';
+    endpoints.files = endpoints.base + '/files';
     endpoints.filetypes = endpoints.base + '/filetypes';
     endpoints.filetypesCount = endpoints.base + '/filetypes/count';
 };
@@ -157,6 +159,9 @@ export function getDatasetFiles(id) {
                     type: actions.GET_FILE_LIST_FAILED,
                     error: error.message
                 });
+                dispatch({
+                    type: actions.DISABLE_FILE_SPINNER
+                });
             })
             .then((value) => {
                 dispatch({
@@ -178,40 +183,57 @@ export function getDatasetFiles(id) {
 
 export function getFileFields(id, token) {
     return (dispatch, getState) => {
-        const url = `${endpoints.base}/${id}/contents?limit=1`;
-
-        fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`
-            }
-        })
-        .then((response) => response.json(), (error) => {
-            console.error(error.message);
+        if (id) {
+            const url = `${endpoints.files}/${id}/contents?limit=1`;
 
             dispatch({
-                type: actions.GET_FILE_FIELDS_FAILED,
-                error: error.message
+                type: actions.ENABLE_FILE_INFO_SPINNER
             });
-        })
-        .then((value) => {
-            const fields = value.data[0];
 
-            delete fields._id;
+            fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${authToken}`
+                }
+            })
+            .then((response) => response.json(), (error) => {
+                console.error(error.message);
 
-            dispatch({
-                type: actions.GET_FILE_FIELDS,
-                fields  // TODO: Identify field types
+                dispatch({
+                    type: actions.GET_FILE_FIELDS_FAILED,
+                    error: error.message
+                });
+                dispatch({
+                    type: actions.DISABLE_FILE_INFO_SPINNER
+                });
+            })
+            .then((value) => {
+                const fields = value.data[0];
+                const rows = value.meta.count;
+                const columns = Object.keys(fields).length;
+
+                delete fields._id;
+
+                dispatch({
+                    type: actions.GET_FILE_FIELDS,
+                    id,
+                    rows,
+                    columns,
+                    fields  // TODO: Identify field types
+                });
+                dispatch({
+                    type: actions.DISABLE_FILE_INFO_SPINNER
+                });
             });
-        });
+        }
     };
 }
 
 export function getFileContents(id, limit, token) {
     return (dispatch, getState) => {
-        const url = `${endpoints.base}/${id}/contents?limit=${limit}`;
+        const url = `${endpoints.files}/${id}/contents?limit=${limit}`;
 
         fetch(url, {
             method: 'GET',
@@ -258,12 +280,6 @@ export function selectFiles(selectedItems, chosenItems) {
         type: actions.SELECT_FILES,
         selectedItems,
         chosenItems
-    };
-}
-
-export function toggleFileSpinner() {
-    return {
-        type: actions.ENABLE_FILE_SPINNER
     };
 }
 

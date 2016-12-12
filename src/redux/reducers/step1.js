@@ -96,6 +96,10 @@ const reducers = {
         return newState;
     },
     GET_FILE_FIELDS: (action, newState) => {
+        newState.files[action.id].rows = action.rows;
+        newState.files[action.id].columns = action.columns;
+        newState.files[action.id].fields = action.fields;
+
         return newState;
     },
     GET_FILE_FIELDS_FAILED: (action, newState) => {
@@ -165,6 +169,16 @@ const reducers = {
 
         return newState;
     },
+    ENABLE_FILE_INFO_SPINNER: (action, newState) => {
+        newState.loadingFileInfo = true;
+
+        return newState;
+    },
+    DISABLE_FILE_INFO_SPINNER: (action, newState) => {
+        newState.loadingFileInfo = false;
+
+        return newState;
+    }
 };
 
 const initialState = {
@@ -178,6 +192,7 @@ const initialState = {
     pickedDatasets: [],
     pickedFiles: [],
     loadingFiles: false,
+    loadingFileInfo: false,
     activeTab: 'fileTab-1',
     error: null
 };
@@ -222,6 +237,10 @@ export default function step1(state = initialState, action = {}) {
             return reducers.ENABLE_FILE_SPINNER(action, newState);
         case actions.DISABLE_FILE_SPINNER:
             return reducers.DISABLE_FILE_SPINNER(action, newState);
+        case actions.ENABLE_FILE_INFO_SPINNER:
+            return reducers.ENABLE_FILE_INFO_SPINNER(action, newState);
+        case actions.DISABLE_FILE_INFO_SPINNER:
+            return reducers.DISABLE_FILE_INFO_SPINNER(action, newState);
         case actions.SET_ACTIVE_TAB:
             return reducers.SET_ACTIVE_TAB(action, newState);
         default:
