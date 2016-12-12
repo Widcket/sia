@@ -93,7 +93,7 @@
     "antd": "^2.5.0",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
-    "core-decorators": "^0.14.0",
+    "core-decorators": "^0.15.0",
     "dataframe": "^2.0.0",
     "echarts": "^3.3.2",
     "echarts-for-react": "^1.1.5",
