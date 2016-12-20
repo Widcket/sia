@@ -169,7 +169,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "mocha": "^3.1.2",
-    "node-sass": "4.1.0",
+    "node-sass": "4.1.1",
     "phantomjs": "^2.1.7+deprecated",
     "phantomjs-polyfill": "^0.0.2",
     "react-addons-test-utils": "^15.3.2",
