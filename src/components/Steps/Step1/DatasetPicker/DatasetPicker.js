@@ -56,8 +56,6 @@ export default class DatasetPicker extends PureComponent {
                     }
                 ];
 
-                console.log('Key de ' + this.props.store.files[file].name + ': ' + this.props.store.files[file].id);
-
                 tabs.push(
                     <TabPane tab={this.props.store.files[file].name} key={this.props.store.files[file].id}>
                         <div className="tab-content">

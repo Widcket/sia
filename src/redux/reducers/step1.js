@@ -150,10 +150,6 @@ const reducers = {
     SELECT_FILES: (action, newState) => {
         newState.pickedFiles = action.chosenItems;
 
-        console.log('Active tab: ' + newState.activeTab);
-        console.log(action.selectedItems);
-        console.log(newState.pickedFiles);
-
         if (action.selectedItems[0]) {
             if (!newState.activeTab) newState.activeTab = action.selectedItems[0];
 
