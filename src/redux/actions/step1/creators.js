@@ -210,22 +210,60 @@ export function getFileFields(id, token) {
                 });
             })
             .then((value) => {
-                const fields = value.data[0];
-                const rows = value.meta.count;
-                const columns = Object.keys(fields).length;
+                if (value.data.length > 0) {
+                    const fields = value.data[0];
+                    const rows = value.meta.count;
+                    const columns = Object.keys(fields).length;
+                    const fileInfoUrl = `${endpoints.files}/${id}`;
 
-                delete fields._id;
+                    fetch(fileInfoUrl, {
+                        method: 'GET',
+                        mode: 'cors',
+                        headers: {
+                            Accept: 'application/json',
+                            Authorization: `Bearer ${authToken}`
+                        }
+                    })
+                    .then((response) => response.json(), (error) => {
+                        console.error(error.message);
 
-                dispatch({
-                    type: actions.GET_FILE_FIELDS,
-                    id,
-                    rows,
-                    columns,
-                    fields  // TODO: Identify field types
-                });
-                dispatch({
-                    type: actions.DISABLE_FILE_INFO_SPINNER
-                });
+                        dispatch({
+                            type: actions.GET_FILE_FIELDS_FAILED,
+                            error: error.message
+                        });
+                        dispatch({
+                            type: actions.DISABLE_FILE_INFO_SPINNER
+                        });
+                    })
+                    .then((fileInfo) => {
+                        const createdAt = new Date(fileInfo.data.createdAt).toLocaleString().split(',')[0];
+                        const updatedAt = new Date(fileInfo.data.updatedAt).toLocaleString().split(',')[0];
+
+                        delete fields._id;
+
+                        dispatch({
+                            type: actions.GET_FILE_FIELDS,
+                            id,
+                            rows,
+                            columns,
+                            createdAt,
+                            updatedAt,
+                            fields  // TODO: Identify field types
+                        });
+                        dispatch({
+                            type: actions.DISABLE_FILE_INFO_SPINNER
+                        });
+                    });
+                }
+                else {
+                    dispatch({
+                        type: actions.FILE_IS_EMPTY,
+                        file: id
+                    });
+                    dispatch({
+                        type: actions.DISABLE_FILE_INFO_SPINNER
+                    });
+                 }
             });
         }
     };

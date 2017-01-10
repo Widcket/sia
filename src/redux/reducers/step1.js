@@ -35,7 +35,7 @@ const reducers = {
         const files = [];
         const filePickerItems = [];
 
-        if (action.files) {
+        if (action.files.length > 0) {
             for (const file of action.files) {
                 const record = {
                     id: file.id,
@@ -98,6 +98,8 @@ const reducers = {
     GET_FILE_FIELDS: (action, newState) => {
         newState.files[action.id].rows = action.rows;
         newState.files[action.id].columns = action.columns;
+        newState.files[action.id].createdAt = action.createdAt;
+        newState.files[action.id].updatedAt = action.updatedAt;
         newState.files[action.id].fields = action.fields;
 
         return newState;
@@ -141,7 +143,6 @@ const reducers = {
             }
 
             newState.pickedFiles = pickedFiles;
-            newState.activeTab = 'fileTab-1';
         }
 
         return newState;
@@ -149,8 +150,24 @@ const reducers = {
     SELECT_FILES: (action, newState) => {
         newState.pickedFiles = action.chosenItems;
 
-        if (action.selectedItems[0]) newState.pickedFiles.push(action.selectedItems[0]);
-        else newState.activeTab = 'fileTab-1';
+        console.log('Active tab: ' + newState.activeTab);
+        console.log(action.selectedItems);
+        console.log(newState.pickedFiles);
+
+        if (action.selectedItems[0]) {
+            if (!newState.activeTab) newState.activeTab = action.selectedItems[0];
+
+            newState.pickedFiles.push(action.selectedItems[0]);
+        }
+        else if (newState.pickedFiles.length > 0) {
+            if (!newState.activeTab) {
+                newState.activeTab = newState.pickedFiles[0];
+            }
+            else if (newState.activeTab && !newState.pickedFiles.includes(newState.activeTab)) {
+                newState.activeTab = newState.pickedFiles[0];
+            }
+        }
+        else newState.activeTab = null;
 
         return newState;
     },
@@ -193,7 +210,7 @@ const initialState = {
     pickedFiles: [],
     loadingFiles: false,
     loadingFileInfo: false,
-    activeTab: 'fileTab-1',
+    activeTab: null,
     error: null
 };
 

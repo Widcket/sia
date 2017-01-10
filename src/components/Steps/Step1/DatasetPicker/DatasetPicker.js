@@ -28,46 +28,42 @@ export default class DatasetPicker extends PureComponent {
                 dataIndex: 'valor'
             }
         ];
-        const fileInfo = [
-            {
-                key: 'rows',
-                clave: 'Filas',
-                valor: 'asd'
-            },
-            {
-                key: 'columns',
-                clave: 'Columnas',
-                valor: 'asd'
-            },
-            {
-                key: 'createdAt',
-                clave: 'Creación',
-                valor: 'asd'
-            },
-            {
-                key: 'modifiedAt',
-                clave: 'Última modificación',
-                valor: 'asd'
-            }
-        ];
-        const fileFields = [
-            {
 
-            }
-        ];
         let i = 1;
 
         for (const file of this.props.store.pickedFiles) {
             if (this.props.store.files[file]) {
+                const fileInfo = [
+                    {
+                        key: 'rows',
+                        clave: 'Filas',
+                        valor: this.props.store.files[file].rows
+                    },
+                    {
+                        key: 'columns',
+                        clave: 'Columnas',
+                        valor: this.props.store.files[file].columns
+                    },
+                    {
+                        key: 'createdAt',
+                        clave: 'Creación',
+                        valor: this.props.store.files[file].createdAt
+                    },
+                    {
+                        key: 'modifiedAt',
+                        clave: 'Última modificación',
+                        valor: this.props.store.files[file].updatedAt
+                    }
+                ];
+
+                console.log('Key de ' + this.props.store.files[file].name + ': ' + this.props.store.files[file].id);
+
                 tabs.push(
-                    <TabPane tab={this.props.store.files[file].name} key={'fileTab-' + i}>
+                    <TabPane tab={this.props.store.files[file].name} key={this.props.store.files[file].id}>
                         <div className="tab-content">
                             <div className="tab-content-panel">
                                 <Card title="Archivo">
                                     <Table columns={columns} dataSource={fileInfo} size="small" pagination={false} />
-                                </Card>
-                                <Card title="Campos">
-                                    <Table columns={columns} dataSource={fileFields} size="small" pagination={false} />
                                 </Card>
                             </div>
                             <Card className="tab-content-main" title="Registros">
