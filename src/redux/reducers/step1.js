@@ -195,6 +195,15 @@ const reducers = {
         newState.loadingFileInfo = false;
 
         return newState;
+    },
+    FILE_IS_EMPTY: (action, newState) => {
+        const index = newState.pickedFiles.indexOf(action.file);
+
+        if (index > -1) newState.pickedFiles.splice(index, 1);
+
+        delete newState.files[action.file];
+
+        return newState;
     }
 };
 
@@ -260,6 +269,8 @@ export default function step1(state = initialState, action = {}) {
             return reducers.DISABLE_FILE_INFO_SPINNER(action, newState);
         case actions.SET_ACTIVE_TAB:
             return reducers.SET_ACTIVE_TAB(action, newState);
+        case actions.FILE_IS_EMPTY:
+            return reducers.FILE_IS_EMPTY(action, newState);
         default:
             return state;
     }
