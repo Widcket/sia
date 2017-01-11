@@ -238,6 +238,8 @@ export function getFileFields(id, token) {
                     .then((fileInfo) => {
                         const createdAt = new Date(fileInfo.data.createdAt).toLocaleString().split(',')[0];
                         const updatedAt = new Date(fileInfo.data.updatedAt).toLocaleString().split(',')[0];
+                        const rowsToFetch = rows < 200 ? (rows || 0) : 200;
+                        const rowsOffset = 0;
 
                         delete fields._id;
 
@@ -248,6 +250,8 @@ export function getFileFields(id, token) {
                             columns,
                             createdAt,
                             updatedAt,
+                            rowsToFetch,
+                            rowsOffset,
                             fields  // TODO: Identify field types
                         });
                         dispatch({
@@ -263,7 +267,7 @@ export function getFileFields(id, token) {
                     dispatch({
                         type: actions.DISABLE_FILE_INFO_SPINNER
                     });
-                 }
+                }
             });
         }
     };
@@ -325,5 +329,21 @@ export function setActiveTab(activeTab) {
     return {
         type: actions.SET_ACTIVE_TAB,
         activeTab
+    };
+}
+
+export function setRowsToFetch(file, rows) {
+    return {
+        type: actions.SET_ROWS_TO_FETCH,
+        file,
+        rows
+    };
+}
+
+export function setRowsOffset(file, offset) {
+    return {
+        type: actions.SET_ROWS_OFFSET,
+        file,
+        offset
     };
 }

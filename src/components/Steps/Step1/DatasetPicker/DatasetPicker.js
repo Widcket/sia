@@ -13,7 +13,7 @@ export default class DatasetPicker extends PureComponent {
     static propTypes = {
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired
-    }
+    };
 
     @autobind
     getTabs() {
@@ -28,8 +28,6 @@ export default class DatasetPicker extends PureComponent {
                 dataIndex: 'valor'
             }
         ];
-
-        let i = 1;
 
         for (const file of this.props.store.pickedFiles) {
             if (this.props.store.files[file]) {
@@ -55,6 +53,12 @@ export default class DatasetPicker extends PureComponent {
                         valor: this.props.store.files[file].updatedAt
                     }
                 ];
+                const marks = {
+                    0: '1',
+                    100: this.props.store.files[file].rows
+                };
+                const rowsOffset = this.props.store.files[file].rowsOffset;
+                const rowsToFetch = this.props.store.files[file].rowsToFetch;
 
                 tabs.push(
                     <TabPane tab={this.props.store.files[file].name} key={this.props.store.files[file].id}>
@@ -66,26 +70,35 @@ export default class DatasetPicker extends PureComponent {
                             </div>
                             <Card className="tab-content-main" title="Registros">
                                 <div className="control-wrapper">
-                                    <div className="control-label">
-                                        Cantidad
-                                    </div>
-                                    <InputNumber min={1} max={10} defaultValue={200} onChange={console.log} />
+                                    <div className="control-label">Cantidad</div>
+                                    <InputNumber
+                                      min={1}
+                                      max={this.props.store.files[file].rows}
+                                      defaultValue={rowsToFetch}
+                                      onChange={this.handleRowsChange(file)} />
                                 </div>
                                 <div className="control-wrapper">
-                                    <div className="control-label">
-                                        Desde
-                                    </div>
-                                    <div className="slider-wrapper">
-                                        <Slider defaultValue={0} />
-                                    </div>
+                                    <div className="control-label">Desde</div>
+                                    <InputNumber
+                                      min={1}
+                                      max={this.props.store.files[file].rows - 1}
+                                      defaultValue={1}
+                                      onChange={this.handleOffsetChange(file)} />
+                                </div>
+                                <div className="slider-wrapper">
+                                    <Slider
+                                      marks={marks}
+                                      range
+                                      value={[
+                                        ((rowsOffset / this.props.store.files[file].rows) * 100),
+                                        ((rowsToFetch / this.props.store.files[file].rows) * 100)
+                                      ]} />
                                 </div>
                             </Card>
                         </div>
                     </TabPane>
                 );
             }
-
-            i++;
         }
 
         return tabs;
@@ -94,6 +107,20 @@ export default class DatasetPicker extends PureComponent {
     @autobind
     getActiveTab() {
         return this.props.store.activeTab;
+    }
+
+    @autobind
+    handleOffsetChange(file) {
+        return (offset) => {
+            this.props.actions.setRowsOffset(file, offset);
+        };
+    }
+
+    @autobind
+    handleRowsChange(file) {
+        return (rows) => {
+            this.props.actions.setRowsToFetch(file, rows);
+        };
     }
 
     @autobind

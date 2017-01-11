@@ -68,14 +68,21 @@
             }
 
             .control-label {
+                margin-left: 0.2rem;
                 width: 20%;
                 min-width: 3rem;
                 display: inline-block;
             }
 
             .slider-wrapper {
-                width: 80%;
+                width: calc(100% - 2em);
                 display: inline-block;
+
+                .ant-slider {
+                    margin-bottom: 0.75rem;
+                    margin-top: 1.1rem;
+                    pointer-events: none;
+                }
             }
         }
     }

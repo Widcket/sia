@@ -100,6 +100,8 @@ const reducers = {
         newState.files[action.id].columns = action.columns;
         newState.files[action.id].createdAt = action.createdAt;
         newState.files[action.id].updatedAt = action.updatedAt;
+        newState.files[action.id].rowsToFetch = action.rowsToFetch;
+        newState.files[action.id].rowsOffset = action.rowsOffset;
         newState.files[action.id].fields = action.fields;
 
         return newState;
@@ -200,6 +202,16 @@ const reducers = {
         delete newState.files[action.file];
 
         return newState;
+    },
+    SET_ROWS_TO_FETCH: (action, newState) => {
+        newState.files[action.file].rowsToFetch = action.rows;
+
+        return newState;
+    },
+    SET_ROWS_OFFSET: (action, newState) => {
+        newState.files[action.file].rowsOffset = action.offset;
+
+        return newState;
     }
 };
 
@@ -267,6 +279,10 @@ export default function step1(state = initialState, action = {}) {
             return reducers.SET_ACTIVE_TAB(action, newState);
         case actions.FILE_IS_EMPTY:
             return reducers.FILE_IS_EMPTY(action, newState);
+        case actions.SET_ROWS_TO_FETCH:
+            return reducers.SET_ROWS_TO_FETCH(action, newState);
+        case actions.SET_ROWS_OFFSET:
+            return reducers.SET_ROWS_OFFSET(action, newState);
         default:
             return state;
     }
