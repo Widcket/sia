@@ -1,10 +1,10 @@
 #step1 > .ant-collapse-borderless {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     align-self: flex-start;
     width: 100%;
 
     .ant-tabs {
-        height: 38vh;
+        height: 100%;
         overflow: visible;
 
         .tab-content {
@@ -23,6 +23,10 @@
                 .ant-card-body {
                     padding: 12px;
                 }
+            }
+
+            .tab-content-full {
+                width: calc(100% - 1rem);
             }
         }
 
@@ -75,7 +79,7 @@
             }
 
             .slider-wrapper {
-                width: calc(100% - 2em);
+                width: calc(100% - 1rem);
                 display: inline-block;
 
                 .ant-slider {

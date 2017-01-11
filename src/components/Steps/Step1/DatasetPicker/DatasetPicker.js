@@ -53,12 +53,23 @@ export default class DatasetPicker extends PureComponent {
                         valor: this.props.store.files[file].updatedAt
                     }
                 ];
+                const fields = [];
                 const marks = {
                     0: '1',
                     100: this.props.store.files[file].rows
                 };
                 const rowsOffset = this.props.store.files[file].rowsOffset;
                 const rowsToFetch = this.props.store.files[file].rowsToFetch;
+
+                for (const field in this.props.store.files[file].fields) {
+                    if (this.props.store.files[file].fields.hasOwnProperty(field)) {
+                        fields.push({
+                            key: field,
+                            clave: field,
+                            valor: this.props.store.files[file].fields[field]
+                        });
+                    }
+                }
 
                 tabs.push(
                     <TabPane tab={this.props.store.files[file].name} key={this.props.store.files[file].id}>
@@ -96,6 +107,9 @@ export default class DatasetPicker extends PureComponent {
                                 </div>
                             </Card>
                         </div>
+                        <Card className="tab-content-full" title="Estructura">
+                            <Table columns={columns} dataSource={fields} size="small" pagination={false} />
+                        </Card>
                     </TabPane>
                 );
             }
