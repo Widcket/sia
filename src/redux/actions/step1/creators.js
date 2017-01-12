@@ -28,7 +28,7 @@ const generateEndpoints = (url) => {
     endpoints.filetypesCount = endpoints.base + '/filetypes/count';
 };
 
-let authToken;
+let token;
 
 export function next() {
     return {
@@ -36,17 +36,23 @@ export function next() {
     };
 }
 
-export function getDatasetList(url, token) {
+export function getDatasetList(url, authToken) {
     generateEndpoints(url);
-    authToken = token;
+    token = authToken;
 
     return (dispatch, getState) => {
+        dispatch({
+            type: appActions.SET_INSTANCE,
+            endpoints,
+            token
+        });
+
         fetch(endpoints.datasetCount, {
             method: 'GET',
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`
+                Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -58,33 +64,61 @@ export function getDatasetList(url, token) {
             });
         })
         .then((value) => {
-            const url = endpoints.datasets + `?limit=${value.data.count}&fields=id,name`;
+            if (value.data && value.data.count > 0) {
+                const url = endpoints.datasets + `?limit=${value.data.count}&fields=id,name`;
 
-            fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${authToken}`
-                }
-            })
-            .then((response) => response.json(), (error) => {
-                console.error(error.message);
+                fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((response) => response.json(), (error) => {
+                    console.error(error.message);
 
+                    dispatch({
+                        type: actions.GET_DATASET_LIST_FAILED,
+                        error: error.message
+                    });
+                })
+                .then((value) => {
+                    if (value.data && value.data.length > 0) {
+                        dispatch({
+                            type: actions.GET_DATASET_LIST,
+                            data: value.data
+                        });
+                        dispatch({
+                            type: actions.NEXT
+                        });
+                    }
+                    else if (!value.data) {
+                        dispatch({
+                            type: actions.GET_DATASET_LIST_FAILED,
+                            error: 'Error del servidor'
+                        });
+                    }
+                    else {
+                        dispatch({
+                            type: actions.GET_DATASET_LIST_FAILED,
+                            error: 'No hay datasets'
+                        });
+                    }
+                });
+            }
+            else if (!value.data) {
                 dispatch({
                     type: actions.GET_DATASET_LIST_FAILED,
-                    error: error.message
+                    error: 'Error del servidor'
                 });
-            })
-            .then((value) => {
+            }
+            else {
                 dispatch({
-                    type: actions.GET_DATASET_LIST,
-                    data: value.data
+                    type: actions.GET_DATASET_LIST_FAILED,
+                    error: 'No hay datasets'
                 });
-                dispatch({
-                    type: actions.NEXT
-                });
-            });
+            }
         });
     };
 }
@@ -96,7 +130,7 @@ export function getFiletypeList(token) {
             mode: 'cors',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`
+                Authorization: `Bearer ${token}`
             }
         })
         .then((response) => response.json(), (error) => {
@@ -108,30 +142,58 @@ export function getFiletypeList(token) {
             });
         })
         .then((value) => {
-            const url = endpoints.filetypes + `?limit=${value.data.count}&fields=id,name,api`;
+            if (value.data && value.data.count > 0) {
+                const url = endpoints.filetypes + `?limit=${value.data.count}&fields=id,name,api`;
 
-            fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${authToken}`
-                }
-            })
-            .then((response) => response.json(), (error) => {
-                console.error(error.message);
+                fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((response) => response.json(), (error) => {
+                    console.error(error.message);
 
-                dispatch({
-                    type: actions.GET_FILETYPE_LIST_FAILED,
-                    error: error.message
+                    dispatch({
+                        type: actions.GET_FILETYPE_LIST_FAILED,
+                        error: error.message
+                    });
+                })
+                .then((value) => {
+                    if (value.data && value.data.length > 0) {
+                        dispatch({
+                            type: actions.GET_FILETYPE_LIST,
+                            data: value.data
+                        });
+                    }
+                    else if (!value.data) {
+                        dispatch({
+                            type: actions.GET_FILETYPE_LIST_FAILED,
+                            error: 'Error del servidor'
+                        });
+                    }
+                    else {
+                        dispatch({
+                            type: actions.GET_FILETYPE_LIST_FAILED,
+                            error: 'No hay datos suficientes en el servidor'
+                        });
+                    }
                 });
-            })
-            .then((value) => {
+            }
+            else if (!value.data) {
                 dispatch({
-                    type: actions.GET_FILETYPE_LIST,
-                    data: value.data
+                    type: actions.GET_FILETYPE_COUNT_FAILED,
+                    error: 'Error del servidor'
                 });
-            });
+            }
+            else {
+                dispatch({
+                    type: actions.GET_FILETYPE_COUNT_FAILED,
+                    error: 'No hay datos suficientes en el servidor'
+                });
+            }
         });
     };
 }
@@ -150,7 +212,7 @@ export function getDatasetFiles(id) {
                 mode: 'cors',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: `Bearer ${authToken}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => response.json(), (error) => {
@@ -165,13 +227,36 @@ export function getDatasetFiles(id) {
                 });
             })
             .then((value) => {
-                dispatch({
-                    type: actions.GET_FILE_LIST,
-                    files: value.data
-                });
-                dispatch({
-                    type: actions.DISABLE_FILE_SPINNER
-                });
+                if (value.data && value.data.length > 0) {
+                    dispatch({
+                        type: actions.GET_FILE_LIST,
+                        files: value.data
+                    });
+                    dispatch({
+                        type: actions.DISABLE_FILE_SPINNER
+                    });
+                }
+                else if (!value.data) {
+                    dispatch({
+                        type: actions.GET_FILE_FIELDS_FAILED,
+                        error: 'Error del servidor'
+                    });
+                    dispatch({
+                        type: actions.DISABLE_FILE_INFO_SPINNER
+                    });
+                }
+                else {
+                    dispatch({
+                        type: actions.FILE_IS_EMPTY
+                    });
+                    dispatch({
+                        type: actions.GET_FILE_FIELDS_FAILED,
+                        error: 'El dataset no tiene archivos'
+                    });
+                    dispatch({
+                        type: actions.DISABLE_FILE_INFO_SPINNER
+                    });
+                }
             });
         }
         else {
@@ -196,7 +281,7 @@ export function getFileFields(id, token) {
                 mode: 'cors',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: `Bearer ${authToken}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => response.json(), (error) => {
@@ -211,7 +296,7 @@ export function getFileFields(id, token) {
                 });
             })
             .then((value) => {
-                if (value.data.length > 0) {
+                if (value.data && value.data.length > 0) {
                     const fields = value.data[0];
                     const rows = value.meta.count;
                     const columns = Object.keys(fields).length;
@@ -222,7 +307,7 @@ export function getFileFields(id, token) {
                         mode: 'cors',
                         headers: {
                             Accept: 'application/json',
-                            Authorization: `Bearer ${authToken}`
+                            Authorization: `Bearer ${token}`
                         }
                     })
                     .then((response) => response.json(), (error) => {
@@ -237,27 +322,47 @@ export function getFileFields(id, token) {
                         });
                     })
                     .then((fileInfo) => {
-                        const createdAt = new Date(fileInfo.data.createdAt).toLocaleString().split(',')[0];
-                        const updatedAt = new Date(fileInfo.data.updatedAt).toLocaleString().split(',')[0];
-                        const rowsToFetch = rows < 200 ? (rows || 0) : 200;
-                        const rowsOffset = 0;
+                        if (fileInfo.data) {
+                            const createdAt = new Date(fileInfo.data.createdAt).toLocaleString().split(',')[0];
+                            const updatedAt = new Date(fileInfo.data.updatedAt).toLocaleString().split(',')[0];
+                            const rowsToFetch = rows < 200 ? (rows || 0) : 200;
+                            const rowsOffset = 0;
 
-                        delete fields._id;
+                            delete fields._id;
 
-                        dispatch({
-                            type: actions.GET_FILE_FIELDS,
-                            id,
-                            rows,
-                            columns,
-                            createdAt,
-                            updatedAt,
-                            rowsToFetch,
-                            rowsOffset,
-                            fields  // TODO: Identify field types
-                        });
-                        dispatch({
-                            type: actions.DISABLE_FILE_INFO_SPINNER
-                        });
+                            dispatch({
+                                type: actions.GET_FILE_FIELDS,
+                                id,
+                                rows,
+                                columns,
+                                createdAt,
+                                updatedAt,
+                                rowsToFetch,
+                                rowsOffset,
+                                fields  // TODO: Identify field types
+                            });
+                            dispatch({
+                                type: actions.DISABLE_FILE_INFO_SPINNER
+                            });
+                        }
+                        else {
+                            dispatch({
+                                type: actions.GET_FILE_FIELDS_FAILED,
+                                error: 'Error del servidor'
+                            });
+                            dispatch({
+                                type: actions.DISABLE_FILE_INFO_SPINNER
+                            });
+                        }
+                    });
+                }
+                else if (!value.data) {
+                    dispatch({
+                        type: actions.GET_FILE_FIELDS_FAILED,
+                        error: 'Error del servidor'
+                    });
+                    dispatch({
+                        type: actions.DISABLE_FILE_INFO_SPINNER
                     });
                 }
                 else {
@@ -266,40 +371,15 @@ export function getFileFields(id, token) {
                         file: id
                     });
                     dispatch({
+                        type: actions.GET_FILE_FIELDS_FAILED,
+                        error: 'El archivo está vacío'
+                    });
+                    dispatch({
                         type: actions.DISABLE_FILE_INFO_SPINNER
                     });
                 }
             });
         }
-    };
-}
-
-export function getFileContents(id, limit, token) {
-    return (dispatch, getState) => {
-        const url = `${endpoints.files}/${id}/contents?limit=${limit}`;
-
-        fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${authToken}`
-            }
-        })
-        .then((response) => response.json(), (error) => {
-            console.error(error.message);
-
-            dispatch({
-                type: actions.GET_FILE_CONTENTS_FAILED,
-                error: error.message
-            });
-        })
-        .then((value) => {
-            dispatch({
-                type: actions.GET_FILE_CONTENTS,
-                data: value.data
-            });
-        });
     };
 }
 
