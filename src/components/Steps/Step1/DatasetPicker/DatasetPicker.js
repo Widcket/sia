@@ -161,6 +161,7 @@ export default class DatasetPicker extends PureComponent {
     handleFileSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectFiles(sourceSelectedKeys, targetSelectedKeys);
         this.props.actions.getFileFields(sourceSelectedKeys.pop());
+        this.props.actions.setFiles(this.props.store.files);
     }
 
     @autobind

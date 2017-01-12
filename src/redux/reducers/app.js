@@ -1,3 +1,5 @@
+import * as actions from '../actions/app/definitions';
+
 const data = [
     {
         firstName: 'Francisco',
@@ -783,11 +785,16 @@ const data = [
 
 const initialState = {
     lastStep: 3,
+    files: [],
     data
 };
 
 export default function app(state = initialState, action = {}) {
     switch (action.type) {
+        case actions.SET_FILES:
+            return state.files = action.files;
+        case actions.SET_DATA:
+            return state.data = action.data;
         default:
             return state;
     }

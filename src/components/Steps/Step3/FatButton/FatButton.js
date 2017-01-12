@@ -8,7 +8,12 @@ export default class FatButton extends PureComponent {
         label: PropTypes.string.isRequired,
         selected: PropTypes.bool,
         onClick: PropTypes.func
-    }
+    };
+
+    static defaultProps = {
+        selected: false,
+        onClick: () => { }
+    };
 
     @autobind
     getClassNames() {

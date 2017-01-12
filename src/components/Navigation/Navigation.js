@@ -9,7 +9,11 @@ export default class Navigation extends PureComponent {
         getPrevious: PropTypes.func.isRequired,
         getNext: PropTypes.func.isRequired,
         finished: PropTypes.bool
-    }
+    };
+
+    static defaultProps = {
+        finished: false
+    };
 
     render() {
         const styles = require('./Navigation.scss');

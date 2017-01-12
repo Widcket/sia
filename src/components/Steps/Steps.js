@@ -21,8 +21,10 @@ export default class Steps extends PureComponent {
             step1: PropTypes.object.isRequired,
             step2: PropTypes.object.isRequired,
             step3: PropTypes.object.isRequired,
-            step4: PropTypes.object.isRequired
+            step4: PropTypes.object.isRequired,
+            app: PropTypes.object.isRequired
         }).isRequired,
+        files: PropTypes.array.isRequired,
         data: PropTypes.array.isRequired,
         step: PropTypes.number.isRequired
     }
@@ -32,23 +34,24 @@ export default class Steps extends PureComponent {
         switch (current) {
             case 0:
                 return (
-                <Step1
-                  store={this.props.stores.step1}
-                  actions={this.props.actions.step1} />
+                    <Step1
+                      store={this.props.stores.step1}
+                      actions={Object.assign({}, this.props.actions.step1, this.props.actions.app)} />
                 );
             case 1:
                 return (
                     <Step2
+                      files={this.props.files}
                       data={this.props.data}
                       store={this.props.stores.step2}
-                      actions={this.props.actions.step2} />
+                      actions={Object.assign({}, this.props.actions.step2, this.props.actions.app)} />
                 );
             case 2:
                 return (
                     <Step3
                       data={this.props.data}
                       store={this.props.stores.step3}
-                      actions={this.props.actions.step3} />
+                      actions={Object.assign({}, this.props.actions.step3, this.props.actions.app)} />
                 );
             case 3:
                 return (

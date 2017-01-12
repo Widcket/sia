@@ -7,7 +7,11 @@ class Spinner extends PureComponent {
         legend: React.PropTypes.string,
         active: React.PropTypes.bool
     };
-    static defaultProps = { active: false };
+
+    static defaultProps = {
+        legend: 'Cargando...',
+        active: false
+    };
 
     render() {
         const styles = require('./Spinner.scss');

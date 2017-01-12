@@ -1,13 +1,15 @@
 import * as actions from './definitions';
 
-export function previous() {
+export function setFiles(files) {
     return {
-        type: actions.PREVIOUS
+        type: actions.SET_FILES,
+        files
     };
 }
 
-export function next() {
+export function setData(data) {
     return {
-        type: actions.NEXT
+        type: actions.SET_DATA,
+        data
     };
 }

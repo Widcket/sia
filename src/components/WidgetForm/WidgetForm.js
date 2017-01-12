@@ -29,6 +29,10 @@ export default class WidgetForm extends Component {
         values: PropTypes.object.isRequired
     };
 
+    static defaultProps = {
+        saveError: false
+    };
+
     render() {
         const {
             editStop,

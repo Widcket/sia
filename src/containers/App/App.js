@@ -1,3 +1,4 @@
+import * as appActions from '../../redux/actions/app/creators';
 import * as navigationActions from '../../redux/actions/navigation/creators';
 import * as step1Actions from '../../redux/actions/step1/creators';
 import * as step2Actions from '../../redux/actions/step2/creators';
@@ -20,6 +21,7 @@ function mapDispatchToProps(dispatch) {
             step2: bindActionCreators(step2Actions, dispatch),
             step3: bindActionCreators(step3Actions, dispatch),
             step4: bindActionCreators(step4Actions, dispatch),
+            app: bindActionCreators(appActions, dispatch),
             navigation: bindActionCreators(navigationActions, dispatch)
         }
     };
@@ -55,16 +57,14 @@ export default class App extends PureComponent {
             step2: PropTypes.object.isRequired,
             step3: PropTypes.object.isRequired,
             step4: PropTypes.object.isRequired,
+            app: PropTypes.shape({
+                setData: PropTypes.func.isRequired
+            }).isRequired,
             navigation: PropTypes.shape({
                 previous: PropTypes.func.isRequired, next: PropTypes.func.isRequired
             }).isRequired
         }).isRequired
     };
-
-    @autobind
-    getNext() {
-
-    }
 
     render() {
         const styles = require('./App.scss');
@@ -92,14 +92,17 @@ export default class App extends PureComponent {
                           step1: this.props.stores.step1,
                           step2: this.props.stores.step2,
                           step3: this.props.stores.step3,
-                          step4: this.props.stores.step4
+                          step4: this.props.stores.step4,
+                          app: this.props.stores.app
                       }}
                       actions={{
                           step1: this.props.actions.step1,
                           step2: this.props.actions.step2,
                           step3: this.props.actions.step3,
-                          step4: this.props.actions.step4
-                      }}
+                          step4: this.props.actions.step4,
+                          app: this.props.actions.app
+                        }}
+                      files={this.props.stores.app.files}
                       data={this.props.stores.app.data}
                       step={this.props.stores.navigation.current} />
                     <Navigation

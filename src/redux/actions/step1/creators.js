@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 
 import * as actions from './definitions';
+import * as appActions from '../app/definitions';
 
 const endpoints = {
     base: null,
