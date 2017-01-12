@@ -790,12 +790,14 @@ const initialState = {
 };
 
 export default function app(state = initialState, action = {}) {
+    const newState = { ...state };
+
     switch (action.type) {
         case actions.SET_FILES:
-            return state.files = action.files;
+            return newState.files = action.files;
         case actions.SET_DATA:
-            return state.data = action.data;
+            return newState.data = action.data;
         default:
-            return state;
+            return newState;
     }
 }
