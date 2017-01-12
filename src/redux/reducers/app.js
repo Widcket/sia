@@ -794,10 +794,14 @@ export default function app(state = initialState, action = {}) {
 
     switch (action.type) {
         case actions.SET_FILES:
-            return newState.files = action.files;
-        case actions.SET_DATA:
-            return newState.data = action.data;
-        default:
+            newState.files = action.files;
+
             return newState;
+        case actions.SET_DATA:
+            newState.data = action.data;
+
+            return newState;
+        default:
+            return state;
     }
 }
