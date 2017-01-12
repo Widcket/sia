@@ -24,7 +24,7 @@ export default class Steps extends PureComponent {
             step4: PropTypes.object.isRequired,
             app: PropTypes.object.isRequired
         }).isRequired,
-        files: PropTypes.array.isRequired,
+        files: PropTypes.object.isRequired,
         data: PropTypes.array.isRequired,
         step: PropTypes.number.isRequired
     }

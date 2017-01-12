@@ -785,7 +785,7 @@ const data = [
 
 const initialState = {
     lastStep: 3,
-    files: [],
+    files: {},
     data
 };
 
