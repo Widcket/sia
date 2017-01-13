@@ -11,9 +11,9 @@ const TreeNode = Tree.TreeNode;
 
 export default class LeftPane extends Component {
     static propTypes = {
+        files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired,
-        data: PropTypes.array.isRequired
+        actions: PropTypes.object.isRequired
     }
 
     @autobind
@@ -75,7 +75,7 @@ export default class LeftPane extends Component {
 
     @autobind
     getDataSelectOptions() {
-        return this.props.data.map((element, i) => {
+        return this.props.files.map((element, i) => {
             return (
                 <Option value={element.value} key={`valueAxis-${element.value}`}>
                     {element.name}
@@ -88,7 +88,7 @@ export default class LeftPane extends Component {
     getTreeNodes() {
         let j = 0;
 
-        this.props.data.map((element, i) => {
+        this.props.files.map((element, i) => {
             const children = [];
 
             for (const prop in element) {
@@ -170,7 +170,7 @@ export default class LeftPane extends Component {
 
         let categoryAxisData = [];
 
-        for (const row of this.props.data) {
+        for (const row of this.props.files) {
             for (const column of filteredColumns) {
                 counts[column] = counts[column] || {};
 

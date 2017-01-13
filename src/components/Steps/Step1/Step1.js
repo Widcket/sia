@@ -7,6 +7,7 @@ import {autobind} from 'core-decorators';
 
 class Step1 extends Component {
     static propTypes = {
+        files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired
     }
@@ -17,13 +18,20 @@ class Step1 extends Component {
             case 0:
                 return <ConnectForm store={this.props.store} actions={this.props.actions} />;
             case 1:
-                return (<Spinner
-                  store={this.props.store}
-                  actions={this.props.actions}
-                  legend="Cargando datasets..."
-                  active />);
+                return (
+                    <Spinner
+                      store={this.props.store}
+                      actions={this.props.actions}
+                      legend="Cargando datasets..."
+                      active />
+                );
             case 2:
-                return <DatasetPicker store={this.props.store} actions={this.props.actions} />;
+                return (
+                    <DatasetPicker
+                      files={this.props.files}
+                      store={this.props.store}
+                      actions={this.props.actions} />
+                );
             default:
                 break;
         }

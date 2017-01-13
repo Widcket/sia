@@ -1,5 +1,9 @@
 import * as actions from '../actions/step2/definitions';
 
+/*
+//
+// There won't be custom transactions (functions)
+//
 const dimensions = [
     // "value" can be the key of what you want to group on
     {
@@ -17,7 +21,13 @@ const dimensions = [
         value: 'state'
     }
 ];
+*/
 
+//
+// No calculations either, unless there's time to do that modal
+//
+
+/*
 const calculations = [
 // "value" can be the key of the "memo" object from reduce
 // "template" changes the display of the value, but not sorting behavior
@@ -35,23 +45,25 @@ const calculations = [
         className: 'alignRight'
     }
 ];
+*/
+
+// const calculations = [];
 
 const initialState = {
     stage: 0,
+    loadingData: true,
     currentFile: '',
     defaultTab: 'tab1',
-    dimensions,
-    calculations
 };
 
 export default function step2(state = initialState, action = {}) {
+    const newState = { ...state };
+
     switch (action.type) {
         case actions.SET_DEFAULT_TAB:
-            return {
-                ...state,
-                defaultTab: action.defaultTab,
-                error: action.error
-            };
+            newState.defaultTab = action.defaultTab;
+
+            return newState;
         default:
             return state;
     }

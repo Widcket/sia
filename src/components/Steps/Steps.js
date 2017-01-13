@@ -24,8 +24,12 @@ export default class Steps extends PureComponent {
             step4: PropTypes.object.isRequired,
             app: PropTypes.object.isRequired
         }).isRequired,
+        instance: PropTypes.shape({
+            endpoints: PropTypes.object.isRequired,
+            token: PropTypes.string
+        }).isRequired,
         files: PropTypes.object.isRequired,
-        data: PropTypes.array.isRequired,
+        loadingFiles: PropTypes.bool.isRequired,
         step: PropTypes.number.isRequired
     }
 
@@ -35,6 +39,7 @@ export default class Steps extends PureComponent {
             case 0:
                 return (
                     <Step1
+                      files={this.props.files}
                       store={this.props.stores.step1}
                       actions={Object.assign({}, this.props.actions.step1, this.props.actions.app)} />
                 );
@@ -42,21 +47,22 @@ export default class Steps extends PureComponent {
                 return (
                     <Step2
                       files={this.props.files}
-                      data={this.props.data}
+                      loadingFiles={this.props.loadingFiles}
+                      instance={this.props.instance}
                       store={this.props.stores.step2}
                       actions={Object.assign({}, this.props.actions.step2, this.props.actions.app)} />
                 );
             case 2:
                 return (
                     <Step3
-                      data={this.props.data}
+                      files={this.props.files}
                       store={this.props.stores.step3}
                       actions={Object.assign({}, this.props.actions.step3, this.props.actions.app)} />
                 );
             case 3:
                 return (
                     <Step4
-                      data={this.props.data}
+                      files={this.props.files}
                       store={this.props.stores.step4}
                       actions={this.props.actions.step4} />
                 );

@@ -1,8 +1,16 @@
 import * as actions from '../actions/step1/definitions';
 
 const reducers = {
-    NEXT: (action, newState) => ({...newState, stage: ++newState.stage}),
-    GET_DATASET_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
+    NEXT: (action, newState) => {
+        ++newState.stage;
+
+        return newState;
+    },
+    GET_DATASET_COUNT_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
     GET_DATASET_LIST: (action, newState) => {
         const datasets = {};
         const datasetPickerItems = [];
@@ -77,8 +85,16 @@ const reducers = {
 
         return newState;
     },
-    GET_FILE_LIST_FAILED: (action, newState) => ({...newState, error: action.error }),
-    GET_FILETYPE_COUNT_FAILED: (action, newState) => ({...newState, error: action.error}),
+    GET_FILE_LIST_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
+    GET_FILETYPE_COUNT_FAILED: (action, newState) => {
+        newState.error = action.error;
+
+        return newState;
+    },
     GET_FILETYPE_LIST: (action, newState) => {
         const filetypes = [];
 

@@ -11,6 +11,7 @@ const TabPane = Tabs.TabPane;
 
 export default class DatasetPicker extends PureComponent {
     static propTypes = {
+        files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
         actions: PropTypes.object.isRequired
     };
@@ -161,7 +162,7 @@ export default class DatasetPicker extends PureComponent {
     handleFileSelect(sourceSelectedKeys, targetSelectedKeys) {
         this.props.actions.selectFiles(sourceSelectedKeys, targetSelectedKeys);
         this.props.actions.getFileFields(sourceSelectedKeys.pop());
-        this.props.actions.setFiles(this.props.store.files);
+        this.props.actions.setFiles(this.props.store.pickedFiles, this.props.store.files);
     }
 
     @autobind

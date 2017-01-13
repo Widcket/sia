@@ -58,7 +58,9 @@ export default class App extends PureComponent {
             step3: PropTypes.object.isRequired,
             step4: PropTypes.object.isRequired,
             app: PropTypes.shape({
-                setData: PropTypes.func.isRequired
+                setInstance: PropTypes.func.isRequired,
+                setFiles: PropTypes.func.isRequired,
+                addData: PropTypes.func.isRequired
             }).isRequired,
             navigation: PropTypes.shape({
                 previous: PropTypes.func.isRequired, next: PropTypes.func.isRequired
@@ -92,8 +94,7 @@ export default class App extends PureComponent {
                           step1: this.props.stores.step1,
                           step2: this.props.stores.step2,
                           step3: this.props.stores.step3,
-                          step4: this.props.stores.step4,
-                          app: this.props.stores.app
+                          step4: this.props.stores.step4
                       }}
                       actions={{
                           step1: this.props.actions.step1,
@@ -101,9 +102,13 @@ export default class App extends PureComponent {
                           step3: this.props.actions.step3,
                           step4: this.props.actions.step4,
                           app: this.props.actions.app
-                        }}
+                      }}
+                      instance={{
+                          endpoints: this.props.stores.app.endpoints,
+                          token: this.props.stores.app.token
+                      }}
                       files={this.props.stores.app.files}
-                      data={this.props.stores.app.data}
+                      loadingFiles={this.props.stores.app.loadingFiles}
                       step={this.props.stores.navigation.current} />
                     <Navigation
                       store={this.props.stores.navigation}

@@ -105,17 +105,19 @@ export default class ReactPivot extends Component {
             });
         });
 
-        this.props.calculations.forEach((c) => {
-            if (self.state.hiddenColumns.indexOf(c.title) >= 0) return;
+        if (this.props.calculations) {
+            this.props.calculations.forEach((c) => {
+                if (self.state.hiddenColumns.indexOf(c.title) >= 0) return;
 
-            columns.push({
-                type: 'calculation',
-                title: c.title,
-                template: c.template,
-                value: c.value,
-                className: c.className
+                columns.push({
+                    type: 'calculation',
+                    title: c.title,
+                    template: c.template,
+                    value: c.value,
+                    className: c.className
+                });
             });
-        });
+        }
 
         return columns;
     }

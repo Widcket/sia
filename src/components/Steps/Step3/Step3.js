@@ -6,9 +6,9 @@ import LeftPane from './LeftPane/LeftPane';
 
 export default class Step3 extends PureComponent {
     static propTypes = {
+        files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired,
-        data: PropTypes.array.isRequired
+        actions: PropTypes.object.isRequired
     }
 
     render() {
@@ -19,18 +19,18 @@ export default class Step3 extends PureComponent {
                 <Row>
                     <Col span={8}>
                         <LeftPane
-                          data={this.props.data}
+                          files={this.props.files}
                           store={this.props.store}
                           actions={this.props.actions} />
                     </Col>
                     <Col span={16} ref="chartContainer">
                         <Chart
+                          files={this.props.files}
                           instance={this.props.store.echarts}
                           setInstance={this.props.actions.setEchartsInstance}
                           chartConfig={this.props.store.chartConfig}
                           chartSeries={this.props.store.chartSeries}
-                          chartType={this.props.store.chartType}
-                          data={this.props.data} />
+                          chartType={this.props.store.chartType} />
                     </Col>
                 </Row>
             </div>

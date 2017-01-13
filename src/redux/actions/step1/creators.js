@@ -123,7 +123,7 @@ export function getDatasetList(url, authToken) {
     };
 }
 
-export function getFiletypeList(token) {
+export function getFiletypeList() {
     return (dispatch, getState) => {
         fetch(endpoints.filetypesCount, {
             method: 'GET',
@@ -267,7 +267,7 @@ export function getDatasetFiles(id) {
     };
 }
 
-export function getFileFields(id, token) {
+export function getFileFields(id) {
     return (dispatch, getState) => {
         if (id) {
             const url = `${endpoints.files}/${id}/contents?limit=1`;
@@ -299,7 +299,7 @@ export function getFileFields(id, token) {
                 if (value.data && value.data.length > 0) {
                     const fields = value.data[0];
                     const rows = value.meta.count;
-                    const columns = Object.keys(fields).length;
+                    const columns = Object.getOwnPropertyNames(fields).length - 1;
                     const fileInfoUrl = `${endpoints.files}/${id}`;
 
                     fetch(fileInfoUrl, {
