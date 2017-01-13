@@ -95,7 +95,7 @@
     "compression": "^1.6.2",
     "core-decorators": "^0.15.0",
     "dataframe": "^2.0.0",
-    "echarts": "^3.3.2",
+    "echarts": "^3.4.0",
     "echarts-for-react": "^1.1.5",
     "express": "^4.14.0",
     "history": "^4.5.1",
