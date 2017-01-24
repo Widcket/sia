@@ -54,6 +54,7 @@ const initialState = {
     loadingData: true,
     currentFile: '',
     defaultTab: 'tab1',
+    filter: ''
 };
 
 export default function step2(state = initialState, action = {}) {

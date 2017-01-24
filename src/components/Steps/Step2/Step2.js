@@ -1,7 +1,8 @@
 import React, {PropTypes, PureComponent} from 'react';
 
-import ReactPivot from '../../Pivot';
 import Spinner from '../../Spinner/Spinner';
+// import ReactPivot from '../../Pivot';
+import Table from './Table/Table';
 import {Tabs} from 'antd';
 import {autobind} from 'core-decorators';
 
@@ -28,13 +29,7 @@ export default class Step2 extends PureComponent {
             if (this.props.files.hasOwnProperty(file)) {
                 tabs.push(
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
-                        <ReactPivot
-                          rows={this.props.files[file].data}
-                          dimensions={this.props.files[file].dimensions}
-                          // reduce={this.reduce}
-                          // calculations={this.props.store.calculations}
-                          key={this.props.files[file].id}
-                          compact />
+                        <p />
                     </TabPane>
                 );
             }

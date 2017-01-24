@@ -6,7 +6,6 @@ import 'babel-polyfill';
 
 import {Router, browserHistory} from 'react-router';
 
-import ApiClient from './helpers/ApiClient';
 import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -16,30 +15,13 @@ import getRoutes from './routes';
 import io from 'socket.io-client';
 import {syncHistoryWithStore} from 'react-router-redux';
 
-const client = new ApiClient();
 const dest = document.getElementById('content');
-const store = createStore(browserHistory, client, window.__data);
+const store = createStore(browserHistory, window.__data);
 const history = syncHistoryWithStore(browserHistory, store);
-
-function initSocket() {
-    const socket = io('', { path: '/ws' });
-
-    socket.on('news', (data) => {
-        console.log(data);
-        socket.emit('my other event', { my: 'data from client' });
-    });
-    socket.on('msg', (data) => {
-        console.log(data);
-    });
-
-    return socket;
-}
-
-global.socket = initSocket();
 
 const component = (
     <Router render={(props) =>
-              <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} />
+              <ReduxAsyncConnect {...props} filter={item => !item.deferred} />
     } history={history}>
         {getRoutes(store)}
     </Router>
