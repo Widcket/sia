@@ -15,7 +15,7 @@ import getRoutes from './routes';
 import http from 'http';
 import {match} from 'react-router';
 import path from 'path';
-import {syncHistoryWithStore} from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';

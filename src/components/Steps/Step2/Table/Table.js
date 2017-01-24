@@ -1,3 +1,4 @@
+import {Cell, Column, Table as FixedTable} from 'fixed-data-table';
 import React, { PropTypes, PureComponent } from 'react';
 
 import {autobind} from 'core-decorators';

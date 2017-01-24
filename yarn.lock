@@ -48,6 +48,14 @@ after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
 
+ag-grid-react@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-react/-/ag-grid-react-7.2.0.tgz#62bceed32938c4ea131f374bd087cbf12130fb69"
+
+ag-grid@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/ag-grid/-/ag-grid-7.2.2.tgz#c6c2528b8a75bf5a05d64ea1bb3b94626058e736"
+
 ajv-keywords@^1.0.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-1.5.0.tgz#c11e6859eafff83e0dafc416929472eca946aa2c"
@@ -2526,6 +2534,10 @@ find-up@^1.0.0:
   dependencies:
     path-exists "^2.0.0"
     pinkie-promise "^2.0.0"
+
+fixed-data-table@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/fixed-data-table/-/fixed-data-table-0.6.3.tgz#e0bba85bc84a065dea71f0fb3a46d61441ad81e8"
 
 flat-cache@^1.2.1:
   version "1.2.2"
