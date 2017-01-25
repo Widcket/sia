@@ -265,10 +265,12 @@ export default class PivotTable extends Component {
 
         return (
             <div className="reactPivot-results">
-                <table className={this.props.tableClassName}>
-                {tHead}
-                {tBody}
-                </table>
+                <div className="reactPivot-table">
+                    <table className={this.props.tableClassName}>
+                        {tHead}
+                        {tBody}
+                    </table>
+                </div>
 
                 {this.renderPagination(paginatedResults)}
             </div>

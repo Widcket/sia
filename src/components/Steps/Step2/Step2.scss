@@ -18,6 +18,8 @@
 
     .reactPivot {
         padding: 0px 20px 20px;
+        margin-top: 0px;
+        box-shadow: none;
 
         .reactPivot-columnControl {
             display: inline-block;
@@ -44,57 +46,66 @@
                 animation: none !important;
             }
 
-            table {
-                width: 100%;
-                padding-top: 1.5rem;
-                clear: both;
-                text-align: left;
-                border-spacing: 0;
-            }
+            .reactPivot-table {
+                    overflow-x: auto;
+                    width: 100% !important;
 
-            th {
-                padding-bottom: 0.5rem;
-                padding-left: 5px;
+                table {
+                    width: 100%;
+                    padding-top: 1.5rem;
+                    clear: both;
+                    text-align: left;
+                    border-spacing: 0;
 
-                &.asc:after, &.desc:after {
-                    opacity: 0.5;
-                }
+                    tbody {
+                        overflow-x: auto;
+                    }
 
-                &.asc:after {
-                    content: ' ▲';
-                }
+                    th {
+                        padding-bottom: 0.5rem;
+                        padding-left: 5px;
 
-                &.desc:after {
-                    content: ' ▼';
-                }
-            }
+                        &.asc:after, &.desc:after {
+                            opacity: 0.5;
+                        }
 
-            tr {
-                &:hover td {
-                    background: #fbfbfb;
-                }
+                        &.asc:after {
+                            content: ' ▲';
+                        }
 
-                &:hover td.reactPivot-indent {
-                    background: none;
-                }
-            }
+                        &.desc:after {
+                            content: ' ▼';
+                        }
+                    }
 
-            td {
-                border-top: 1px solid #ddd;
-                padding: 5px;
-                font-weight: 200;
-                font-size: 0.75rem;
+                    tr {
+                        &:hover td {
+                            background: #fbfbfb;
+                        }
 
-                &:hover .tag-solo {
-                    opacity: 1 !important;
-                }
+                        &:hover td.reactPivot-indent {
+                            background: none;
+                        }
+                    }
 
-                &.reactPivot-indent {
-                    border: none;
-                }
+                    td {
+                        border-top: 1px solid #ddd;
+                        padding: 3px;
+                        font-weight: 400;
+                        font-size: 0.7rem;
 
-                .ant-tag {
-                    margin: 0px 0px 0px 0.5rem;
+                        &:hover .tag-solo {
+                            opacity: 1 !important;
+                        }
+
+                        &.reactPivot-indent {
+                            border: none;
+                        }
+
+                        .ant-tag {
+                            margin: 0px 0px 0px 0.5rem;
+                        }
+                    }
                 }
             }
         }

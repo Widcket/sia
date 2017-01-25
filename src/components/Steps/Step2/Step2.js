@@ -1,8 +1,7 @@
 import React, {PropTypes, PureComponent} from 'react';
 
+import ReactPivot from '../../Pivot';
 import Spinner from '../../Spinner/Spinner';
-// import ReactPivot from '../../Pivot';
-import Table from './Table/Table';
 import {Tabs} from 'antd';
 import {autobind} from 'core-decorators';
 
@@ -22,14 +21,31 @@ export default class Step2 extends PureComponent {
     }
 
     @autobind
+    getDimensions(dimensions) {
+        const titles = [];
+
+        for (const item of dimensions) titles.push(item.title);
+
+        return titles;
+    }
+
+    @autobind
     getTabs() {
         const tabs = [];
 
         for (const file in this.props.files) {
             if (this.props.files.hasOwnProperty(file)) {
+                console.log(this.props.files[file].dimensions);
+
                 tabs.push(
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
-                        <p />
+                        <ReactPivot
+                          rows={this.props.files[file].data}
+                          dimensions={this.props.files[file].dimensions}
+                          activeDimensions={this.getDimensions(this.props.files[file].dimensions)}
+                          reduce={this.reduce}
+                          key={this.props.files[file].id}
+                          compact />
                     </TabPane>
                 );
             }
@@ -53,33 +69,35 @@ export default class Step2 extends PureComponent {
 
     @autobind
     reduce(row, memo) {
-        // the memo object starts as {} for each group, build it up
         memo.count = (memo.count || 0) + 1;
-        // memo.amountTotal = (memo.amountTotal || 0) + parseFloat(row.transaction.amount);
-        // be sure to return it when you're done for the next pass
+        memo.amountTotal = memo.count;
+
         return memo;
     }
 
     render() {
         const styles = require('./Step2.scss');
 
+        if (this.props.loadingFiles) {
+            return (
+                <div id="step2">
+                <Spinner
+                  store={this.props.store}
+                  actions={this.props.actions}
+                  active={this.props.loadingFiles}
+                  legend="Cargando datos..." />
+            </div>
+
+            );
+        }
+
         return (
             <div id="step2">
-                {
-                    this.props.loadingFiles ?
-                    (
-                        <Spinner
-                          store={this.props.store}
-                          actions={this.props.actions}
-                          active={this.props.loadingFiles}
-                          legend="Cargando datos..." />
-                    ) :
-                    (
-                        <Tabs defaultActiveKey={this.props.store.defaultTab}>
-                            {this.getTabs()}
-                        </Tabs>
-                    )
-                }
+                <div id="step2">
+                    <Tabs defaultActiveKey={this.props.store.defaultTab}>
+                        {this.getTabs()}
+                    </Tabs>
+                </div>
             </div>
         );
     }

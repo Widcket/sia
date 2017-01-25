@@ -28,19 +28,19 @@ export default function app(state = initialState, action = {}) {
             newState.files[action.file.id].data = action.data;
             newState.filesFetched++;
 
+            console.info('Fetched file ' + newState.filesFetched);
+
             if (newState.files[action.file.id].data._id) delete newState.files[action.file.id].data._id;
-            if (newState.filesFetched === (Object.getOwnPropertyNames(newState.files).length)) {
-                newState.loadingFiles = false;
-            }
 
             return newState;
         case actions.ADD_DIMENSIONS:
-            console.info('INSIDE case actions.ADD_DIMENSIONS');
-
             const dimensions = [];
 
+            console.info('INSIDE case actions.ADD_DIMENSIONS');
+
             for (const field in action.file.fields) {
-                if (action.file.fields.hasOwnProperty(field)) {
+                if (action.file.fields.hasOwnProperty(field) &&
+                    field !== '_id' && field !== 'id' && field !== 'ID') {
                     dimensions.push(
                         {
                             title: field,
@@ -54,6 +54,13 @@ export default function app(state = initialState, action = {}) {
             console.log(dimensions);
 
             newState.files[action.file.id].dimensions = dimensions;
+
+            if (newState.filesFetched === (Object.getOwnPropertyNames(newState.files).length)) {
+                console.info('Finished fetching files! Total files: ' +
+                    Object.getOwnPropertyNames(newState.files).length);
+
+                newState.loadingFiles = false;
+            }
 
             return newState;
         case actions.DISABLE_FILE_SPINNER:

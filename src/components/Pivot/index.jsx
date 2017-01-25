@@ -25,7 +25,7 @@ export default class ReactPivot extends Component {
         dimensions: [],
         activeDimensions: [],
         tableClassName: '',
-        csvDownloadFileName: 'table.csv',
+        csvDownloadFileName: 'data.csv',
         csvTemplateFormat: false,
         defaultStyles: true,
         nPaginateRows: 25,
