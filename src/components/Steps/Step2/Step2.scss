@@ -63,7 +63,11 @@
 
                     th {
                         padding-bottom: 0.5rem;
-                        padding-left: 5px;
+                        padding-left: 10px;
+
+                        &:first-child {
+                            padding-left: 0px;
+                        }
 
                         &.asc:after, &.desc:after {
                             opacity: 0.5;
