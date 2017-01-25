@@ -50,3 +50,14 @@
         }
     }
 }
+
+.ant-modal-mask {
+    opacity: 0.25;
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.ant-modal-content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

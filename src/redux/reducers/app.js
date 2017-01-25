@@ -39,8 +39,7 @@ export default function app(state = initialState, action = {}) {
             console.info('INSIDE case actions.ADD_DIMENSIONS');
 
             for (const field in action.file.fields) {
-                if (action.file.fields.hasOwnProperty(field) &&
-                    field !== '_id' && field !== 'id' && field !== 'ID') {
+                if (action.file.fields.hasOwnProperty(field)) {
                     dimensions.push(
                         {
                             title: field,

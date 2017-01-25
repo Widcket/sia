@@ -40,7 +40,7 @@ export default class Dimensions extends PureComponent {
                     return (
                         <Option
                           value={dimension.title}
-                          key={dimension.title} >
+                          key={dimension.value} >
                             {dimension.title}
                         </Option>
                     );

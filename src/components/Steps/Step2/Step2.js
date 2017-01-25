@@ -41,6 +41,7 @@ export default class Step2 extends PureComponent {
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
                         <ReactPivot
                           rows={this.props.files[file].data}
+                          columns={this.props.files[file].fields}
                           dimensions={this.props.files[file].dimensions}
                           activeDimensions={this.getDimensions(this.props.files[file].dimensions)}
                           reduce={this.reduce}

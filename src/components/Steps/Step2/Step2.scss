@@ -67,6 +67,9 @@
 
                         &.asc:after, &.desc:after {
                             opacity: 0.5;
+                            font-size: 0.7rem;
+                            position: absolute;
+                            margin-top: 1px;
                         }
 
                         &.asc:after {

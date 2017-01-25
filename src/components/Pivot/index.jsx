@@ -14,7 +14,6 @@ const partial = require('./lib/partial');
 const download = require('./lib/download');
 const getValue = require('./lib/getValue');
 const PivotTable = require('./lib/components/PivotTable.jsx');
-const Dimensions = require('./lib/components/Dimensions.jsx');
 const ColumnControl = require('./lib/components/ColumnControl.jsx');
 
 function loadStyles() { require('./style.css'); }
@@ -22,6 +21,7 @@ function loadStyles() { require('./style.css'); }
 export default class ReactPivot extends Component {
     static defaultProps = {
         rows: [],
+        columns: [],
         dimensions: [],
         activeDimensions: [],
         tableClassName: '',
@@ -88,35 +88,19 @@ export default class ReactPivot extends Component {
 
     @autobind
     getColumns() {
-        const self = this;
+        const keys = Object.getOwnPropertyNames(this.props.columns);
         const columns = [];
 
-        this.state.dimensions.forEach((title) => {
-            const d = _.find(self.props.dimensions, (col) => {
-                return col.title === title;
-            });
-
-            columns.push({
-                type: 'dimension',
-                title: d.title,
-                value: d.value,
-                className: d.className,
-                template: d.template
-            });
-        });
-
-        if (this.props.calculations) {
-            this.props.calculations.forEach((c) => {
-                if (self.state.hiddenColumns.indexOf(c.title) >= 0) return;
-
+        for (const column of keys) {
+            if (this.state.hiddenColumns.indexOf(column) === -1) {
                 columns.push({
-                    type: 'calculation',
-                    title: c.title,
-                    template: c.template,
-                    value: c.value,
-                    className: c.className
+                    // type: 'calculation',
+                    title: column,
+                    value: column
+                    // className: d.className,
+                    // template: d.template
                 });
-            });
+            }
         }
 
         return columns;
@@ -206,8 +190,8 @@ export default class ReactPivot extends Component {
     }
 
     @autobind
-    hideColumn(cTitle) {
-        const hidden = this.state.hiddenColumns.concat([cTitle]);
+    hideColumn(column) {
+        const hidden = this.state.hiddenColumns.concat([column]);
 
         this.setHiddenColumns(hidden);
 
@@ -252,11 +236,14 @@ export default class ReactPivot extends Component {
     render() {
         const html = (
             <div className="reactPivot">
-                { this.props.hideDimensionFilter ? '' :
-                    <Dimensions
-                      dimensions={this.props.dimensions}
-                      selectedDimensions={this.state.dimensions}
-                      onChange={this.setDimensions} />
+                {
+                    /*
+                    this.props.hideDimensionFilter ? '' :
+                        <Dimensions
+                          dimensions={this.props.dimensions}
+                          selectedDimensions={this.state.dimensions}
+                          onChange={this.setDimensions} />
+                    */
                 }
 
                 <ColumnControl
@@ -273,12 +260,15 @@ export default class ReactPivot extends Component {
                 */
                 }
 
-                { !this.state.solo ? '' :
-                    <div style={{clear: 'both'}} className="reactPivot-soloDisplay">
-                        <Tag className="reactPivot-clearSolo" closable onClose={this.clearSolo}>
-                            {this.state.solo.title}: {this.state.solo.value}
-                        </Tag>
-                    </div>
+                {
+                    /*
+                    !this.state.solo ? '' :
+                        <div style={{clear: 'both'}} className="reactPivot-soloDisplay">
+                            <Tag className="reactPivot-clearSolo" closable onClose={this.clearSolo}>
+                                {this.state.solo.title}: {this.state.solo.value}
+                            </Tag>
+                        </div>
+                    */
                 }
 
                 <PivotTable
