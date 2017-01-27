@@ -17,7 +17,7 @@ class ConnectForm extends Component {
         e.preventDefault();
 
         this.props.form.validateFields((err, values) => {
-            if (err) return console.error('Could not connect!');
+            if (err) return;
 
             this.props.actions.next();
             this.props.actions.getDatasetList(values.url, values.token);

@@ -70,19 +70,7 @@ export default class PivotTable extends Component {
         if (paginatePage >= nPaginatePages) paginatePage = nPaginatePages - 1;
 
         const iBoundaryRow = paginatePage * nPaginateRows;
-        let boundaryLevel = results[iBoundaryRow]._level;
         const parentRows = [];
-
-        if (boundaryLevel > 0) {
-            for (let i = iBoundaryRow - 1; i >= 0; i--) {
-                if (results[i]._level < boundaryLevel) {
-                    parentRows.unshift(results[i]);
-                    boundaryLevel = results[i]._level;
-                }
-                if (results[i._level === 9]) break;
-            }
-        }
-
         const iEnd = iBoundaryRow + nPaginateRows;
         const rows = parentRows.concat(results.slice(iBoundaryRow, iEnd));
 
@@ -95,13 +83,9 @@ export default class PivotTable extends Component {
             <tbody>
                 {rows.map((row) => {
                     return (
-                    <tr key={row._key} className={'reactPivot-level-' + row._level}>
-                    {columns.map((col, i) => {
-                        if (i < row._level) return <td key={i} className="reactPivot-indent" />;
-
-                        return this.renderCell(col, row);
-                    })}
-                    </tr>
+                        <tr key={row.key}>
+                            {columns.map((col, i) => this.renderCell(col, row))}
+                        </tr>
                     );
                 })}
             </tbody>
@@ -128,25 +112,11 @@ export default class PivotTable extends Component {
             if (col.template) text = col.template(val, row);
         }
 
-        if (dimensionExists) {
-            solo = (
-                <div className="tag-solo" style={{opacity: 0, display: 'inline-block'}}>
-                    <Tag className="reactPivot-solo" >
-                        <a style={{cursor: 'pointer'}}
-                          onClick={partial(this.props.onSolo, {
-                              title: col.title,
-                              value: val
-                          })}>Filtrar</a>
-                    </Tag>
-                </div>
-            );
-        }
-
         return (
             <td className={col.className}
               key={[col.title, row.key].join('\xff')}
               title={col.title}>
-                <span dangerouslySetInnerHTML={{__html: text || ''}} /> {solo}
+                <span dangerouslySetInnerHTML={{__html: text || ''}} />
             </td>
         );
     }
@@ -165,21 +135,6 @@ export default class PivotTable extends Component {
                   total={this.props.rows.length}
                   defaultPageSize={25}
                   onChange={this.setPaginatePage} />
-                {
-                    /*
-                    {_.range(0, nPaginatePages).map((n) => {
-                        let c = 'reactPivot-pageNumber';
-
-                        if (n === paginatePage) c += ' is-selected';
-
-                        return (
-                            <span className={c} key={n}>
-                                <a onClick={partial(this.setPaginatePage, n)}>{n + 1}</a>
-                            </span>
-                        );
-                    })}
-                    */
-                 }
             </div>
         );
     }
@@ -192,46 +147,45 @@ export default class PivotTable extends Component {
         return (
             <thead>
                 <tr>
-                { columns.map((col) => {
-                    let className = col.className;
+                    { columns.map((col) => {
+                        let className = col.className;
 
-                    if (col.title === sortBy) className += ' ' + sortDir;
+                        if (col.title === sortBy) className += ' ' + sortDir;
 
-                    const th = (
-                        <th className={className}
-                          onClick={partial(this.props.onSort, col.title)}
-                          style={{cursor: 'pointer'}}
-                          key={col.title}>
-                            {col.title}
-                        </th>
-                    );
-                    const buttonBar = (
-                        <ButtonGroup>
-                            <Button
-                              type="default"
-                              icon="delete"
-                              onClick={partial(this.props.onColumnHide, col.title)} />
-                            <Button
-                              type="default"
-                              icon="edit"
-                              onClick={this.showModal} />
-                        </ButtonGroup>
-                    );
-                    const modal = (
-                        <Modal
-                          title="Editar Columna"
-                          visible={this.state.modalVisible}
-                          onOk={this.handleOk}
-                          onCancel={this.handleCancel}
-                          okText="Ok"
-                          cancelText="Cancelar">
-                            <p>some contents...</p>
-                            <p>some contents...</p>
-                            <p>some contents...</p>
-                        </Modal>
-                    );
+                        const th = (
+                            <th className={className}
+                              onClick={partial(this.props.onSort, col.title)}
+                              style={{cursor: 'pointer'}}
+                              key={col.title}>
+                                {col.title}
+                            </th>
+                        );
+                        const buttonBar = (
+                            <ButtonGroup>
+                                <Button
+                                  type="default"
+                                  icon="delete"
+                                  onClick={partial(this.props.onColumnHide, col.title)} />
+                                <Button
+                                  type="default"
+                                  icon="edit"
+                                  onClick={this.showModal} />
+                            </ButtonGroup>
+                        );
+                        const modal = (
+                            <Modal
+                              title="Editar Columna"
+                              visible={this.state.modalVisible}
+                              onOk={this.handleOk}
+                              onCancel={this.handleCancel}
+                              okText="Ok"
+                              cancelText="Cancelar">
+                                <p>some contents...</p>
+                                <p>some contents...</p>
+                                <p>some contents...</p>
+                            </Modal>
+                        );
 
-                    if (col.type !== 'dimension') {
                         return (
                             <th className={className}
                               onClick={partial(this.props.onSort, col.title)}
@@ -247,11 +201,7 @@ export default class PivotTable extends Component {
                                 {modal}
                             </th>
                         );
-                    }
-
-                    return th;
-                })}
-
+                    })}
                 </tr>
             </thead>
         );

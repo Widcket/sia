@@ -4,11 +4,13 @@ import DataFrame from 'dataframe';
 import Emitter from 'wildemitter';
 import {Tag} from 'antd';
 import {autobind} from 'core-decorators';
+import uwork from 'uwork';
 
 const _ = {
     filter: require('lodash/filter'),
     map: require('lodash/map'),
-    find: require('lodash/find')
+    find: require('lodash/find'),
+    sortBy: require('lodash/sortBy')
 };
 const partial = require('./lib/partial');
 const download = require('./lib/download');
@@ -45,45 +47,30 @@ export default class ReactPivot extends Component {
 
         this.state = {
             dimensions: _.filter(this.props.activeDimensions, (title) => {
-                return _.find(this.props.dimensions, (col) => {
-                    return col.title === title;
-                });
+                return title;
             }),
             calculations: {},
             sortBy: this.props.sortBy,
             sortDir: this.props.sortDir,
             hiddenColumns: this.props.hiddenColumns,
             solo: this.props.solo,
-            rows: []
+            rows: this.props.rows.map((row, i) => {
+                row.key = i;
+
+                return row;
+            })
         };
     }
 
     componentWillMount() {
         if (this.props.defaultStyles) loadStyles();
 
-        this.dataFrame = DataFrame({
-            rows: this.props.rows,
-            dimensions: this.props.dimensions,
-            reduce: this.props.reduce
-        });
-
         this.updateRows();
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.hiddenColumns !== this.props.hiddenColumns) {
-            this.setHiddenColumns(newProps.hiddenColumns);
-        }
-
-        if (newProps.rows !== this.props.rows) {
-            this.dataFrame = DataFrame({
-                rows: newProps.rows,
-                dimensions: this.props.dimensions,
-                reduce: this.props.reduce
-            });
-
-            this.updateRows();
-        }
+        if (newProps.hiddenColumns !== this.props.hiddenColumns) this.setHiddenColumns(newProps.hiddenColumns);
+        if (newProps.rows !== this.props.rows) this.updateRows();
     }
 
     @autobind
@@ -127,16 +114,34 @@ export default class ReactPivot extends Component {
         let sortBy = this.state.sortBy;
         let sortDir = this.state.sortDir;
 
-        if (sortBy === cTitle) {
-            sortDir = (sortDir === 'asc') ? 'desc' : 'asc';
-        } else {
+        if (sortBy === cTitle) sortDir = (sortDir === 'asc') ? 'desc' : 'asc';
+        else {
             sortBy = cTitle;
             sortDir = 'asc';
         }
 
+        /*
+        const sort = uwork(() => {
+            console.log(this.state.db.sort(`${sortBy} ${sortDir}`));
+
+            this.state.db.sort(`${sortBy} ${sortDir}`);
+        });
+
+        sort()
+            .then((rows) => {
+                this.props.eventBus.emit('sortBy', sortBy);
+                this.props.eventBus.emit('sortDir', sortDir);
+
+                this.setState({ sortBy, sortDir, rows });
+            })
+            .catch((error) => console.error(error));
+        */
+
+
         this.props.eventBus.emit('sortBy', sortBy);
         this.props.eventBus.emit('sortDir', sortDir);
-        this.setState({ sortBy: sortBy, sortDir: sortDir });
+
+        this.setState({ sortBy, sortDir });
 
         setTimeout(this.updateRows, 0);
     }
@@ -150,35 +155,37 @@ export default class ReactPivot extends Component {
     }
 
     @autobind
+    isNumber(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+
+    @autobind
     updateRows() {
         const columns = this.getColumns();
-
         const sortByTitle = this.state.sortBy;
         const sortCol = _.find(columns, (col) => {
             return col.title === sortByTitle;
         }) || {};
-        const sortBy = sortCol.type === 'dimension' ? sortCol.title : sortCol.value;
+        const sortBy = sortCol.value;
         const sortDir = this.state.sortDir;
+        const rows = this.sort(this.state.rows, sortBy, sortDir);
 
-        const calcOpts = {
-            dimensions: this.state.dimensions,
-            sortBy: sortBy,
-            sortDir: sortDir,
-            compact: this.props.compact
-        };
-
-        const filter = this.state.solo;
-
-        if (filter) {
-            calcOpts.filter = function (dVals) {
-                return dVals[filter.title] === filter.value;
-            };
-        }
-
-        const rows = this.dataFrame.calculate(calcOpts);
-
-        this.setState({rows: rows});
+        this.setState({rows});
         this.props.onData(rows);
+    }
+
+    @autobind
+    sort(array, field, direction) {
+        const copy = array.slice(0);
+        let param;
+
+        if (this.isNumber(field)) param = +field;
+        else if (!field) param = '';
+        else param = field;
+
+        const sorted = _.sortBy(array, param);
+
+        return (direction === 'desc') ? sorted.reverse() : sorted;
     }
 
     @autobind
@@ -236,16 +243,6 @@ export default class ReactPivot extends Component {
     render() {
         const html = (
             <div className="reactPivot">
-                {
-                    /*
-                    this.props.hideDimensionFilter ? '' :
-                        <Dimensions
-                          dimensions={this.props.dimensions}
-                          selectedDimensions={this.state.dimensions}
-                          onChange={this.setDimensions} />
-                    */
-                }
-
                 <ColumnControl
                   hiddenColumns={this.state.hiddenColumns}
                   onChange={this.setHiddenColumns} />
@@ -258,17 +255,6 @@ export default class ReactPivot extends Component {
                     </button>
                 </div>
                 */
-                }
-
-                {
-                    /*
-                    !this.state.solo ? '' :
-                        <div style={{clear: 'both'}} className="reactPivot-soloDisplay">
-                            <Tag className="reactPivot-clearSolo" closable onClose={this.clearSolo}>
-                                {this.state.solo.title}: {this.state.solo.value}
-                            </Tag>
-                        </div>
-                    */
                 }
 
                 <PivotTable
