@@ -78,7 +78,6 @@
     }
   },
   "dependencies": {
-    "alasql": "^0.3.6",
     "antd": "^2.5.0",
     "compression": "^1.6.2",
     "core-decorators": "^0.15.0",
@@ -110,6 +109,7 @@
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1",
     "url-loader": "^0.5.7",
+    "uwork": "^1.0.3",
     "webpack-isomorphic-tools": "^2.6.6",
     "whatwg-fetch": "^2.0.1",
     "wildemitter": "^1.2.0"
