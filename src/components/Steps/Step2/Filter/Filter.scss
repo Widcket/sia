@@ -1,0 +1,10 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.ant-select-dropdown {
+    width: auto !important;
+}

@@ -1,5 +1,6 @@
 import React, {PropTypes, PureComponent} from 'react';
 
+import Filter from './Filter/Filter';
 import ReactPivot from '../../Pivot';
 import Spinner from '../../Spinner/Spinner';
 import {Tabs} from 'antd';
@@ -45,6 +46,7 @@ export default class Step2 extends PureComponent {
             if (this.props.files.hasOwnProperty(file)) {
                 tabs.push(
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
+                        <Filter file={this.props.files[file]} />
                         <ReactPivot
                           rows={this.props.files[file].data}
                           columns={this.props.files[file].fields}
