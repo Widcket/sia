@@ -87,25 +87,22 @@ export default class Step2 extends PureComponent {
 
         if (this.props.loadingFiles) {
             return (
-                <div id="step2">
-                <Spinner
-                  store={this.props.store}
-                  actions={this.props.actions}
-                  active={this.props.loadingFiles}
-                  legend="Cargando datos..." />
-            </div>
-
+                <div className="spinner">
+                    <Spinner
+                      store={this.props.store}
+                      actions={this.props.actions}
+                      active={this.props.loadingFiles}
+                      legend="Cargando datos..." />
+                </div>
             );
         }
 
         if (this.props.store.defaultTab) {
             return (
                 <div id="step2">
-                    <div id="step2">
-                        <Tabs defaultActiveKey={this.props.store.defaultTab}>
-                            {this.getTabs()}
-                        </Tabs>
-                    </div>
+                    <Tabs defaultActiveKey={this.props.store.defaultTab}>
+                        {this.getTabs()}
+                    </Tabs>
                 </div>
             );
         }
