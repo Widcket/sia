@@ -53,7 +53,7 @@ const initialState = {
     stage: 0,
     loadingData: true,
     currentFile: '',
-    defaultTab: 'tab1',
+    defaultTab: null,
     filter: ''
 };
 

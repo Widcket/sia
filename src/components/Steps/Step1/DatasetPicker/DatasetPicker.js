@@ -1,5 +1,5 @@
 import {Card, Collapse, Slider, Spin, Table, Tabs, Transfer} from 'antd';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 
 import {autobind} from 'core-decorators';
 
@@ -9,7 +9,7 @@ const inputNumberStyle = require('antd/lib/input-number/style');
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane;
 
-export default class DatasetPicker extends Component {
+export default class DatasetPicker extends PureComponent {
     static propTypes = {
         files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
@@ -17,9 +17,9 @@ export default class DatasetPicker extends Component {
         events: PropTypes.object.isRequired
     };
 
-    componentWillReceiveProps(newState) {
-        if (newState.store.pickedFiles.length > this.props.store.pickedFiles.length) {
-            this.props.actions.setFiles(newState.store.pickedFiles, newState.store.files);
+    componentWillReceiveProps(newProps) {
+        if (newProps.store.pickedFiles.length > this.props.store.pickedFiles.length) {
+            this.props.actions.setFiles(newProps.store.pickedFiles, newProps.store.files);
         }
     }
 

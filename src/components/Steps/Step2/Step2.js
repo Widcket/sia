@@ -20,6 +20,14 @@ export default class Step2 extends PureComponent {
         this.getFiles();
     }
 
+    componentWillReceiveProps(newProps) {
+        if (this.props.loadingFiles && !newProps.loadingFiles) {
+            const keys = Object.getOwnPropertyNames(newProps.files);
+
+            this.props.actions.setDefaultTab(newProps.files[keys[0]].id);
+        }
+    }
+
     @autobind
     getDimensions(dimensions) {
         const titles = [];
@@ -35,8 +43,6 @@ export default class Step2 extends PureComponent {
 
         for (const file in this.props.files) {
             if (this.props.files.hasOwnProperty(file)) {
-                console.log(this.props.files[file].dimensions);
-
                 tabs.push(
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
                         <ReactPivot
@@ -92,14 +98,18 @@ export default class Step2 extends PureComponent {
             );
         }
 
-        return (
-            <div id="step2">
+        if (this.props.store.defaultTab) {
+            return (
                 <div id="step2">
-                    <Tabs defaultActiveKey={this.props.store.defaultTab}>
-                        {this.getTabs()}
-                    </Tabs>
+                    <div id="step2">
+                        <Tabs defaultActiveKey={this.props.store.defaultTab}>
+                            {this.getTabs()}
+                        </Tabs>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+
+        return null;
     }
 }
