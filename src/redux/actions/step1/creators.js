@@ -398,7 +398,7 @@ export function selectDatasets(selectedItems, chosenItems) {
     };
 }
 
-export function selectFiles(selectedItems, chosenItems) {
+export function selectFiles(selectedItems, chosenItems, events) {
     return {
         type: actions.SELECT_FILES,
         selectedItems,

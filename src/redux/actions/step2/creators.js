@@ -34,7 +34,6 @@ export function getFileContents(file, endpoints, token) {
                     data: value.data,
                     file
                 });
-                console.info('dispatching actions.ADD_DIMENSIONS');
                 dispatch({
                     type: appActions.ADD_DIMENSIONS,
                     file

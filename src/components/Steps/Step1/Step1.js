@@ -9,7 +9,8 @@ class Step1 extends Component {
     static propTypes = {
         files: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired
+        actions: PropTypes.object.isRequired,
+        events: PropTypes.object.isRequired
     }
 
     @autobind
@@ -30,7 +31,8 @@ class Step1 extends Component {
                     <DatasetPicker
                       files={this.props.files}
                       store={this.props.store}
-                      actions={this.props.actions} />
+                      actions={this.props.actions}
+                      events={this.props.events} />
                 );
             default:
                 break;

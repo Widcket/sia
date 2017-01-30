@@ -24,6 +24,7 @@ export default class Steps extends PureComponent {
             step4: PropTypes.object.isRequired,
             app: PropTypes.object.isRequired
         }).isRequired,
+        events: PropTypes.object.isRequired,
         instance: PropTypes.shape({
             endpoints: PropTypes.object.isRequired,
             token: PropTypes.string
@@ -41,7 +42,8 @@ export default class Steps extends PureComponent {
                     <Step1
                       files={this.props.files}
                       store={this.props.stores.step1}
-                      actions={Object.assign({}, this.props.actions.step1, this.props.actions.app)} />
+                      actions={Object.assign({}, this.props.actions.step1, this.props.actions.app)}
+                      events={this.props.events} />
                 );
             case 1:
                 return (
@@ -50,7 +52,8 @@ export default class Steps extends PureComponent {
                       loadingFiles={this.props.loadingFiles}
                       instance={this.props.instance}
                       store={this.props.stores.step2}
-                      actions={Object.assign({}, this.props.actions.step2, this.props.actions.app)} />
+                      actions={Object.assign({}, this.props.actions.step2, this.props.actions.app)}
+                      events={this.props.events} />
                 );
             case 2:
                 return (

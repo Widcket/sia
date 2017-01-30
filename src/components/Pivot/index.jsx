@@ -181,7 +181,7 @@ export default class ReactPivot extends Component {
 
         if (this.isNumber(field)) param = +field;
         else if (!field) param = '';
-        else param = field;
+        else param = field.trim();
 
         const sorted = _.sortBy(array, param);
 

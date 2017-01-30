@@ -9,6 +9,7 @@ import {Col, Grid, Row} from 'antd';
 import {Navigation, Steps} from '../../components';
 import React, {PropTypes, PureComponent} from 'react';
 
+import Emitter from 'wildemitter';
 import {autobind} from 'core-decorators';
 import {bindActionCreators} from 'redux';
 import config from '../../config';
@@ -41,7 +42,6 @@ function mapStateToProps(state) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class App extends PureComponent {
     static propTypes = {
         stores: PropTypes.shape({
@@ -67,6 +67,12 @@ export default class App extends PureComponent {
             }).isRequired
         }).isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.events = new Emitter();
+    }
 
     render() {
         const styles = require('./App.scss');
@@ -103,6 +109,7 @@ export default class App extends PureComponent {
                           step4: this.props.actions.step4,
                           app: this.props.actions.app
                       }}
+                      events={this.events}
                       instance={{
                           endpoints: this.props.stores.app.endpoints,
                           token: this.props.stores.app.token
