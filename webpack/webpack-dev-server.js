@@ -29,9 +29,6 @@ app.use(require('webpack-dev-middleware')(compiler, serverOptions));
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.listen(port, function onAppListening(err) {
-    if (err) {
-        console.error(err);
-    } else {
-        console.info('==> 🚧  Webpack development server listening on port %s', port);
-    }
+    if (err) console.error(err);
+    else console.info('==> 🚧  Webpack development server listening on port %s', port);
 });
