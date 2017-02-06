@@ -21,9 +21,9 @@
         box-shadow: none;
 
         .reactPivot-columnControl {
-            display: inline-block;
             position: relative;
             top: -1.5rem;
+            margin-bottom: -1.5rem;
         }
 
         .reactPivot-results {
@@ -38,7 +38,7 @@
                     width: 100% !important;
 
                 table {
-                    width: 100%;
+                    width: calc(100% - 0.6rem);
                     padding-top: 1.5rem;
                     clear: both;
                     text-align: left;
@@ -50,17 +50,15 @@
 
                     th {
                         padding-bottom: 0.5rem;
-                        padding-left: 10px;
-
-                        &:first-child {
-                            padding-left: 0px;
-                        }
+                        padding-left: 5px;
 
                         &.asc:after, &.desc:after {
                             opacity: 0.5;
                             font-size: 0.7rem;
-                            position: absolute;
                             margin-top: 1px;
+                            width: 0rem;
+                            height: 0rem;
+                            display: inline-block;
                         }
 
                         &.asc:after {
@@ -123,6 +121,9 @@
         }
 
         .reactPivot-paginate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 1rem;
         }
 
@@ -141,11 +142,6 @@
 
     .ant-tabs-bar {
         margin-bottom: 5px;
-    }
-
-    .ant-input-group {
-        width: auto;
-        align-self: center;
     }
 }
 
