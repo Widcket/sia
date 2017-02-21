@@ -49,7 +49,7 @@
 .reactPivot-results th.asc:after,
 .reactPivot-results th.desc:after {
   position: absolute;
-  margin-right: 3px;
+  margin-left: 1px;
   font-size: 50%;
   opacity: 0.5;
 }
