@@ -1,4 +1,4 @@
-import React, {PropTypes, PureComponent} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import Filter from './Filter/Filter';
 import ReactPivot from '../../Pivot';
@@ -8,7 +8,7 @@ import {autobind} from 'core-decorators';
 
 const TabPane = Tabs.TabPane;
 
-export default class Step2 extends PureComponent {
+export default class Step2 extends Component {
     static propTypes = {
         instance: PropTypes.object.isRequired,
         files: PropTypes.object.isRequired,
@@ -39,6 +39,13 @@ export default class Step2 extends PureComponent {
     }
 
     @autobind
+    getRows(key) {
+        return this.props.store.filters[key] && this.props.store.filters[key].isFiltering ?
+            this.props.files[key].filteredData :
+            this.props.files[key].data;
+    }
+
+    @autobind
     getTabs() {
         const tabs = [];
 
@@ -46,9 +53,26 @@ export default class Step2 extends PureComponent {
             if (this.props.files.hasOwnProperty(file)) {
                 tabs.push(
                     <TabPane tab={this.props.files[file].name} key={this.props.files[file].id}>
-                        <Filter file={this.props.files[file]} />
+                        <Filter
+                          file={this.props.files[file]}
+                          store={{
+                              files: this.props.store.filters,
+                              filterConditions: this.props.store.filterConditions,
+                              validTypes: this.props.store.validTypes
+                          }}
+                          actions={{
+                              addFilter: this.props.actions.addFilter,
+                              removeFilter: this.props.actions.removeFilter,
+                              setFilters: this.props.actions.setFilters,
+                              setFile: this.props.actions.setFile,
+                              setFilteredFiles: this.props.actions.setFilteredFiles,
+                              setFilterField: this.props.actions.setFilterField,
+                              setFilterCondition: this.props.actions.setFilterCondition,
+                              setFilterValue: this.props.actions.setFilterValue,
+                              isFiltering: this.props.actions.isFiltering
+                          }} />
                         <ReactPivot
-                          rows={this.props.files[file].data}
+                          rows={this.getRows(file)}
                           columns={this.props.files[file].fields}
                           dimensions={this.props.files[file].dimensions}
                           activeDimensions={this.getDimensions(this.props.files[file].dimensions)}

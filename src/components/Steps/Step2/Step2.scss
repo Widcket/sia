@@ -1,3 +1,5 @@
+@import "../../../containers/App/mixins.scss";
+
 #step2 {
     display: flex;
     flex-direction: column;
@@ -16,8 +18,8 @@
     }
 
     .reactPivot {
-        padding: 0px 20px 20px;
-        margin-top: 0px;
+        margin: 0rem 0rem 1rem 0rem;
+        padding: 0rem;
         box-shadow: none;
 
         .reactPivot-columnControl {
@@ -121,9 +123,8 @@
         }
 
         .reactPivot-paginate {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex-center;
+
             margin-top: 1rem;
         }
 

@@ -49,18 +49,6 @@ export function getFileContents(file, endpoints, token) {
     };
 }
 
-export function filter() {
-    return {
-        type: actions.FILTER
-    };
-}
-
-export function toggleDimension() {
-    return {
-        type: actions.TOGGLE_DIMENSION
-    };
-}
-
 export function setDefaultTab(defaultTab) {
     return {
         type: actions.SET_DEFAULT_TAB,
@@ -68,15 +56,66 @@ export function setDefaultTab(defaultTab) {
     };
 }
 
-export function addColumn() {
+export function addFilter(file, filter) {
     return {
-        type: actions.ADD_COLUMN
+        type: actions.ADD_FILTER,
+        file,
+        filter
     };
 }
 
-export function removeColumn() {
+export function removeFilter(file, filter) {
     return {
-        type: actions.REMOVE_COLUMN
+        type: actions.REMOVE_FILTER,
+        file,
+        filter
+    };
+}
+
+export function setFilters(file, filters) {
+    return {
+        type: actions.SET_FILTERS,
+        file,
+        filters
+    };
+}
+
+export function setFile(file) {
+    return {
+        type: actions.SET_FILE,
+        file
+    };
+}
+
+export function setFilterField(file, field) {
+    return {
+        type: actions.SET_FILTER_FIELD,
+        file,
+        field
+    };
+}
+
+export function setFilterCondition(file, condition) {
+    return {
+        type: actions.SET_FILTER_CONDITION,
+        file,
+        condition
+    };
+}
+
+export function setFilterValue(file, value) {
+    return {
+        type: actions.SET_FILTER_VALUE,
+        file,
+        value
+    };
+}
+
+export function isFiltering(file, value) {
+    return {
+        type: actions.IS_FILTERING,
+        file,
+        value
     };
 }
 
@@ -89,11 +128,5 @@ export function editColumn() {
 export function saveColumn() {
     return {
         type: actions.SAVE_COLUMN
-    };
-}
-
-export function togglePage() {
-    return {
-        type: actions.TOGGLE_PAGE
     };
 }

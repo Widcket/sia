@@ -1,4 +1,4 @@
-import React, {PropTypes, PureComponent} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import Step1 from './Step1/Step1';
 import Step2 from './Step2/Step2';
@@ -9,7 +9,7 @@ import {autobind} from 'core-decorators';
 
 const Step = Stepper.Step;
 
-export default class Steps extends PureComponent {
+export default class Steps extends Component {
     static propTypes = {
         stores: PropTypes.shape({
             step1: PropTypes.object.isRequired,

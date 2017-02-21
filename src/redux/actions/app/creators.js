@@ -22,6 +22,22 @@ export function setFiles(pickedFiles, allFiles) {
     };
 }
 
+export function setFilters(file, filters) {
+    return {
+        type: actions.SET_FILTERS,
+        file,
+        filters
+    };
+}
+
+export function setFilteredFiles(file, data) {
+    return {
+        type: actions.SET_FILTERED_FILES,
+        file,
+        data
+    };
+}
+
 export function addData(data) {
     return {
         type: actions.ADD_DATA,

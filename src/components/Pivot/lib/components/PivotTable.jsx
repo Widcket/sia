@@ -7,10 +7,10 @@ const _ = { range: require('lodash/range') };
 const partial = require('../partial');
 const getValue = require('../getValue');
 
-const Component = React.Component;
+const PureComponent = React.PureComponent;
 const ButtonGroup = Button.Group;
 
-export default class PivotTable extends Component {
+export default class PivotTable extends PureComponent {
     static defaultProps = {
         columns: [],
         rows: [],
@@ -81,7 +81,9 @@ export default class PivotTable extends Component {
     renderTableBody(columns, rows) {
         return (
             <tbody>
-                {rows.map((row) => {
+                {rows.map((row, i) => {
+                    row.key = i;
+
                     return (
                         <tr key={row.key}>
                             {columns.map((col, i) => this.renderCell(col, row))}
@@ -141,16 +143,13 @@ export default class PivotTable extends Component {
 
     @autobind
     renderTableHead(columns) {
-        const sortBy = this.props.sortBy;
-        const sortDir = this.props.sortDir;
-
         return (
             <thead>
                 <tr>
                     { columns.map((col) => {
                         let className = col.className;
 
-                        if (col.title === sortBy) className += ' ' + sortDir;
+                        if (col.title === this.props.sortBy) className += ' ' + this.props.sortDir;
 
                         const th = (
                             <th className={className}

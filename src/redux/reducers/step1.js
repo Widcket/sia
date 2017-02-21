@@ -43,7 +43,7 @@ const reducers = {
         const files = [];
         const filePickerItems = [];
 
-        if (action.files.length > 0) {
+        if (action.files && action.files.length > 0) {
             for (const file of action.files) {
                 const record = {
                     id: file.id,

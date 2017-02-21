@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import DataFrame from 'dataframe';
 import Emitter from 'wildemitter';
+import InlineWorker from 'inline-worker';
 import {Tag} from 'antd';
 import {autobind} from 'core-decorators';
-import uwork from 'uwork';
 
 const _ = {
     filter: require('lodash/filter'),
@@ -20,7 +20,7 @@ const ColumnControl = require('./lib/components/ColumnControl.jsx');
 
 function loadStyles() { require('./style.css'); }
 
-export default class ReactPivot extends Component {
+export default class ReactPivot extends PureComponent {
     static defaultProps = {
         rows: [],
         columns: [],
@@ -54,11 +54,7 @@ export default class ReactPivot extends Component {
             sortDir: this.props.sortDir,
             hiddenColumns: this.props.hiddenColumns,
             solo: this.props.solo,
-            rows: this.props.rows.map((row, i) => {
-                row.key = i;
-
-                return row;
-            })
+            rows: this.props.rows
         };
     }
 
@@ -70,7 +66,9 @@ export default class ReactPivot extends Component {
 
     componentWillReceiveProps(newProps) {
         if (newProps.hiddenColumns !== this.props.hiddenColumns) this.setHiddenColumns(newProps.hiddenColumns);
-        if (newProps.rows !== this.props.rows) this.updateRows();
+        if (newProps.rows !== this.props.rows) {
+            this.updateRows();
+        }
     }
 
     @autobind
@@ -81,11 +79,8 @@ export default class ReactPivot extends Component {
         for (const column of keys) {
             if (this.state.hiddenColumns.indexOf(column) === -1) {
                 columns.push({
-                    // type: 'calculation',
                     title: column,
                     value: column
-                    // className: d.className,
-                    // template: d.template
                 });
             }
         }
@@ -120,24 +115,6 @@ export default class ReactPivot extends Component {
             sortDir = 'asc';
         }
 
-        /*
-        const sort = uwork(() => {
-            console.log(this.state.db.sort(`${sortBy} ${sortDir}`));
-
-            this.state.db.sort(`${sortBy} ${sortDir}`);
-        });
-
-        sort()
-            .then((rows) => {
-                this.props.eventBus.emit('sortBy', sortBy);
-                this.props.eventBus.emit('sortDir', sortDir);
-
-                this.setState({ sortBy, sortDir, rows });
-            })
-            .catch((error) => console.error(error));
-        */
-
-
         this.props.eventBus.emit('sortBy', sortBy);
         this.props.eventBus.emit('sortDir', sortDir);
 
@@ -168,24 +145,9 @@ export default class ReactPivot extends Component {
         }) || {};
         const sortBy = sortCol.value;
         const sortDir = this.state.sortDir;
-        const rows = this.sort(this.state.rows, sortBy, sortDir);
+        const self = {};
 
-        this.setState({rows});
-        this.props.onData(rows);
-    }
-
-    @autobind
-    sort(array, field, direction) {
-        const copy = array.slice(0);
-        let param;
-
-        if (this.isNumber(field)) param = +field;
-        else if (!field) param = '';
-        else param = field.trim();
-
-        const sorted = _.sortBy(array, param);
-
-        return (direction === 'desc') ? sorted.reverse() : sorted;
+        this.sort(sortBy, sortDir);
     }
 
     @autobind
@@ -238,6 +200,52 @@ export default class ReactPivot extends Component {
         });
 
         download(csv, this.props.csvDownloadFileName, 'text/csv');
+    }
+
+    @autobind
+    sort(sortBy, sortDir) {
+        const sortWorker = new InlineWorker((self) => {
+            self.onmessage = (e) => {
+                postMessage(self.sort(e.data.rows, e.data.sortBy, e.data.sortDir));
+            };
+
+            self.sort = (array, field, direction) => {
+                const copy = array.slice(0);
+                const collator = new Intl.Collator(undefined, {
+                    numeric: true,
+                    sensitivity: 'base',
+                    ignorePunctuation: true
+                });
+                let param;
+
+                if (!field) return copy;
+                else if (self.isNumber(field)) param = +field;
+                else param = field.trim();
+
+                const sorted = copy.sort((a, b) => {
+                    return collator.compare(a[param], b[param]);
+                });
+
+                return (direction === 'desc') ? sorted.reverse() : sorted;
+            };
+
+            self.isNumber = (value) => {
+                return !isNaN(parseFloat(value)) && isFinite(value);
+            };
+        }, self);
+
+        sortWorker.onmessage = (e) => {
+            const rows = e.data;
+
+            this.setState({rows});
+            this.props.onData(rows);
+        };
+
+        sortWorker.postMessage({
+            rows: this.props.rows,
+            sortBy,
+            sortDir
+        });
     }
 
     render() {

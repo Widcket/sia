@@ -1,8 +1,17 @@
+@import "../../../../containers/App/mixins.scss";
+
 .filter {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+
+    .ant-input-group {
+        text-align: center;
+    }
+
+    .filters {
+        @include flex-center;
+
+        margin-top: 0.25rem;
+    }
 }
 
 .ant-select-dropdown {

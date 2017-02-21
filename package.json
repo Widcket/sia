@@ -88,7 +88,9 @@
     "fixed-data-table": "^0.6.3",
     "history": "^4.5.1",
     "immutable": "^3.8.1",
+    "inline-worker": "^1.1.0",
     "is-valid-date": "^0.0.1",
+    "locale-index-of": "^1.0.1",
     "lodash": "^4.16.6",
     "multireducer": "^3.0.2",
     "piping": "^1.0.0-rc.4",
@@ -109,7 +111,6 @@
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1",
     "url-loader": "^0.5.7",
-    "uwork": "^1.0.3",
     "webpack-isomorphic-tools": "^2.6.6",
     "whatwg-fetch": "^2.0.1",
     "wildemitter": "^1.2.0"

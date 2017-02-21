@@ -58,6 +58,10 @@
             .ant-table-small {
                 border: 0px;
                 border-radius: 0px;
+
+                td {
+                    min-width: 13.5vw;
+                }
             }
 
             .control-wrapper {
@@ -127,8 +131,6 @@
     }
 
     & > div:last-of-type {
-        // display: none;
-
         .ant-transfer-list-body {
             padding-top: 0.5rem;
         }

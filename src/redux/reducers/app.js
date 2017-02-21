@@ -22,8 +22,17 @@ export default function app(state = initialState, action = {}) {
             newState.files = action.files;
 
             return newState;
+        case actions.SET_FILTERS:
+            newState.files[action.file.id].filters = action.filters;
+
+            return newState;
+        case actions.SET_FILTERED_FILES:
+            newState.files[action.file.id].filteredData = action.data;
+
+            return newState;
         case actions.ADD_DATA:
             newState.files[action.file.id].data = action.data;
+            newState.files[action.file.id].filteredData = [];
             newState.filesFetched++;
 
             if (newState.files[action.file.id].data._id) delete newState.files[action.file.id].data._id;
